@@ -10,6 +10,23 @@ import { AuthContext, API_BASE_URL } from '../context/AuthContext';
 import { CartContext } from '../context/CartContext';
 import { useTranslation } from '../hooks/useTranslation';
 
+const formatTimestamp = (dateInput) => {
+  if (!dateInput) return '';
+  const d = new Date(dateInput);
+  if (isNaN(d.getTime())) return '';
+  const day = String(d.getDate()).padStart(2, '0');
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const month = months[d.getMonth()];
+  const year = d.getFullYear();
+  let hours = d.getHours();
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  hours = hours ? hours : 12;
+  const hoursStr = String(hours).padStart(2, '0');
+  const minutes = String(d.getMinutes()).padStart(2, '0');
+  return `${day} ${month} ${year}, ${hoursStr}:${minutes} ${ampm}`;
+};
+
 export const MyOrders = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -363,7 +380,7 @@ export const MyOrders = () => {
               </div>
               <div style="text-align: right;">
                 <h4>Invoice Info</h4>
-                <p>Date: ${new Date(order.created_at).toLocaleDateString()}</p>
+                <p>Date: ${formatTimestamp(order.created_at)}</p>
                 <p>Status: ${order.status}</p>
               </div>
             </div>
@@ -577,7 +594,7 @@ export const MyOrders = () => {
                                 </span>
                               </div>
                               <p className="text-[10px] text-slate-500 mt-1">
-                                {t('my_orders.placed_on')} {new Date(order.created_at).toLocaleDateString()}
+                                {t('my_orders.placed_on')} {formatTimestamp(order.created_at)}
                               </p>
                             </div>
                             
