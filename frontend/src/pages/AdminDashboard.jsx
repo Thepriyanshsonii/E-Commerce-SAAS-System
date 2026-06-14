@@ -8,6 +8,23 @@ import {
 } from 'lucide-react';
 import { AuthContext, API_BASE_URL } from '../context/AuthContext';
 
+const formatTimestamp = (dateInput) => {
+  if (!dateInput) return '';
+  const d = new Date(dateInput);
+  if (isNaN(d.getTime())) return '';
+  const day = String(d.getDate()).padStart(2, '0');
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const month = months[d.getMonth()];
+  const year = d.getFullYear();
+  let hours = d.getHours();
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  hours = hours ? hours : 12;
+  const hoursStr = String(hours).padStart(2, '0');
+  const minutes = String(d.getMinutes()).padStart(2, '0');
+  return `${day} ${month} ${year}, ${hoursStr}:${minutes} ${ampm}`;
+};
+
 export const AdminDashboard = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -758,7 +775,7 @@ export const AdminDashboard = () => {
                             <span className="text-emerald-500 font-black">₹{order.total_amount}</span>
                           </div>
                           <div className="flex justify-between items-center text-[10px] text-slate-400">
-                            <span>{order.created_at ? new Date(order.created_at).toLocaleDateString() : ''}</span>
+                            <span>{order.created_at ? formatTimestamp(order.created_at) : ''}</span>
                             <span className="capitalize">{order.payment_status} • {order.order_status}</span>
                           </div>
                           <button
@@ -2086,7 +2103,7 @@ export const AdminDashboard = () => {
                     {orders.map(o => (
                       <tr key={o._id} className="hover:bg-slate-50/50 dark:hover:bg-slate-850/20">
                         <td className="py-3.5 font-mono font-bold text-slate-700 dark:text-slate-300">{o.order_id}</td>
-                        <td className="py-3.5 text-slate-500">{new Date(o.created_at).toLocaleDateString()}</td>
+                        <td className="py-3.5 text-slate-500">{formatTimestamp(o.created_at)}</td>
                         <td className="py-3.5 font-bold text-slate-800 dark:text-slate-100">₹{o.total_amount}</td>
                         <td className="py-3.5 max-w-[200px] truncate text-slate-550" title={o.shipping_address?.address}>
                           {o.shipping_address?.name} - {o.shipping_address?.address}, {o.shipping_address?.city}
@@ -3034,7 +3051,7 @@ export const AdminDashboard = () => {
                 <div>
                   <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">Order Date</span>
                   <span className="text-slate-855 dark:text-slate-100 font-semibold">
-                    {new Date(selectedOrder.created_at).toLocaleString()}
+                    {formatTimestamp(selectedOrder.created_at)}
                   </span>
                 </div>
                 <div>
