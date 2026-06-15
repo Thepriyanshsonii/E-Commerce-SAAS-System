@@ -281,7 +281,7 @@ class ProductModel(db.Model):
     def update_product(product_id, data):
         try:
             prod_id = int(product_id)
-            product = ProductModel.query.get(prod_id)
+            product = ProductModel.query.with_for_update().get(prod_id)
             if not product:
                 return None
                 
@@ -452,7 +452,7 @@ class ProductModel(db.Model):
     def delete_product(product_id):
         try:
             prod_id = int(product_id)
-            product = ProductModel.query.get(prod_id)
+            product = ProductModel.query.with_for_update().get(prod_id)
             if product:
                 db.session.delete(product)
                 db.session.commit()
@@ -465,7 +465,7 @@ class ProductModel(db.Model):
     def update_stock(product_id, quantity_change, change_type='order_placed', admin_name='system'):
         try:
             prod_id = int(product_id)
-            product = ProductModel.query.get(prod_id)
+            product = ProductModel.query.with_for_update().get(prod_id)
             if product:
                 old_stock = int(product.stock or 0)
                 product.stock = old_stock + quantity_change
@@ -517,7 +517,7 @@ class ProductModel(db.Model):
     def set_stock(product_id, exact_stock, change_type='set', admin_name='admin'):
         try:
             prod_id = int(product_id)
-            product = ProductModel.query.get(prod_id)
+            product = ProductModel.query.with_for_update().get(prod_id)
             if product:
                 old_stock = int(product.stock or 0)
                 product.stock = exact_stock

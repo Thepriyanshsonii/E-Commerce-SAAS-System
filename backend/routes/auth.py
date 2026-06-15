@@ -70,25 +70,31 @@ def login():
     if not is_email and not is_mobile:
         return jsonify({"message": "Invalid email or mobile number."}), 400
         
-    user_obj = UserModel.query.filter(
-        (UserModel.email == email) | (UserModel.phone == email)
-    ).first()
-    
-    if not user_obj:
-        return jsonify({"message": "Account not found. Please register first."}), 404
+    try:
+        user_obj = UserModel.query.filter(
+            (UserModel.email == email) | (UserModel.phone == email)
+        ).with_for_update().first()
         
-    if user_obj.is_blocked:
-        return jsonify({"message": "Your account has been suspended by the administrator."}), 403
+        if not user_obj:
+            return jsonify({"message": "Account not found. Please register first."}), 404
+            
+        if user_obj.is_blocked:
+            return jsonify({"message": "Your account has been suspended by the administrator."}), 403
+            
+        if not UserModel.verify_password(user_obj.password, password):
+            return jsonify({"message": "Incorrect password. Please try again."}), 401
+            
+        if not user_obj.email_verified:
+            return jsonify({"message": "Please verify your email before logging in."}), 403
+            
+        is_first_login = bool(user_obj.first_login)
+        user_obj.last_login = get_ist_time()
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        print("Login database transaction failed:", e)
+        return jsonify({"message": "An error occurred during login."}), 500
         
-    if not UserModel.verify_password(user_obj.password, password):
-        return jsonify({"message": "Incorrect password. Please try again."}), 401
-        
-    if not user_obj.email_verified:
-        return jsonify({"message": "Please verify your email before logging in."}), 403
-        
-    is_first_login = bool(user_obj.first_login)
-    user_obj.last_login = get_ist_time()
-    db.session.commit()
     user = user_obj.to_dict()
     
     # Generate JWT Token
@@ -217,83 +223,88 @@ def verify_otp_route():
     if not email or not otp:
         return jsonify({"message": "Please provide both email and OTP."}), 400
         
-    otp_record = OTPVerification.query.filter_by(email=email).first()
-    if not otp_record:
-        return jsonify({"message": "No active registration verification session found. Please register again."}), 404
-        
-    current_time = get_ist_time()
-    if otp_record.expires_at < current_time:
-        db.session.delete(otp_record)
-        db.session.commit()
-        return jsonify({"message": "OTP has expired. Please request a new one."}), 400
-        
-    if otp_record.attempts >= 5:
-        db.session.delete(otp_record)
-        db.session.commit()
-        return jsonify({"message": "Maximum verification attempts exceeded. Please restart registration."}), 400
-        
-    if otp != otp_record.otp_code:
-        otp_record.attempts += 1
-        db.session.commit()
-        
-        remaining = 5 - otp_record.attempts
-        if remaining <= 0:
+    try:
+        otp_record = OTPVerification.query.filter_by(email=email).with_for_update().first()
+        if not otp_record:
+            return jsonify({"message": "No active registration verification session found. Please register again."}), 404
+            
+        current_time = get_ist_time()
+        if otp_record.expires_at < current_time:
+            db.session.delete(otp_record)
+            db.session.commit()
+            return jsonify({"message": "OTP has expired. Please request a new one."}), 400
+            
+        if otp_record.attempts >= 5:
             db.session.delete(otp_record)
             db.session.commit()
             return jsonify({"message": "Maximum verification attempts exceeded. Please restart registration."}), 400
-        else:
-            return jsonify({"message": f"Invalid OTP. {remaining} attempts remaining."}), 400
             
-    # OTP is correct!
-    try:
-        temp_data = json.loads(otp_record.temporary_user_data)
-    except Exception:
+        if otp != otp_record.otp_code:
+            otp_record.attempts += 1
+            db.session.commit()
+            
+            remaining = 5 - otp_record.attempts
+            if remaining <= 0:
+                db.session.delete(otp_record)
+                db.session.commit()
+                return jsonify({"message": "Maximum verification attempts exceeded. Please restart registration."}), 400
+            else:
+                return jsonify({"message": f"Invalid OTP. {remaining} attempts remaining."}), 400
+                
+        # OTP is correct!
+        try:
+            temp_data = json.loads(otp_record.temporary_user_data)
+        except Exception:
+            db.session.delete(otp_record)
+            db.session.commit()
+            return jsonify({"message": "Corrupted registration session data. Please register again."}), 400
+            
+        name = temp_data.get("name")
+        mobile = temp_data.get("mobile")
+        password_hash = temp_data.get("password_hash")
+        address = temp_data.get("address")
+        
+        # Double check duplicate
+        if UserModel.query.filter_by(email=email).with_for_update().first():
+            db.session.delete(otp_record)
+            db.session.commit()
+            return jsonify({"message": "User with this email already exists."}), 400
+            
+        # Mark OTP verification as verified so create_user's logic passes
+        otp_record.is_verified = True
+        db.session.flush()
+        
+        # Create the user
+        user_dict = UserModel.create_user(name, email, password_hash, mobile, address)
+        if not user_dict:
+            db.session.delete(otp_record)
+            db.session.commit()
+            return jsonify({"message": "Failed to create user account."}), 500
+            
+        try:
+            from backend.models.admin import add_admin_notification
+            add_admin_notification(
+                title="New User Registered",
+                message=f"A new user '{name}' ({email}) has successfully registered.",
+                type="new_user_registration",
+                user_id=int(user_dict["_id"])
+            )
+        except Exception as ex:
+            print(f"Error adding admin notification: {ex}")
+    
+        # Invalidate and delete OTP record immediately on success
         db.session.delete(otp_record)
         db.session.commit()
-        return jsonify({"message": "Corrupted registration session data. Please register again."}), 400
         
-    name = temp_data.get("name")
-    mobile = temp_data.get("mobile")
-    password_hash = temp_data.get("password_hash")
-    address = temp_data.get("address")
-    
-    # Double check duplicate
-    if UserModel.query.filter_by(email=email).first():
-        db.session.delete(otp_record)
-        db.session.commit()
-        return jsonify({"message": "User with this email already exists."}), 400
-        
-    # Mark OTP verification as verified so create_user's logic passes
-    otp_record.is_verified = True
-    db.session.commit()
-    
-    # Create the user
-    user_dict = UserModel.create_user(name, email, password_hash, mobile, address)
-    if not user_dict:
-        db.session.delete(otp_record)
-        db.session.commit()
-        return jsonify({"message": "Failed to create user account."}), 500
-        
-    try:
-        from backend.models.admin import add_admin_notification
-        add_admin_notification(
-            title="New User Registered",
-            message=f"A new user '{name}' ({email}) has successfully registered.",
-            type="new_user_registration",
-            user_id=int(user_dict["_id"])
-        )
-    except Exception as ex:
-        print(f"Error adding admin notification: {ex}")
-
-    # Invalidate and delete OTP record immediately on success
-    db.session.delete(otp_record)
-    db.session.commit()
-    
-    return jsonify({
-        "message": "OTP verified successfully and user registered!",
-        "success": True,
-        "user": user_dict
-    }), 201
+        return jsonify({
+            "message": "OTP verified successfully and user registered!",
+            "success": True,
+            "user": user_dict
+        }), 201
+    except Exception as e:
+        db.session.rollback()
+        print("Error in verify_otp_route:", e)
+        return jsonify({"message": "An error occurred during OTP verification."}), 500
 
 
 @auth_bp.route('/resend-otp', methods=['POST'])
@@ -873,155 +884,175 @@ def get_addresses(current_user):
 @auth_bp.route('/addresses', methods=['POST'])
 @token_required
 def add_address(current_user):
-    user_obj = UserModel.query.get(int(current_user["_id"]))
-    if not user_obj:
-        return jsonify({"message": "User not found"}), 404
-    
-    data = request.get_json() or {}
-    
-    house_number = data.get("house_number")
-    street = data.get("street") or data.get("address")
-    area = data.get("area")
-    landmark = data.get("landmark")
-    city = data.get("city")
-    state = data.get("state")
-    pincode = data.get("pincode")
-    address_type = data.get("address_type", "Home")
-    is_default = data.get("is_default", False)
-    alternate_mobile_number = data.get("alternate_mobile_number")
-    
-    if alternate_mobile_number:
-        # Validate only if provided (not empty)
-        if not alternate_mobile_number.isdigit() or len(alternate_mobile_number) != 10:
-            return jsonify({"message": "Alternate Mobile Number must be exactly 10 digits and numeric only."}), 400
-            
-    if not all([house_number, street, area, landmark, city, state, pincode]):
-        return jsonify({"message": "All address fields (House Number, Street, Area, Landmark, City, State, Pincode) are required."}), 400
+    try:
+        user_obj = UserModel.query.with_for_update().get(int(current_user["_id"]))
+        if not user_obj:
+            return jsonify({"message": "User not found"}), 404
         
-    # If this is the user's first address, make it default regardless
-    if not user_obj.addresses:
-        is_default = True
+        data = request.get_json() or {}
         
-    if is_default:
-        for addr in user_obj.addresses:
-            addr.is_default = False
+        house_number = data.get("house_number")
+        street = data.get("street") or data.get("address")
+        area = data.get("area")
+        landmark = data.get("landmark")
+        city = data.get("city")
+        state = data.get("state")
+        pincode = data.get("pincode")
+        address_type = data.get("address_type", "Home")
+        is_default = data.get("is_default", False)
+        alternate_mobile_number = data.get("alternate_mobile_number")
+        
+        if alternate_mobile_number:
+            # Validate only if provided (not empty)
+            if not alternate_mobile_number.isdigit() or len(alternate_mobile_number) != 10:
+                return jsonify({"message": "Alternate Mobile Number must be exactly 10 digits and numeric only."}), 400
+                
+        if not all([house_number, street, area, landmark, city, state, pincode]):
+            return jsonify({"message": "All address fields (House Number, Street, Area, Landmark, City, State, Pincode) are required."}), 400
             
-    new_addr = DeliveryAddress(
-        user_id=user_obj.id,
-        house_number=house_number,
-        building_name=data.get("building_name", ""),
-        street=street,
-        area=area,
-        landmark=landmark,
-        city=city,
-        state=state,
-        pincode=pincode,
-        address_type=address_type,
-        is_default=is_default,
-        alternate_mobile_number=alternate_mobile_number if alternate_mobile_number else None
-    )
-    db.session.add(new_addr)
-    db.session.commit()
-    
-    return jsonify({"message": "Address added successfully", "address": new_addr.to_dict()}), 201
+        # If this is the user's first address, make it default regardless
+        if not user_obj.addresses:
+            is_default = True
+            
+        if is_default:
+            for addr in user_obj.addresses:
+                addr.is_default = False
+                
+        new_addr = DeliveryAddress(
+            user_id=user_obj.id,
+            house_number=house_number,
+            building_name=data.get("building_name", ""),
+            street=street,
+            area=area,
+            landmark=landmark,
+            city=city,
+            state=state,
+            pincode=pincode,
+            address_type=address_type,
+            is_default=is_default,
+            alternate_mobile_number=alternate_mobile_number if alternate_mobile_number else None
+        )
+        db.session.add(new_addr)
+        db.session.commit()
+        
+        return jsonify({"message": "Address added successfully", "address": new_addr.to_dict()}), 201
+    except Exception as e:
+        db.session.rollback()
+        print("Error adding address:", e)
+        return jsonify({"message": "An error occurred while adding address."}), 500
 
 @auth_bp.route('/addresses/<int:address_id>', methods=['PUT'])
 @token_required
 def update_address(current_user, address_id):
-    user_obj = UserModel.query.get(int(current_user["_id"]))
-    if not user_obj:
-        return jsonify({"message": "User not found"}), 404
-        
-    addr = DeliveryAddress.query.filter_by(id=address_id, user_id=user_obj.id).first()
-    if not addr:
-        return jsonify({"message": "Address not found"}), 404
-        
-    data = request.get_json() or {}
-    
-    house_number = data.get("house_number")
-    street = data.get("street") or data.get("address")
-    area = data.get("area")
-    landmark = data.get("landmark")
-    city = data.get("city")
-    state = data.get("state")
-    pincode = data.get("pincode")
-    address_type = data.get("address_type", addr.address_type)
-    is_default = data.get("is_default", addr.is_default)
-    alternate_mobile_number = data.get("alternate_mobile_number")
-    
-    if alternate_mobile_number:
-        # Validate only if provided (not empty)
-        if not alternate_mobile_number.isdigit() or len(alternate_mobile_number) != 10:
-            return jsonify({"message": "Alternate Mobile Number must be exactly 10 digits and numeric only."}), 400
+    try:
+        user_obj = UserModel.query.with_for_update().get(int(current_user["_id"]))
+        if not user_obj:
+            return jsonify({"message": "User not found"}), 404
             
-    if not all([house_number, street, area, landmark, city, state, pincode]):
-        return jsonify({"message": "All address fields (House Number, Street, Area, Landmark, City, State, Pincode) are required."}), 400
-        
-    if is_default and not addr.is_default:
-        for a in user_obj.addresses:
-            a.is_default = False
+        addr = DeliveryAddress.query.filter_by(id=address_id, user_id=user_obj.id).with_for_update().first()
+        if not addr:
+            return jsonify({"message": "Address not found"}), 404
             
-    addr.house_number = house_number
-    addr.building_name = data.get("building_name", "")
-    addr.street = street
-    addr.area = area
-    addr.landmark = landmark
-    addr.city = city
-    addr.state = state
-    addr.pincode = pincode
-    addr.address_type = address_type
-    addr.is_default = is_default
-    addr.alternate_mobile_number = alternate_mobile_number if alternate_mobile_number else None
-    
-    db.session.commit()
-    
-    # If the user changed the default to False but has other addresses, set the first other address as default
-    has_default = any(a.is_default for a in user_obj.addresses)
-    if not has_default and user_obj.addresses:
-        user_obj.addresses[0].is_default = True
+        data = request.get_json() or {}
+        
+        house_number = data.get("house_number")
+        street = data.get("street") or data.get("address")
+        area = data.get("area")
+        landmark = data.get("landmark")
+        city = data.get("city")
+        state = data.get("state")
+        pincode = data.get("pincode")
+        address_type = data.get("address_type", addr.address_type)
+        is_default = data.get("is_default", addr.is_default)
+        alternate_mobile_number = data.get("alternate_mobile_number")
+        
+        if alternate_mobile_number:
+            # Validate only if provided (not empty)
+            if not alternate_mobile_number.isdigit() or len(alternate_mobile_number) != 10:
+                return jsonify({"message": "Alternate Mobile Number must be exactly 10 digits and numeric only."}), 400
+                
+        if not all([house_number, street, area, landmark, city, state, pincode]):
+            return jsonify({"message": "All address fields (House Number, Street, Area, Landmark, City, State, Pincode) are required."}), 400
+            
+        if is_default and not addr.is_default:
+            for a in user_obj.addresses:
+                a.is_default = False
+                
+        addr.house_number = house_number
+        addr.building_name = data.get("building_name", "")
+        addr.street = street
+        addr.area = area
+        addr.landmark = landmark
+        addr.city = city
+        addr.state = state
+        addr.pincode = pincode
+        addr.address_type = address_type
+        addr.is_default = is_default
+        addr.alternate_mobile_number = alternate_mobile_number if alternate_mobile_number else None
+        
+        db.session.flush()
+        
+        # If the user changed the default to False but has other addresses, set the first other address as default
+        has_default = any(a.is_default for a in user_obj.addresses)
+        if not has_default and user_obj.addresses:
+            user_obj.addresses[0].is_default = True
+            
         db.session.commit()
-        
-    return jsonify({"message": "Address updated successfully", "address": addr.to_dict()}), 200
+        return jsonify({"message": "Address updated successfully", "address": addr.to_dict()}), 200
+    except Exception as e:
+        db.session.rollback()
+        print("Error updating address:", e)
+        return jsonify({"message": "An error occurred while updating address."}), 500
 
 @auth_bp.route('/addresses/<int:address_id>', methods=['DELETE'])
 @token_required
 def delete_address(current_user, address_id):
-    user_obj = UserModel.query.get(int(current_user["_id"]))
-    if not user_obj:
-        return jsonify({"message": "User not found"}), 404
+    try:
+        user_obj = UserModel.query.with_for_update().get(int(current_user["_id"]))
+        if not user_obj:
+            return jsonify({"message": "User not found"}), 404
+            
+        addr = DeliveryAddress.query.filter_by(id=address_id, user_id=user_obj.id).with_for_update().first()
+        if not addr:
+            return jsonify({"message": "Address not found"}), 404
+            
+        was_default = addr.is_default
         
-    addr = DeliveryAddress.query.filter_by(id=address_id, user_id=user_obj.id).first()
-    if not addr:
-        return jsonify({"message": "Address not found"}), 404
+        db.session.delete(addr)
+        db.session.flush()
         
-    was_default = addr.is_default
-    
-    db.session.delete(addr)
-    db.session.commit()
-    
-    if was_default and user_obj.addresses:
-        # Assign default to the first remaining address
-        user_obj.addresses[0].is_default = True
+        if was_default and user_obj.addresses:
+            # Assign default to the first remaining address
+            user_obj.addresses[0].is_default = True
+            
         db.session.commit()
-        
-    return jsonify({"message": "Address deleted successfully"}), 200
+        return jsonify({"message": "Address deleted successfully"}), 200
+    except Exception as e:
+        db.session.rollback()
+        print("Error deleting address:", e)
+        return jsonify({"message": "An error occurred while deleting address."}), 500
 
 @auth_bp.route('/addresses/<int:address_id>/default', methods=['PUT'])
 @token_required
 def set_default_address(current_user, address_id):
-    user_obj = UserModel.query.get(int(current_user["_id"]))
-    if not user_obj:
-        return jsonify({"message": "User not found"}), 404
-        
-    addr = DeliveryAddress.query.filter_by(id=address_id, user_id=user_obj.id).first()
-    if not addr:
-        return jsonify({"message": "Address not found"}), 404
-        
-    for a in user_obj.addresses:
-        a.is_default = (a.id == address_id)
-        
-    db.session.commit()
-    return jsonify({"message": "Default address updated successfully", "address": addr.to_dict()}), 200
+    try:
+        user_obj = UserModel.query.with_for_update().get(int(current_user["_id"]))
+        if not user_obj:
+            return jsonify({"message": "User not found"}), 404
+            
+        addr = DeliveryAddress.query.filter_by(id=address_id, user_id=user_obj.id).with_for_update().first()
+        if not addr:
+            return jsonify({"message": "Address not found"}), 404
+            
+        for a in user_obj.addresses:
+            a.is_default = (a.id == address_id)
+            
+        db.session.commit()
+        return jsonify({"message": "Default address updated successfully", "address": addr.to_dict()}), 200
+    except Exception as e:
+        db.session.rollback()
+        print("Error setting default address:", e)
+        return jsonify({"message": "An error occurred while setting default address."}), 500
 
 @auth_bp.route('/password', methods=['PUT'])
 @token_required
@@ -1696,58 +1727,72 @@ def respond_user_buy_request(current_user, id):
     from backend.models.product import BuyRequestModel
     from backend.models.admin import add_admin_notification
     
-    req = BuyRequestModel.query.filter_by(id=id, user_id=int(current_user["_id"])).first()
-    if not req:
-        return jsonify({"message": "Buy request not found"}), 404
+    try:
+        req = BuyRequestModel.query.filter_by(id=id, user_id=int(current_user["_id"])).with_for_update().first()
+        if not req:
+            return jsonify({"message": "Buy request not found"}), 404
+            
+        data = request.get_json() or {}
+        action = data.get("action") # 'Confirm' or 'Cancel'
         
-    data = request.get_json() or {}
-    action = data.get("action") # 'Confirm' or 'Cancel'
-    
-    if action not in ['Confirm', 'Cancel']:
-        return jsonify({"message": "Invalid action. Must be 'Confirm' or 'Cancel'."}), 400
-        
-    if req.status not in ['Approved', 'Awaiting Payment']:
-        return jsonify({"message": f"Cannot respond to a request in status: {req.status}"}), 400
-        
-    if action == 'Confirm':
-        req.status = 'Awaiting Payment'
-        req.customer_confirmed = True
-        db.session.commit()
-        
-        add_admin_notification(
-            title="Customer Confirmed Buy Request",
-            message=f"User {current_user['name']} confirmed approved request #{req.id} ({req.product_name}) in {req.city or 'unknown city'} and is proceeding to checkout.",
-            type="BUY_REQUEST",
-            user_id=int(current_user["_id"])
-        )
-        
-        add_user_notification(
-            str(req.user_id),
-            "Payment Pending",
-            f"Your payment for requested product '{req.product_name}' (Qty: {req.quantity}) is pending. Please complete checkout to place order."
-        )
-        
-        return jsonify({
-            "message": "Buy request confirmed! Proceeding to checkout.",
-            "success": True,
-            "buy_request": req.to_dict()
-        }), 200
-    else:
-        req.status = 'Cancelled By User'
-        db.session.commit()
-        
-        add_admin_notification(
-            title="User Cancelled Buy Request",
-            message=f"User {current_user['name']} cancelled buy request #{req.id} for '{req.product_name}'.",
-            type="BUY_REQUEST",
-            user_id=int(current_user["_id"])
-        )
-        
-        return jsonify({
-            "message": "Buy request cancelled successfully.",
-            "success": True,
-            "buy_request": req.to_dict()
-        }), 200
+        if action not in ['Confirm', 'Cancel']:
+            return jsonify({"message": "Invalid action. Must be 'Confirm' or 'Cancel'."}), 400
+            
+        if req.status not in ['Approved', 'Awaiting Payment']:
+            return jsonify({"message": f"Cannot respond to a request in status: {req.status}"}), 400
+            
+        if action == 'Confirm':
+            req.status = 'Awaiting Payment'
+            req.customer_confirmed = True
+            db.session.commit()
+            
+            try:
+                add_admin_notification(
+                    title="Customer Confirmed Buy Request",
+                    message=f"User {current_user['name']} confirmed approved request #{req.id} ({req.product_name}) in {req.city or 'unknown city'} and is proceeding to checkout.",
+                    type="BUY_REQUEST",
+                    user_id=int(current_user["_id"])
+                )
+            except Exception as ex:
+                print("Failed to add admin notification:", ex)
+                
+            try:
+                add_user_notification(
+                    str(req.user_id),
+                    "Payment Pending",
+                    f"Your payment for requested product '{req.product_name}' (Qty: {req.quantity}) is pending. Please complete checkout to place order."
+                )
+            except Exception as ex:
+                print("Failed to add user notification:", ex)
+            
+            return jsonify({
+                "message": "Buy request confirmed! Proceeding to checkout.",
+                "success": True,
+                "buy_request": req.to_dict()
+            }), 200
+        else:
+            req.status = 'Cancelled By User'
+            db.session.commit()
+            
+            try:
+                add_admin_notification(
+                    title="User Cancelled Buy Request",
+                    message=f"User {current_user['name']} cancelled buy request #{req.id} for '{req.product_name}'.",
+                    type="BUY_REQUEST",
+                    user_id=int(current_user["_id"])
+                )
+            except Exception as ex:
+                print("Failed to add admin notification:", ex)
+            
+            return jsonify({
+                "message": "Buy request cancelled successfully.",
+                "success": True,
+                "buy_request": req.to_dict()
+            }), 200
+    except Exception as e:
+        db.session.rollback()
+        print("Error responding to buy request:", e)
+        return jsonify({"message": "An error occurred while responding to buy request."}), 500
 
 
 @auth_bp.route('/buy-requests/<int:id>', methods=['GET'])
@@ -1771,24 +1816,32 @@ def get_single_buy_request(current_user, id):
 @token_required
 def buy_request_payment_failed(current_user, id):
     from backend.models.product import BuyRequestModel
-    req = BuyRequestModel.query.filter_by(id=id, user_id=int(current_user["_id"])).first()
-    if not req:
-        return jsonify({"message": "Buy request not found"}), 404
+    try:
+        req = BuyRequestModel.query.filter_by(id=id, user_id=int(current_user["_id"])).with_for_update().first()
+        if not req:
+            return jsonify({"message": "Buy request not found"}), 404
+            
+        req.status = 'Awaiting Payment'
+        db.session.commit()
         
-    req.status = 'Awaiting Payment'
-    db.session.commit()
-    
-    add_user_notification(
-        str(req.user_id),
-        "Payment Pending",
-        f"Your payment for requested product '{req.product_name}' failed or is pending. Please complete checkout to place order."
-    )
-    
-    return jsonify({
-        "message": "Buy request updated to Awaiting Payment.",
-        "success": True,
-        "buy_request": req.to_dict()
-    }), 200
+        try:
+            add_user_notification(
+                str(req.user_id),
+                "Payment Pending",
+                f"Your payment for requested product '{req.product_name}' failed or is pending. Please complete checkout to place order."
+            )
+        except Exception as ex:
+            print("Failed to add user notification:", ex)
+        
+        return jsonify({
+            "message": "Buy request updated to Awaiting Payment.",
+            "success": True,
+            "buy_request": req.to_dict()
+        }), 200
+    except Exception as e:
+        db.session.rollback()
+        print("Error updating buy request payment failure:", e)
+        return jsonify({"message": "An error occurred while updating buy request status."}), 500
 
 
 @auth_bp.route('/preferred-language', methods=['PUT'])
@@ -1799,17 +1852,22 @@ def update_preferred_language(current_user):
     if not pref_lang or pref_lang not in ['en', 'hi']:
         return jsonify({"message": "Invalid language preference"}), 400
     
-    user_obj = UserModel.query.get(int(current_user["_id"]))
-    if not user_obj:
-        return jsonify({"message": "User not found"}), 404
+    try:
+        user_obj = UserModel.query.with_for_update().get(int(current_user["_id"]))
+        if not user_obj:
+            return jsonify({"message": "User not found"}), 404
+            
+        user_obj.preferred_language = pref_lang
+        user_obj.first_login = False
+        db.session.commit()
         
-    user_obj.preferred_language = pref_lang
-    user_obj.first_login = False
-    db.session.commit()
-    
-    return jsonify({
-        "message": "Language preference saved successfully",
-        "user": user_obj.to_dict()
-    }), 200
+        return jsonify({
+            "message": "Language preference saved successfully",
+            "user": user_obj.to_dict()
+        }), 200
+    except Exception as e:
+        db.session.rollback()
+        print("Error saving language preference:", e)
+        return jsonify({"message": "An error occurred while saving language preference."}), 500
 
 

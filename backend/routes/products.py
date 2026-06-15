@@ -340,43 +340,48 @@ def request_buy_product(current_user, id):
     from backend.models.product import ProductModel, BuyRequestModel
     from backend.models.admin import add_admin_notification
     
-    product = ProductModel.query.get(prod_id)
-    if not product:
-        return jsonify({"message": "Product not found!"}), 404
+    try:
+        product = ProductModel.query.with_for_update().get(prod_id)
+        if not product:
+            return jsonify({"message": "Product not found!"}), 404
+            
+        if product.stock > 0:
+            return jsonify({"message": "Product is in stock. You can buy it directly!"}), 400
+            
+        data = request.get_json() or {}
+        quantity = int(data.get("quantity", 1))
+        selected_variant_raw = data.get("selected_variant", "")
+        city = data.get("city")
         
-    if product.stock > 0:
-        return jsonify({"message": "Product is in stock. You can buy it directly!"}), 400
+        if not city:
+            return jsonify({"message": "Location/City is required."}), 400
+            
+        # Format selected_variant if it is a dictionary/object
+        if isinstance(selected_variant_raw, dict):
+            variant_parts = []
+            for k, v in selected_variant_raw.items():
+                if v:
+                    variant_parts.append(f"{k}: {v}")
+            selected_variant = ", ".join(variant_parts)
+        else:
+            selected_variant = str(selected_variant_raw)
+            
+        # Check if this user has already requested to buy this product and it is still pending
+        existing_request = BuyRequestModel.query.filter_by(
+            product_id=prod_id, 
+            user_id=int(current_user["_id"]),
+            status='Pending'
+        ).with_for_update().first()
         
-    data = request.get_json() or {}
-    quantity = int(data.get("quantity", 1))
-    selected_variant_raw = data.get("selected_variant", "")
-    city = data.get("city")
-    
-    if not city:
-        return jsonify({"message": "Location/City is required."}), 400
-        
-    # Format selected_variant if it is a dictionary/object
-    if isinstance(selected_variant_raw, dict):
-        variant_parts = []
-        for k, v in selected_variant_raw.items():
-            if v:
-                variant_parts.append(f"{k}: {v}")
-        selected_variant = ", ".join(variant_parts)
-    else:
-        selected_variant = str(selected_variant_raw)
-        
-    # Check if this user has already requested to buy this product and it is still pending
-    existing_request = BuyRequestModel.query.filter_by(
-        product_id=prod_id, 
-        user_id=int(current_user["_id"]),
-        status='Pending'
-    ).first()
-    
-    if existing_request:
-        return jsonify({
-            "message": "You already have a pending buy request for this product.",
-            "success": True
-        }), 200
+        if existing_request:
+            return jsonify({
+                "message": "You already have a pending buy request for this product.",
+                "success": True
+            }), 200
+    except Exception as e:
+        db.session.rollback()
+        print("Pre-checks for buy request failed:", e)
+        return jsonify({"message": f"Failed to verify request: {str(e)}"}), 500
         
     try:
         buy_request = BuyRequestModel(

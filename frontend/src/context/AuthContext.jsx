@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
 
 export const AuthContext = createContext();
@@ -8,6 +8,7 @@ export const API_BASE_URL = 'http://localhost:5000/api';
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const logoutRef = useRef(null);
   const [token, setToken] = useState(null);
   const [loginType, setLoginType] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -72,6 +73,25 @@ export const AuthProvider = ({ children }) => {
       delete axios.defaults.headers.common['Authorization'];
     }
     setLoading(false);
+  }, []);
+
+  // Globally intercept 401 Unauthorized errors to clean up stale sessions
+  useEffect(() => {
+    const interceptor = axios.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error.response && error.response.status === 401) {
+          const hasToken = localStorage.getItem('bb_token') || localStorage.getItem('token');
+          if (hasToken && logoutRef.current) {
+            logoutRef.current();
+          }
+        }
+        return Promise.reject(error);
+      }
+    );
+    return () => {
+      axios.interceptors.response.eject(interceptor);
+    };
   }, []);
 
   const syncLanguageOnLogin = (userData) => {
@@ -168,7 +188,7 @@ export const AuthProvider = ({ children }) => {
     return adminLogin(email, password);
   };
 
-  const logout = () => {
+  const logout = useCallback(() => {
     if (user?.is_admin && (token || localStorage.getItem('token') || localStorage.getItem('bb_token'))) {
       const activeToken = token || localStorage.getItem('token') || localStorage.getItem('bb_token');
       axios.post(`${API_BASE_URL}/admin/logout`, {}, {
@@ -184,7 +204,11 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('user');
     localStorage.removeItem('bb_login_type');
     delete axios.defaults.headers.common['Authorization'];
-  };
+  }, [user, token]);
+
+  useEffect(() => {
+    logoutRef.current = logout;
+  }, [logout]);
 
   const checkoutLogin = async (shippingDetails) => {
     try {

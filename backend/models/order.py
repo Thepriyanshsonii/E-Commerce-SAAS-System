@@ -86,7 +86,7 @@ class OrderModel(db.Model):
         }
 
     @staticmethod
-    def create_order(user_id, shipping_address, items, total_amount, terms_accepted=False):
+    def create_order(user_id, shipping_address, items, total_amount, terms_accepted=False, commit=True):
         # Generate clean unique Order ID
         random_num = random.randint(100000, 999999)
         order_id = f"BB-{random_num}"
@@ -131,7 +131,7 @@ class OrderModel(db.Model):
             terms_accepted_at=terms_accepted_at
         )
         db.session.add(order)
-        db.session.commit()
+        db.session.flush()
         
         # Add items
         for it in items:
@@ -151,7 +151,10 @@ class OrderModel(db.Model):
             )
             db.session.add(order_item)
             
-        db.session.commit()
+        if commit:
+            db.session.commit()
+        else:
+            db.session.flush()
         return order.to_dict()
 
     @staticmethod
@@ -176,9 +179,9 @@ class OrderModel(db.Model):
         try:
             order = None
             if str(order_id).isdigit():
-                order = OrderModel.query.get(int(order_id))
+                order = OrderModel.query.with_for_update().get(int(order_id))
             if not order:
-                order = OrderModel.query.filter_by(order_id=str(order_id)).first()
+                order = OrderModel.query.filter_by(order_id=str(order_id)).with_for_update().first()
             if not order:
                 return False
                 
@@ -206,6 +209,7 @@ class OrderModel(db.Model):
             db.session.commit()
             return True
         except Exception as e:
+            db.session.rollback()
             print("Error updating order status:", e)
             return False
 
@@ -214,9 +218,9 @@ class OrderModel(db.Model):
         try:
             order = None
             if str(order_id).isdigit():
-                order = OrderModel.query.get(int(order_id))
+                order = OrderModel.query.with_for_update().get(int(order_id))
             if not order:
-                order = OrderModel.query.filter_by(order_id=str(order_id)).first()
+                order = OrderModel.query.filter_by(order_id=str(order_id)).with_for_update().first()
             if not order:
                 return False
                 
@@ -244,6 +248,7 @@ class OrderModel(db.Model):
 
             return True
         except Exception:
+            db.session.rollback()
             return False
 
     @staticmethod
@@ -251,9 +256,9 @@ class OrderModel(db.Model):
         try:
             order = None
             if str(order_id).isdigit():
-                order = OrderModel.query.get(int(order_id))
+                order = OrderModel.query.with_for_update().get(int(order_id))
             if not order:
-                order = OrderModel.query.filter_by(order_id=str(order_id)).first()
+                order = OrderModel.query.filter_by(order_id=str(order_id)).with_for_update().first()
             if not order:
                 return False
                 
@@ -292,4 +297,5 @@ class OrderModel(db.Model):
             db.session.commit()
             return True
         except Exception:
+            db.session.rollback()
             return False

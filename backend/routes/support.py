@@ -71,18 +71,18 @@ def reply_to_ticket(ticket_id):
     from backend.models.admin import add_admin_notification
     from backend.extensions import db
     
-    ticket = SupportModel.query.get(ticket_id)
-    if not ticket:
-        return jsonify({"message": "Support ticket not found."}), 404
-        
-    data = request.get_json() or {}
-    sender = data.get("sender") or ticket.name
-    message = data.get("message")
-    
-    if not message:
-        return jsonify({"message": "Message is required."}), 400
-        
     try:
+        ticket = SupportModel.query.with_for_update().get(ticket_id)
+        if not ticket:
+            return jsonify({"message": "Support ticket not found."}), 404
+            
+        data = request.get_json() or {}
+        sender = data.get("sender") or ticket.name
+        message = data.get("message")
+        
+        if not message:
+            return jsonify({"message": "Message is required."}), 400
+            
         reply = SupportReplyModel(
             support_id=ticket.id,
             sender=sender,
@@ -92,12 +92,15 @@ def reply_to_ticket(ticket_id):
         db.session.commit()
         
         # Trigger Admin Notification
-        if sender != "Admin Support" and sender != "Admin":
-            add_admin_notification(
-                title="Support Ticket Created",
-                message=f"Ticket #SUP-{ticket.id} submitted by {sender}",
-                type="SUPPORT_TICKET"
-            )
+        try:
+            if sender != "Admin Support" and sender != "Admin":
+                add_admin_notification(
+                    title="Support Ticket Created",
+                    message=f"Ticket #SUP-{ticket.id} submitted by {sender}",
+                    type="SUPPORT_TICKET"
+                )
+        except Exception as ex:
+            print("Failed to add admin notification:", ex)
         
         return jsonify({
             "message": "Reply submitted successfully!",
@@ -181,19 +184,27 @@ def update_message_status(msg_id):
     if not status:
         return jsonify({"message": "Status is required."}), 400
         
-    msg = SupportModel.query.get(msg_id)
-    if not msg:
-        return jsonify({"message": "Message not found."}), 404
+    try:
+        msg = SupportModel.query.with_for_update().get(msg_id)
+        if not msg:
+            return jsonify({"message": "Message not found."}), 404
+            
+        old_status = msg.status
+        msg.status = status
+        db.session.commit()
         
-    old_status = msg.status
-    msg.status = status
-    db.session.commit()
-    
-    # Audit Log
-    from backend.utils.audit import log_admin_action
-    log_admin_action("Support Ticket Updated", "Support Management", f"Updated support ticket status from '{old_status}' to '{status}' for message from '{msg.name}' (ID: {msg_id})")
-    
-    return jsonify({"message": "Support message status updated successfully.", "status": status}), 200
+        # Audit Log
+        try:
+            from backend.utils.audit import log_admin_action
+            log_admin_action("Support Ticket Updated", "Support Management", f"Updated support ticket status from '{old_status}' to '{status}' for message from '{msg.name}' (ID: {msg_id})")
+        except Exception as ex:
+            print("Failed to log admin action:", ex)
+        
+        return jsonify({"message": "Support message status updated successfully.", "status": status}), 200
+    except Exception as e:
+        db.session.rollback()
+        print("Error updating support message status:", e)
+        return jsonify({"message": "An error occurred while updating support message status."}), 500
 
 DEFAULT_SUPPORT_LINKS = [
     {
