@@ -13,3 +13,4 @@ pytz
 pandas
 matplotlib
 openpyxl
+Flask-Mail==0.10.0
