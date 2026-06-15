@@ -11,7 +11,7 @@ orders_bp = Blueprint('orders', __name__)
 @orders_bp.route('', methods=['POST'])
 @token_required
 def create_order(current_user):
-    from backend.models.product import BuyRequestModel, ProductModel
+    from backend.models.product import BuyRequestModel, ProductModel, StockHistoryModel, ProductAuditLogModel
     from backend.utils.timezone import get_ist_time
     
     data = request.get_json() or {}
@@ -28,119 +28,190 @@ def create_order(current_user):
     if not terms_accepted:
         return jsonify({"message": "You must accept the Terms & Conditions to place an order."}), 400
         
-    buy_req = None
-    if buy_request_id:
-        buy_req = BuyRequestModel.query.filter_by(
-            id=int(buy_request_id),
-            user_id=int(current_user["_id"])
-        ).first()
-        if not buy_req:
-            return jsonify({"message": "Buy request not found."}), 404
-            
-    # Validate stock availability and update inventory
-    for item in items:
-        product_id = item.get("product_id")
-        quantity = int(item.get("quantity", 1))
-        
-        product = ProductModel.find_by_id(product_id)
-        if not product:
-            return jsonify({"message": f"Product '{item.get('name', 'Unknown')}' not found."}), 404
-            
-        # Bypass stock check if user has an 'Available' or active buy request for this product
-        if not buy_req:
-            has_available_request = BuyRequestModel.query.filter_by(
-                product_id=int(product_id) if str(product_id).isdigit() else product_id,
-                user_id=int(current_user["_id"]),
-                status='Available'
-            ).first()
-            
-            if not has_available_request:
-                if product.get("stock", 0) < quantity:
-                    return jsonify({"message": f"Insufficient stock for '{product.get('name')}'! Only {product.get('stock')} items left."}), 400
-            
-    # Decrease stock levels
-    for item in items:
-        product_id = item.get("product_id")
-        quantity = int(item.get("quantity", 1))
-        
-        # Check for 'Available' buy request
-        if not buy_req:
-            available_request = BuyRequestModel.query.filter_by(
-                product_id=int(product_id) if str(product_id).isdigit() else product_id,
-                user_id=int(current_user["_id"]),
-                status='Available'
-            ).first()
-            
-            if available_request:
-                available_request.status = 'Purchased'
-            else:
-                # Negative value to decrement stock
-                ProductModel.update_stock(product_id, -quantity)
-        else:
-            # For buy requests, always reduce inventory
-            ProductModel.update_stock(product_id, -quantity)
-        
-    # Create the order in DB
-    order = OrderModel.create_order(
-        user_id=current_user["_id"],
-        shipping_address=shipping_address,
-        items=items,
-        total_amount=total_amount,
-        terms_accepted=terms_accepted
-    )
-    
-    # If this is a buy request checkout, update the buy request
-    if buy_req:
-        buy_req.status = 'Converted To Order'
-        buy_req.payment_completed = True
-        buy_req.converted_order_id = int(order['id'])
-        buy_req.converted_to_order_at = get_ist_time()
-        if selected_address_id:
-            try:
-                buy_req.selected_address_id = int(selected_address_id)
-            except ValueError:
-                pass
-        db.session.commit()
-        
-    # Empty user's cart in the database now that the order is successful (only if not a buy request)
-    if not buy_req:
-        UserModel.update_cart(current_user["_id"], [])
-    
-    # Sync checkout address and email details back to user's database record
-    user_email = shipping_address.get("email")
     try:
-        user_obj = UserModel.query.get(int(current_user["_id"]))
-        if user_obj:
-            if not user_obj.address:
-                user_obj.address = DeliveryAddress(user_id=user_obj.id, is_default=True)
-                db.session.add(user_obj.address)
+        # 1. Sort product IDs to prevent database deadlocks under concurrency
+        product_ids = []
+        for item in items:
+            p_id = item.get("product_id")
+            if p_id:
+                try:
+                    product_ids.append(int(p_id))
+                except ValueError:
+                    pass
+        sorted_product_ids = sorted(list(set(product_ids)))
+
+        # 2. Lock products with for update
+        products_db = ProductModel.query.filter(ProductModel.id.in_(sorted_product_ids)).with_for_update().all()
+        product_map = {p.id: p for p in products_db}
+
+        # 3. Lock user row
+        user_obj = UserModel.query.with_for_update().get(int(current_user["_id"]))
+        if not user_obj:
+            return jsonify({"message": "User not found."}), 404
+
+        # 4. Lock BuyRequest row if any
+        buy_req = None
+        if buy_request_id:
+            buy_req = BuyRequestModel.query.filter_by(
+                id=int(buy_request_id),
+                user_id=int(current_user["_id"])
+            ).with_for_update().first()
+            if not buy_req:
+                return jsonify({"message": "Buy request not found."}), 404
+
+        # 5. Validate stock availability
+        for item in items:
+            product_id = item.get("product_id")
+            quantity = int(item.get("quantity", 1))
             
-            user_obj.address.house_number = shipping_address.get("house_number", "")
-            user_obj.address.building_name = shipping_address.get("building_name", "")
-            user_obj.address.street = shipping_address.get("address", "") or shipping_address.get("street", "")
-            user_obj.address.area = shipping_address.get("area", "")
-            user_obj.address.landmark = shipping_address.get("landmark", "")
-            user_obj.address.city = shipping_address.get("city", "")
-            user_obj.address.state = shipping_address.get("state", "")
-            user_obj.address.pincode = shipping_address.get("pincode", "")
-            user_obj.address.address_type = shipping_address.get("address_type", "Home")
-            user_obj.address.alternate_mobile_number = shipping_address.get("alternate_mobile_number")
-            
-            if user_email and ("@bharatbasket.com" in current_user.get("email", "") or not current_user.get("email")):
-                existing_email_user = UserModel.query.filter_by(email=user_email).first()
-                if not existing_email_user or existing_email_user.id == user_obj.id:
-                    user_obj.email = user_email
-                    current_user["email"] = user_email
+            product = product_map.get(int(product_id) if str(product_id).isdigit() else None)
+            if not product:
+                return jsonify({"message": f"Product '{item.get('name', 'Unknown')}' not found."}), 404
                 
-            db.session.commit()
-    except Exception as ex:
-        print(f"Error syncing address to user document: {ex}")
+            # Bypass stock check if user has an 'Available' or active buy request for this product
+            if not buy_req:
+                has_available_request = BuyRequestModel.query.filter_by(
+                    product_id=product.id,
+                    user_id=user_obj.id,
+                    status='Available'
+                ).with_for_update().first()
+                
+                if not has_available_request:
+                    if product.stock < quantity:
+                        return jsonify({"message": f"Insufficient stock for '{product.name}'! Only {product.stock} items left."}), 400
+            
+        # 6. Decrease stock levels and update buy requests
+        for item in items:
+            product_id = int(item.get("product_id"))
+            quantity = int(item.get("quantity", 1))
+            product = product_map[product_id]
+            
+            # Check for 'Available' buy request
+            if not buy_req:
+                available_request = BuyRequestModel.query.filter_by(
+                    product_id=product.id,
+                    user_id=user_obj.id,
+                    status='Available'
+                ).with_for_update().first()
+                
+                if available_request:
+                    available_request.status = 'Purchased'
+                else:
+                    # Decrease stock levels directly
+                    old_stock = int(product.stock or 0)
+                    product.stock = old_stock - quantity
+                    new_stock = product.stock
+                    
+                    history = StockHistoryModel(
+                        product_id=product.id,
+                        change_type='order_placed',
+                        change_amount=-quantity,
+                        old_stock=old_stock,
+                        new_stock=new_stock,
+                        created_at=get_ist_time()
+                    )
+                    db.session.add(history)
+
+                    audit = ProductAuditLogModel(
+                        product_id=product.id,
+                        admin_id='system',
+                        action_type="Stock Update",
+                        field_name="stock",
+                        old_value=str(old_stock),
+                        new_value=str(new_stock),
+                        created_at=get_ist_time()
+                    )
+                    db.session.add(audit)
+            else:
+                # For buy requests, always reduce inventory directly
+                old_stock = int(product.stock or 0)
+                product.stock = old_stock - quantity
+                new_stock = product.stock
+                
+                history = StockHistoryModel(
+                    product_id=product.id,
+                    change_type='order_placed',
+                    change_amount=-quantity,
+                    old_stock=old_stock,
+                    new_stock=new_stock,
+                    created_at=get_ist_time()
+                )
+                db.session.add(history)
+
+                audit = ProductAuditLogModel(
+                    product_id=product.id,
+                    admin_id='system',
+                    action_type="Stock Update",
+                    field_name="stock",
+                    old_value=str(old_stock),
+                    new_value=str(new_stock),
+                    created_at=get_ist_time()
+                )
+                db.session.add(audit)
+            
+        # 7. Create the order in DB (commit=False)
+        order = OrderModel.create_order(
+            user_id=user_obj.id,
+            shipping_address=shipping_address,
+            items=items,
+            total_amount=total_amount,
+            terms_accepted=terms_accepted,
+            commit=False
+        )
+        
+        # 8. If this is a buy request checkout, update the buy request
+        if buy_req:
+            buy_req.status = 'Converted To Order'
+            buy_req.payment_completed = True
+            buy_req.converted_order_id = int(order['id'])
+            buy_req.converted_to_order_at = get_ist_time()
+            if selected_address_id:
+                try:
+                    buy_req.selected_address_id = int(selected_address_id)
+                except ValueError:
+                    pass
+            
+        # 9. Empty user's cart in the database now that the order is successful (only if not a buy request)
+        if not buy_req:
+            UserModel.update_cart(user_obj.id, [], commit=False)
+        
+        # 10. Sync checkout address and email details back to user's database record
+        user_email = shipping_address.get("email")
+        if not user_obj.address:
+            user_obj.address = DeliveryAddress(user_id=user_obj.id, is_default=True)
+            db.session.add(user_obj.address)
+        
+        user_obj.address.house_number = shipping_address.get("house_number", "")
+        user_obj.address.building_name = shipping_address.get("building_name", "")
+        user_obj.address.street = shipping_address.get("address", "") or shipping_address.get("street", "")
+        user_obj.address.area = shipping_address.get("area", "")
+        user_obj.address.landmark = shipping_address.get("landmark", "")
+        user_obj.address.city = shipping_address.get("city", "")
+        user_obj.address.state = shipping_address.get("state", "")
+        user_obj.address.pincode = shipping_address.get("pincode", "")
+        user_obj.address.address_type = shipping_address.get("address_type", "Home")
+        user_obj.address.alternate_mobile_number = shipping_address.get("alternate_mobile_number")
+        
+        if user_email and ("@bharatbasket.com" in current_user.get("email", "") or not current_user.get("email")):
+            existing_email_user = UserModel.query.filter_by(email=user_email).first()
+            if not existing_email_user or existing_email_user.id == user_obj.id:
+                user_obj.email = user_email
+                current_user["email"] = user_email
+                
+        # 11. Now, commit the entire transaction at once!
+        db.session.commit()
+    except Exception as e:
         db.session.rollback()
-    
-    # Send order confirmation email
-    send_order_confirmation(current_user.get("email", f"{current_user.get('mobile', 'user')}@bharatbasket.com"), order)
-    
-    # Send user notification
+        print("Error during transactional checkout:", e)
+        return jsonify({"message": "Checkout failed due to system error. Please try again."}), 500
+        
+    # 12. Post-commit workflows (non-critical notifications/emails)
+    try:
+        # Send order confirmation email
+        send_order_confirmation(current_user.get("email", f"{current_user.get('mobile', 'user')}@bharatbasket.com"), order)
+    except Exception as email_ex:
+        print("Error sending order confirmation email:", email_ex)
+        
     try:
         from backend.routes.auth import add_user_notification
         if buy_req:
@@ -153,8 +224,7 @@ def create_order(current_user):
             add_user_notification(current_user["_id"], "Order Placed", f"Your order {order['order_id']} for ₹{order['total_amount']} has been successfully placed.")
     except Exception as ex:
         print(f"Error adding order notification: {ex}")
- 
-    # Send admin notification
+     
     try:
         from backend.models.admin import add_admin_notification
         if buy_req:

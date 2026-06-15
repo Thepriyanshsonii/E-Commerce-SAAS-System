@@ -7,6 +7,7 @@ class Config:
     SECRET_KEY = os.environ.get("JWT_SECRET", "supersecret_bharatbasket_key_123")
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URI", "mysql+pymysql://root:irshad%40786@localhost/bharatbasket")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_ECHO = True
     SQLALCHEMY_ENGINE_OPTIONS = {
         "connect_args": {
             "init_command": "SET time_zone='Asia/Kolkata'"

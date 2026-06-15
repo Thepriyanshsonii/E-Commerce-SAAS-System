@@ -324,10 +324,10 @@ class UserModel(db.Model):
         return bcrypt.checkpw(provided_password.encode('utf-8'), stored_password.encode('utf-8'))
 
     @staticmethod
-    def update_cart(user_id, cart_items):
+    def update_cart(user_id, cart_items, commit=True):
         try:
             uid = int(user_id)
-            user = UserModel.query.get(uid)
+            user = UserModel.query.with_for_update().get(uid)
             if not user:
                 return False
             
@@ -335,7 +335,7 @@ class UserModel(db.Model):
             if not cart:
                 cart = Cart(user_id=uid)
                 db.session.add(cart)
-                db.session.commit()
+                db.session.flush()
                 
             CartItem.query.filter_by(cart_id=cart.id, saved_for_later=False).delete()
             
@@ -345,18 +345,23 @@ class UserModel(db.Model):
                 cart_item = CartItem(cart_id=cart.id, product_id=prod_id, quantity=qty, saved_for_later=False)
                 db.session.add(cart_item)
                 
-            db.session.commit()
+            if commit:
+                db.session.commit()
+            else:
+                db.session.flush()
             return True
         except Exception as e:
             print("Error updating cart:", e)
-            db.session.rollback()
-            return False
+            if commit:
+                db.session.rollback()
+                return False
+            raise e
 
     @staticmethod
-    def update_wishlist(user_id, wishlist_items):
+    def update_wishlist(user_id, wishlist_items, commit=True):
         try:
             uid = int(user_id)
-            user = UserModel.query.get(uid)
+            user = UserModel.query.with_for_update().get(uid)
             if not user:
                 return False
             
@@ -369,18 +374,23 @@ class UserModel(db.Model):
                     wish = Wishlist(user_id=uid, product_id=prod_id)
                     db.session.add(wish)
                     
-            db.session.commit()
+            if commit:
+                db.session.commit()
+            else:
+                db.session.flush()
             return True
         except Exception as e:
             print("Error updating wishlist:", e)
-            db.session.rollback()
-            return False
+            if commit:
+                db.session.rollback()
+                return False
+            raise e
 
     @staticmethod
-    def update_saved_for_later(user_id, saved_items):
+    def update_saved_for_later(user_id, saved_items, commit=True):
         try:
             uid = int(user_id)
-            user = UserModel.query.get(uid)
+            user = UserModel.query.with_for_update().get(uid)
             if not user:
                 return False
             
@@ -388,7 +398,7 @@ class UserModel(db.Model):
             if not cart:
                 cart = Cart(user_id=uid)
                 db.session.add(cart)
-                db.session.commit()
+                db.session.flush()
                 
             CartItem.query.filter_by(cart_id=cart.id, saved_for_later=True).delete()
             
@@ -398,31 +408,37 @@ class UserModel(db.Model):
                 cart_item = CartItem(cart_id=cart.id, product_id=prod_id, quantity=qty, saved_for_later=True)
                 db.session.add(cart_item)
                 
-            db.session.commit()
+            if commit:
+                db.session.commit()
+            else:
+                db.session.flush()
             return True
         except Exception as e:
             print("Error updating saved for later:", e)
-            db.session.rollback()
-            return False
+            if commit:
+                db.session.rollback()
+                return False
+            raise e
 
     @staticmethod
     def toggle_block_user(user_id, is_blocked):
         try:
             uid = int(user_id)
-            user = UserModel.query.get(uid)
+            user = UserModel.query.with_for_update().get(uid)
             if user:
                 user.is_blocked = bool(is_blocked)
                 db.session.commit()
                 return True
             return False
         except Exception:
+            db.session.rollback()
             return False
 
     @staticmethod
     def update_profile(user_id, name, email, mobile, address):
         try:
             uid = int(user_id)
-            user = UserModel.query.get(uid)
+            user = UserModel.query.with_for_update().get(uid)
             if not user:
                 return False
             
@@ -458,7 +474,7 @@ class UserModel(db.Model):
     def update_password(user_id, new_password):
         try:
             uid = int(user_id)
-            user = UserModel.query.get(uid)
+            user = UserModel.query.with_for_update().get(uid)
             if user:
                 hashed_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
                 user.password = hashed_password
@@ -466,6 +482,7 @@ class UserModel(db.Model):
                 return True
             return False
         except Exception:
+            db.session.rollback()
             return False
 
     @staticmethod
@@ -484,13 +501,14 @@ class UserModel(db.Model):
     def delete_user(user_id):
         try:
             uid = int(user_id)
-            user = UserModel.query.get(uid)
+            user = UserModel.query.with_for_update().get(uid)
             if user:
                 db.session.delete(user)
                 db.session.commit()
                 return True
             return False
         except Exception:
+            db.session.rollback()
             return False
 
 class UserStatusAuditLog(db.Model):
