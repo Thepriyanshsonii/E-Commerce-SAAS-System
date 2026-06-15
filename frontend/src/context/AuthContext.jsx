@@ -4,7 +4,7 @@ import axios from 'axios';
 export const AuthContext = createContext();
 
 // Base URL for Flask REST API
-export const API_BASE_URL = 'http://localhost:5000/api';
+export const API_BASE_URL = `${import.meta.env.VITE_API_URL}/api`;
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
