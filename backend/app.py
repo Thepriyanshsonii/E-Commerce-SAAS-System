@@ -1,5 +1,5 @@
 import os
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from dotenv import load_dotenv
 
@@ -41,15 +41,38 @@ CORS(
     app,
     origins=[
         "https://hexmap.in",
-        "https://www.hexmap.in"
+        "https://www.hexmap.in",
+        "http://localhost:5173",
+        "http://localhost:5000"
     ],
-    supports_credentials=True
+    supports_credentials=True,
+    allow_headers=["Content-Type", "Authorization", "Accept", "Accept-Language", "Origin", "X-Requested-With"],
+    methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    expose_headers=["Content-Type", "Authorization"]
 )
 
 # Initialize extensions
 db.init_app(app)
 migrate.init_app(app, db)
 mail.init_app(app)
+
+# Ensure CORS headers are present on ALL responses (including errors)
+ALLOWED_ORIGINS = [
+    "https://hexmap.in",
+    "https://www.hexmap.in",
+    "http://localhost:5173",
+    "http://localhost:5000"
+]
+
+@app.after_request
+def add_cors_headers(response):
+    origin = request.headers.get("Origin", "")
+    if origin in ALLOWED_ORIGINS:
+        response.headers["Access-Control-Allow-Origin"] = origin
+        response.headers["Access-Control-Allow-Credentials"] = "true"
+        response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, Accept, Accept-Language, Origin, X-Requested-With"
+        response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+    return response
 
 # Register API blueprints
 app.register_blueprint(auth_bp, url_prefix='/api/auth')
@@ -60,7 +83,6 @@ app.register_blueprint(support_bp, url_prefix='/api/support')
 app.register_blueprint(coupons_bp, url_prefix='/api/coupons')
 app.register_blueprint(banners_bp, url_prefix='/api/banners')
 
-from flask import request
 from backend.utils.helpers import generate_otp, verify_otp, is_valid_email
 from backend.models.user import UserModel
 
