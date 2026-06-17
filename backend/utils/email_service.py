@@ -65,17 +65,27 @@ def send_email(to_email, subject, body, is_html=False):
         msg.attach(part)
         
         # Connect to SMTP server with a strict timeout of 8 seconds
-        print(f"[SMTP CONNECT] Connecting to {server}:{port} (SSL={use_ssl}, TLS={use_tls}, Timeout=8s)...")
+        import socket
+        print(f"[SMTP RESOLVE] Resolving {server} to IPv4 address...")
+        try:
+            addr_info = socket.getaddrinfo(server, port, family=socket.AF_INET, type=socket.SOCK_STREAM)
+            resolved_ip = addr_info[0][4][0]
+            print(f"[SMTP RESOLVE] Resolved {server} to IPv4: {resolved_ip}")
+        except Exception as resolve_err:
+            print(f"[SMTP RESOLVE ERROR] Failed to resolve to IPv4: {resolve_err}. Falling back to default hostname.")
+            resolved_ip = server
+
+        print(f"[SMTP CONNECT] Connecting to {resolved_ip}:{port} (Host={server}, SSL={use_ssl}, TLS={use_tls}, Timeout=8s)...")
         if use_ssl:
-            smtp_conn = smtplib.SMTP_SSL(server, port, timeout=8)
+            smtp_conn = smtplib.SMTP_SSL(resolved_ip, port, timeout=8, server_hostname=server)
         else:
-            smtp_conn = smtplib.SMTP(server, port, timeout=8)
+            smtp_conn = smtplib.SMTP(resolved_ip, port, timeout=8)
             
         try:
             if not use_ssl and use_tls:
                 print("[SMTP STARTTLS] Sending EHLO and STARTTLS...")
                 smtp_conn.ehlo()
-                smtp_conn.starttls()
+                smtp_conn.starttls(server_hostname=server)
                 smtp_conn.ehlo()
                 
             print(f"[SMTP AUTH] Logging in as {username}...")
