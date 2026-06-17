@@ -7,7 +7,7 @@ class Config:
     SECRET_KEY = os.environ.get("JWT_SECRET", "supersecret_bharatbasket_key_123")
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URI", "mysql+pymysql://root:irshad%40786@localhost/bharatbasket")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_ECHO = os.environ.get("SQLALCHEMY_ECHO", "False").lower() in ("true", "1", "yes")
     SQLALCHEMY_ENGINE_OPTIONS = {
         "connect_args": {
             "init_command": "SET time_zone='Asia/Kolkata'"
@@ -25,3 +25,9 @@ class Config:
     # Calculate MAIL_DEFAULT_SENDER
     _default_user = os.environ.get("MAIL_USERNAME") or os.environ.get("EMAIL_ADDRESS")
     MAIL_DEFAULT_SENDER = os.environ.get("SMTP_FROM") or (f"BharatBasket <{_default_user}>" if _default_user else "BharatBasket <no-reply@bharatbasket.com>")
+
+    # Log mail config at startup for debugging (password is masked)
+    print(f"[MAIL CONFIG] Server={MAIL_SERVER}, Port={MAIL_PORT}, TLS={MAIL_USE_TLS}, SSL={MAIL_USE_SSL}")
+    print(f"[MAIL CONFIG] Username={MAIL_USERNAME}, Sender={MAIL_DEFAULT_SENDER}")
+    print(f"[MAIL CONFIG] Password={'****' + MAIL_PASSWORD[-4:] if MAIL_PASSWORD and len(MAIL_PASSWORD) >= 4 else ('SET' if MAIL_PASSWORD else 'NOT SET')}")
+

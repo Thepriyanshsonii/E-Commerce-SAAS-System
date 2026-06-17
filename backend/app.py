@@ -133,6 +133,62 @@ def root_verify_otp():
         "success": True
     }), 200
 
+# ------- Temporary Diagnostic Endpoint -------
+# REMOVE THIS ENDPOINT after confirming email works on Render
+@app.route('/api/debug/email-test', methods=['POST'])
+def debug_email_test():
+    """
+    Temporary diagnostic endpoint to test SMTP connectivity on Render.
+    Send POST with {"email": "test@example.com"} to verify email sending.
+    REMOVE THIS ENDPOINT IN PRODUCTION after confirming it works.
+    """
+    data = request.get_json() or {}
+    test_email = data.get("email")
+    
+    if not test_email:
+        return jsonify({"message": "Please provide 'email' in the request body.", "success": False}), 400
+    
+    # Gather config info for diagnostics
+    config_info = {
+        "MAIL_SERVER": app.config.get("MAIL_SERVER"),
+        "MAIL_PORT": app.config.get("MAIL_PORT"),
+        "MAIL_USE_TLS": app.config.get("MAIL_USE_TLS"),
+        "MAIL_USE_SSL": app.config.get("MAIL_USE_SSL"),
+        "MAIL_USERNAME": app.config.get("MAIL_USERNAME"),
+        "MAIL_PASSWORD_SET": bool(app.config.get("MAIL_PASSWORD")),
+        "MAIL_DEFAULT_SENDER": app.config.get("MAIL_DEFAULT_SENDER"),
+        "OTP_MODE": os.getenv("OTP_MODE", "not set"),
+        "FRONTEND_URL": os.getenv("FRONTEND_URL", "not set"),
+    }
+    
+    print(f"[EMAIL DEBUG] Testing email to {test_email} with config: {config_info}")
+    
+    try:
+        from backend.utils.email_service import send_email
+        result = send_email(
+            test_email,
+            "BharatBasket Email Test",
+            "<html><body><h2>Email Test Successful!</h2><p>If you see this, SMTP is working correctly on Render.</p></body></html>",
+            is_html=True
+        )
+        print(f"[EMAIL DEBUG] Result: {dict(result)}")
+        return jsonify({
+            "message": "Email test completed.",
+            "success": bool(result),
+            "smtp_result": dict(result),
+            "config_loaded": config_info
+        }), 200 if result else 500
+    except Exception as e:
+        print(f"[EMAIL DEBUG] Exception: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return jsonify({
+            "message": f"Email test failed with exception: {str(e)}",
+            "success": False,
+            "config_loaded": config_info
+        }), 500
+# ------- End Diagnostic Endpoint -------
+
 # Ensure static upload directory is served
 @app.route('/static/uploads/<path:filename>')
 def serve_uploads(filename):

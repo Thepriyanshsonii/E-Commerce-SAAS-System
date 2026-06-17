@@ -60,6 +60,7 @@ def send_email(to_email, subject, body, is_html=False):
             "error": None
         })
     except Exception as e:
+        import traceback
         # Check configuration here to build config_info in case context error or other
         try:
             server = current_app.config.get("MAIL_SERVER")
@@ -74,8 +75,15 @@ def send_email(to_email, subject, body, is_html=False):
             "smtp_user": username,
             "gmail_mode": bool(server and "gmail" in server.lower())
         }
+        
+        # Log detailed error info for Render logs
         error_msg = f"SMTP Transmission Failure: {str(e)}"
-        print(f"Error sending email to {to_email}: {error_msg}")
+        print(f"[SMTP SEND ERROR] Failed to send email to {to_email}")
+        print(f"[SMTP SEND ERROR] Exception type: {type(e).__name__}")
+        print(f"[SMTP SEND ERROR] Exception message: {str(e)}")
+        print(f"[SMTP SEND ERROR] Config: {config_info}")
+        traceback.print_exc()
+        
         return EmailDeliveryStatus({
             "success": False,
             "status": "failed",
