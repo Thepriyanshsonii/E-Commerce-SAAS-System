@@ -417,8 +417,8 @@ export const Home = () => {
                           </td>
                           <td className="py-3.5 pl-4">
                             <span className={`px-2 py-0.5 rounded-lg text-[10px] font-black uppercase ${log.status === 'Success'
-                                ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-450'
-                                : 'bg-rose-100 text-rose-700 dark:bg-rose-950/40 dark:text-rose-455'
+                              ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-450'
+                              : 'bg-rose-100 text-rose-700 dark:bg-rose-950/40 dark:text-rose-455'
                               }`}>
                               {log.status}
                             </span>
@@ -443,8 +443,8 @@ export const Home = () => {
                   onClick={() => setAuditPage(prev => Math.max(prev - 1, 1))}
                   disabled={auditPage === 1}
                   className={`px-3 py-1.5 font-bold rounded-lg border border-slate-200 dark:border-slate-800 transition-all ${auditPage === 1
-                      ? 'text-slate-300 dark:text-slate-700 cursor-not-allowed'
-                      : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-850'
+                    ? 'text-slate-300 dark:text-slate-700 cursor-not-allowed'
+                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-850'
                     }`}
                 >
                   Previous
@@ -453,8 +453,8 @@ export const Home = () => {
                   onClick={() => setAuditPage(prev => Math.min(prev + 1, Math.ceil(generalAuditLogs.length / auditPerPage)))}
                   disabled={auditPage >= Math.ceil(generalAuditLogs.length / auditPerPage)}
                   className={`px-3 py-1.5 font-bold rounded-lg border border-slate-200 dark:border-slate-800 transition-all ${auditPage >= Math.ceil(generalAuditLogs.length / auditPerPage)
-                      ? 'text-slate-300 dark:text-slate-700 cursor-not-allowed'
-                      : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-850'
+                    ? 'text-slate-300 dark:text-slate-700 cursor-not-allowed'
+                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-850'
                     }`}
                 >
                   Next
@@ -565,8 +565,8 @@ export const Home = () => {
                   setUserPage(1);
                 }}
                 className={`px-4 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer ${userFilter === f.value
-                    ? 'bg-slate-900 border-slate-900 text-white dark:bg-white dark:border-white dark:text-slate-900 shadow-sm'
-                    : 'bg-white border-slate-200 text-slate-650 hover:bg-slate-50 dark:bg-slate-950 dark:border-slate-800 dark:text-slate-400 dark:hover:bg-slate-850'
+                  ? 'bg-slate-900 border-slate-900 text-white dark:bg-white dark:border-white dark:text-slate-900 shadow-sm'
+                  : 'bg-white border-slate-200 text-slate-650 hover:bg-slate-50 dark:bg-slate-950 dark:border-slate-800 dark:text-slate-400 dark:hover:bg-slate-850'
                   }`}
               >
                 {f.label}
@@ -668,8 +668,8 @@ export const Home = () => {
                         </td>
                         <td className="py-4 px-6">
                           <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${u.is_blocked
-                              ? 'bg-rose-500/10 text-rose-500 border-rose-500/20'
-                              : 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20'
+                            ? 'bg-rose-500/10 text-rose-500 border-rose-500/20'
+                            : 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20'
                             }`}>
                             {u.is_blocked ? 'Blocked' : 'Active'}
                           </span>
@@ -714,8 +714,8 @@ export const Home = () => {
                     key={p}
                     onClick={() => setUserPage(p)}
                     className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${userPage === p
-                        ? 'bg-emerald-500 text-white shadow-sm'
-                        : 'border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-850 text-slate-600 dark:text-slate-400'
+                      ? 'bg-emerald-500 text-white shadow-sm'
+                      : 'border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-850 text-slate-600 dark:text-slate-400'
                       }`}
                   >
                     {p}
@@ -1130,8 +1130,8 @@ export const Home = () => {
                 <button
                   onClick={() => setActiveTab('products')}
                   className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeTab === 'products'
-                      ? 'bg-emerald-500 text-white shadow-md'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                    ? 'bg-emerald-500 text-white shadow-md'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                     }`}
                 >
                   All Products
@@ -1139,8 +1139,8 @@ export const Home = () => {
                 <button
                   onClick={() => setActiveTab('users')}
                   className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeTab === 'users'
-                      ? 'bg-emerald-500 text-white shadow-md'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                    ? 'bg-emerald-500 text-white shadow-md'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                     }`}
                 >
                   Users Data
@@ -1148,8 +1148,8 @@ export const Home = () => {
                 <button
                   onClick={() => setActiveTab('analytics')}
                   className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeTab === 'analytics'
-                      ? 'bg-emerald-500 text-white shadow-md'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                    ? 'bg-emerald-500 text-white shadow-md'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                     }`}
                 >
                   Admin Analytics
@@ -1193,7 +1193,7 @@ export const Home = () => {
         {activeTab === 'products' && loading && (
           <div className="flex flex-col items-center justify-center py-20">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-500"></div>
-            <p className="text-slate-500 dark:text-slate-400 mt-4 text-sm font-semibold">Loading awesome products...</p>
+            <p className="text-slate-500 dark:text-slate-400 mt-4 text-sm font-semibold">Loading...</p>
           </div>
         )}
 
@@ -1684,10 +1684,10 @@ export const Home = () => {
                               </td>
                               <td className="py-3 px-2 text-center">
                                 <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold border ${order.order_status === 'Delivered'
-                                    ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20'
-                                    : order.order_status === 'Cancelled'
-                                      ? 'bg-rose-500/10 text-rose-500 border-rose-500/20'
-                                      : 'bg-amber-500/10 text-amber-500 border-amber-500/20'
+                                  ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20'
+                                  : order.order_status === 'Cancelled'
+                                    ? 'bg-rose-500/10 text-rose-500 border-rose-500/20'
+                                    : 'bg-amber-500/10 text-amber-500 border-amber-500/20'
                                   }`}>
                                   {order.order_status}
                                 </span>
@@ -1802,8 +1802,8 @@ export const Home = () => {
                                   {banner.title}
                                 </h4>
                                 <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${banner.is_active
-                                    ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20'
-                                    : 'bg-slate-500/10 text-slate-500 border border-slate-500/20'
+                                  ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20'
+                                  : 'bg-slate-500/10 text-slate-500 border border-slate-500/20'
                                   }`}>
                                   {banner.is_active ? 'Active' : 'Inactive'}
                                 </span>

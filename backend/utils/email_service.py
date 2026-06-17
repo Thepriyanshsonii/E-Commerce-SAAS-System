@@ -12,15 +12,28 @@ class EmailDeliveryStatus(dict):
 
 def send_email(to_email, subject, body, is_html=False):
     """
-    Sends an email using Flask-Mail.
+    Sends an email using standard smtplib with connection timeout and logging.
     Returns an EmailDeliveryStatus instance containing success status, configuration details, and errors.
     """
+    import smtplib
+    from email.mime.text import MIMEText
+    from email.mime.multipart import MIMEMultipart
+
+    server = None
+    port = None
+    username = None
+    password = None
+    config_info = {}
+    
     try:
         # Check if configuration exists
         server = current_app.config.get("MAIL_SERVER")
         port = current_app.config.get("MAIL_PORT")
         username = current_app.config.get("MAIL_USERNAME")
         password = current_app.config.get("MAIL_PASSWORD")
+        use_tls = current_app.config.get("MAIL_USE_TLS")
+        use_ssl = current_app.config.get("MAIL_USE_SSL")
+        default_sender = current_app.config.get("MAIL_DEFAULT_SENDER")
         
         config_info = {
             "smtp_host": server,
@@ -40,43 +53,54 @@ def send_email(to_email, subject, body, is_html=False):
             })
             
         # Formulate Message
-        msg = Message(
-            subject=subject,
-            recipients=[to_email]
-        )
-        if is_html or "<html>" in body:
-            msg.html = body
-        else:
-            msg.body = body
-            
-        # Send
-        mail.send(msg)
+        msg = MIMEMultipart("alternative")
+        msg["Subject"] = subject
+        msg["From"] = default_sender
+        msg["To"] = to_email
         
-        print(f"Email successfully sent via Flask-Mail to {to_email}")
-        return EmailDeliveryStatus({
-            "success": True,
-            "status": "delivered",
-            "configuration": config_info,
-            "error": None
-        })
+        if is_html or "<html>" in body:
+            part = MIMEText(body, "html", "utf-8")
+        else:
+            part = MIMEText(body, "plain", "utf-8")
+        msg.attach(part)
+        
+        # Connect to SMTP server with a strict timeout of 8 seconds
+        print(f"[SMTP CONNECT] Connecting to {server}:{port} (SSL={use_ssl}, TLS={use_tls}, Timeout=8s)...")
+        if use_ssl:
+            smtp_conn = smtplib.SMTP_SSL(server, port, timeout=8)
+        else:
+            smtp_conn = smtplib.SMTP(server, port, timeout=8)
+            
+        try:
+            if not use_ssl and use_tls:
+                print("[SMTP STARTTLS] Sending EHLO and STARTTLS...")
+                smtp_conn.ehlo()
+                smtp_conn.starttls()
+                smtp_conn.ehlo()
+                
+            print(f"[SMTP AUTH] Logging in as {username}...")
+            smtp_conn.login(username, password)
+            
+            print(f"[SMTP SEND] Sending email to {to_email}...")
+            smtp_conn.sendmail(default_sender, [to_email], msg.as_string())
+            smtp_conn.quit()
+            
+            print(f"Email successfully sent via smtplib to {to_email}")
+            return EmailDeliveryStatus({
+                "success": True,
+                "status": "delivered",
+                "configuration": config_info,
+                "error": None
+            })
+        except Exception as conn_err:
+            try:
+                smtp_conn.close()
+            except Exception:
+                pass
+            raise conn_err
+            
     except Exception as e:
         import traceback
-        # Check configuration here to build config_info in case context error or other
-        try:
-            server = current_app.config.get("MAIL_SERVER")
-            port = current_app.config.get("MAIL_PORT")
-            username = current_app.config.get("MAIL_USERNAME")
-        except Exception:
-            server, port, username = None, None, None
-            
-        config_info = {
-            "smtp_host": server,
-            "smtp_port": port,
-            "smtp_user": username,
-            "gmail_mode": bool(server and "gmail" in server.lower())
-        }
-        
-        # Log detailed error info for Render logs
         error_msg = f"SMTP Transmission Failure: {str(e)}"
         print(f"[SMTP SEND ERROR] Failed to send email to {to_email}")
         print(f"[SMTP SEND ERROR] Exception type: {type(e).__name__}")
