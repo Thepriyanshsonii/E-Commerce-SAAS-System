@@ -30,7 +30,7 @@ export const Support = () => {
         console.error(err);
         // Fallback FAQs if backend is offline
         setFaqs([
-          { id: 1, question: "What is BharatBasket?", answer: "BharatBasket is a modern e-commerce site where you can buy daily essentials, groceries, electronics, and fashion items, inspired by Flipkart and Amazon." },
+          { id: 1, question: "What is SSJewellery?", answer: "SSJewellery is a premium luxury jewelry e-commerce brand specializing in handcrafted rings, necklaces, earrings, bracelets, and bridal collections." },
           { id: 2, question: "How do I track my order?", answer: "Go to the 'My Orders' tab in the navbar. You will see the delivery status, purchase details, and estimated delivery dates for all your orders." },
           { id: 3, question: "What is the OTP verification during checkout?", answer: "To secure your transaction, we send a 6-digit OTP code to your registered email. Enter this OTP during checkout to complete your order." }
         ]);

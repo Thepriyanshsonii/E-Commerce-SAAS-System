@@ -139,7 +139,7 @@ export const Register = () => {
             Create Account
           </h2>
           <p className="mt-1.5 text-xs text-slate-450">
-            Register below to start purchasing premium products on BharatBasket.
+            Register below to start purchasing premium products on SSJewellery.
           </p>
         </div>
 

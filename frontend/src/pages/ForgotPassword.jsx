@@ -184,7 +184,7 @@ export const ForgotPassword = () => {
             <div className="p-2 bg-emerald-100 dark:bg-emerald-950/40 rounded-2xl border border-emerald-500/20">
               <ShoppingBag className="h-6 w-6" />
             </div>
-            <span className="font-extrabold tracking-wider text-sm uppercase">BharatBasket</span>
+            <span className="font-extrabold tracking-wider text-sm uppercase">SSJewellery</span>
           </div>
           <h2 className="text-3xl font-black tracking-tight text-slate-800 dark:text-white">
             {step === 1 ? 'Forgot Password' : 'Verify Security OTP'}

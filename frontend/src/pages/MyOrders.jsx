@@ -30,7 +30,7 @@ const formatTimestamp = (dateInput) => {
 export const MyOrders = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, updateUser, token, savePreferredLanguage } = useContext(AuthContext);
+  const { user, token } = useContext(AuthContext);
   const { 
     wishlist, removeFromWishlist, addToCart,
     savedForLater, moveToCartItem, removeFromSavedForLater 
@@ -44,15 +44,17 @@ export const MyOrders = () => {
   }, [user, navigate]);
 
   // Dashboard state
-  const [activeTab, setActiveTab] = useState('orders'); // 'orders' | 'wishlist' | 'saved' | 'profile' | 'buy-requests'
+  const [activeTab, setActiveTab] = useState('orders'); // 'orders' | 'wishlist' | 'saved' | 'buy-requests'
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const tab = params.get('tab');
-    if (tab && ['orders', 'wishlist', 'saved', 'profile', 'buy-requests'].includes(tab)) {
+    if (tab === 'profile') {
+      navigate('/profile');
+    } else if (tab && ['orders', 'wishlist', 'saved', 'buy-requests'].includes(tab)) {
       setActiveTab(tab);
     }
-  }, [location.search]);
+  }, [location.search, navigate]);
   
   // Orders states
   const [orders, setOrders] = useState([]);
@@ -65,52 +67,10 @@ export const MyOrders = () => {
   const [returnLoading, setReturnLoading] = useState(false);
   const [returnMessage, setReturnMessage] = useState('');
 
-  // Profile states
-  const [profileName, setProfileName] = useState(user?.name || '');
-  const [profileEmail, setProfileEmail] = useState(user?.email || '');
-  const [profileMobile, setProfileMobile] = useState(user?.mobile || '');
-  const [street, setStreet] = useState(user?.address?.street || '');
-  const [city, setCity] = useState(user?.address?.city || '');
-  const [state, setState] = useState(user?.address?.state || '');
-  const [pincode, setPincode] = useState(user?.address?.pincode || '');
-  const [alternateMobile, setAlternateMobile] = useState(user?.address?.alternate_mobile_number || '');
-  const [validationError, setValidationError] = useState('');
-  const [profileLoading, setProfileLoading] = useState(false);
-  const [profileMessage, setProfileMessage] = useState('');
-  const [profileError, setProfileError] = useState('');
-
-  // Password change states
-  const [currentPassword, setCurrentPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [passwordLoading, setPasswordLoading] = useState(false);
-  const [passwordMessage, setPasswordMessage] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-
-  // Language preference states
-  const [prefLang, setPrefLang] = useState(user?.preferred_language || language || 'en');
-  const [langLoading, setLangLoading] = useState(false);
-  const [langMessage, setLangMessage] = useState('');
-  const [langError, setLangError] = useState('');
-
   // Buy Requests states
   const [buyRequests, setBuyRequests] = useState([]);
   const [buyRequestsLoading, setBuyRequestsLoading] = useState(false);
   const [buyRequestsError, setBuyRequestsError] = useState('');
-
-  // Sync profile state when user updates
-  useEffect(() => {
-    if (user) {
-      setProfileName(user.name || '');
-      setProfileEmail(user.email || '');
-      setProfileMobile(user.mobile || '');
-      setStreet(user.address?.street || '');
-      setCity(user.address?.city || '');
-      setState(user.address?.state || '');
-      setPincode(user.address?.pincode || '');
-      setAlternateMobile(user.address?.alternate_mobile_number || '');
-      setPrefLang(user.preferred_language || language || 'en');
-    }
-  }, [user, language]);
 
   // Fetch orders
   const fetchOrders = async () => {
@@ -221,87 +181,7 @@ export const MyOrders = () => {
     }
   };
 
-  const handleAlternateMobileChange = (val) => {
-    setAlternateMobile(val);
-    if (!val) {
-      setValidationError('');
-    } else if (!/^\d*$/.test(val)) {
-      setValidationError('Alternate Mobile Number must contain only numeric values.');
-    } else if (val.length !== 10) {
-      setValidationError('Alternate Mobile Number must be exactly 10 digits.');
-    } else {
-      setValidationError('');
-    }
-  };
 
-  // Profile update
-  const handleProfileUpdate = async (e) => {
-    e.preventDefault();
-    if (validationError) {
-      setProfileError(validationError);
-      return;
-    }
-    if (alternateMobile) {
-      if (!/^\d{10}$/.test(alternateMobile)) {
-        setProfileError("Alternate Mobile Number must be exactly 10 digits and numeric only.");
-        return;
-      }
-    }
-    setProfileLoading(true);
-    setProfileMessage('');
-    setProfileError('');
-    try {
-      const response = await axios.put(`${API_BASE_URL}/auth/profile`, {
-        name: profileName,
-        email: profileEmail,
-        mobile: profileMobile,
-        address: { street, city, state, pincode, alternate_mobile_number: alternateMobile }
-      });
-      updateUser(response.data.user);
-      setProfileMessage("Profile updated successfully!");
-    } catch (err) {
-      console.error(err);
-      setProfileError(err.response?.data?.message || "Failed to update profile.");
-    } finally {
-      setProfileLoading(false);
-    }
-  };
-
-  // Password update
-  const handlePasswordChange = async (e) => {
-    e.preventDefault();
-    setPasswordLoading(true);
-    setPasswordMessage('');
-    setPasswordError('');
-    try {
-      await axios.put(`${API_BASE_URL}/auth/password`, { current_password: currentPassword, new_password: newPassword });
-      setPasswordMessage("Password updated successfully!");
-      setCurrentPassword('');
-      setNewPassword('');
-    } catch (err) {
-      console.error(err);
-      setPasswordError(err.response?.data?.message || "Failed to update password.");
-    } finally {
-      setPasswordLoading(false);
-    }
-  };
-
-  // Language preference update
-  const handleSaveLanguagePreference = async (e) => {
-    e.preventDefault();
-    setLangLoading(true);
-    setLangMessage('');
-    setLangError('');
-    try {
-      await savePreferredLanguage(prefLang);
-      setLangMessage(language === 'hi' ? "भाषा प्राथमिकता सफलतापूर्वक सहेजी गई!" : "Language preference saved successfully!");
-    } catch (err) {
-      console.error(err);
-      setLangError(err.response?.data?.message || err.message || "Failed to update language preference.");
-    } finally {
-      setLangLoading(false);
-    }
-  };
 
 
 
@@ -309,7 +189,7 @@ export const MyOrders = () => {
   const getStatusStyle = (status) => {
     switch (status) {
       case 'Delivered':
-        return 'text-emerald-600 bg-emerald-100 dark:text-emerald-400 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-900';
+        return 'text-[#D4A75F] bg-[#D4A75F]/10 dark:text-[#D4A75F] dark:bg-[#D4A75F]/30 border-[#D4A75F]/20 dark:border-[#D4A75F]/45';
       case 'Out for Delivery':
         return 'text-sky-600 bg-sky-100 dark:text-sky-400 dark:bg-sky-950/30 border-sky-200 dark:border-sky-900';
       case 'Shipped':
@@ -350,23 +230,23 @@ export const MyOrders = () => {
           <style>
             body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #1e293b; padding: 40px; }
             .invoice-box { max-width: 800px; margin: auto; padding: 30px; border: 1px solid #e2e8f0; border-radius: 12px; }
-            .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #10b981; padding-bottom: 20px; }
+            .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #3F1D5A; padding-bottom: 20px; }
             .details { display: flex; justify-content: space-between; margin: 30px 0; }
             table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
             th { background-color: #f8fafc; padding: 12px 10px; border-bottom: 2px solid #cbd5e1; }
-            .totals { font-size: 18px; font-weight: bold; color: #10b981; border-top: 2px solid #e2e8f0; padding-top: 15px; display: flex; justify-content: space-between; }
+            .totals { font-size: 18px; font-weight: bold; color: #3F1D5A; border-top: 2px solid #e2e8f0; padding-top: 15px; display: flex; justify-content: space-between; }
           </style>
         </head>
         <body>
           <div class="invoice-box">
             <div class="header">
               <div>
-                <h1 style="color: #10b981; margin: 0;">BharatBasket Invoice</h1>
+                <h1 style="color: #3F1D5A; margin: 0;">SSJewellery Invoice</h1>
                 <p>Order Reference: ${order.order_id}</p>
               </div>
               <div style="text-align: right;">
-                <p><strong>BharatBasket Ltd.</strong></p>
-                <p>support@bharatbasket.com</p>
+                <p><strong>SSJewellery Ltd.</strong></p>
+                <p>support@SSJewellery.com</p>
               </div>
             </div>
             <div class="details">
@@ -430,10 +310,10 @@ export const MyOrders = () => {
         
         {/* Profile Summary Header */}
         <div className="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 rounded-3xl p-6 mb-8 flex flex-col md:flex-row md:items-center md:justify-between shadow-sm relative overflow-hidden">
-          <div className="absolute -top-12 -right-12 h-32 w-32 bg-emerald-500/5 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute -top-12 -right-12 h-32 w-32 bg-[#D4A75F]/5 rounded-full blur-2xl pointer-events-none" />
           
           <div className="flex items-center space-x-4">
-            <div className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-450 p-4 rounded-2xl border border-emerald-500/20">
+            <div className="bg-[#D4A75F]/10 text-[#D4A75F] dark:text-[#D4A75F] p-4 rounded-2xl border border-[#D4A75F]/20">
               <User className="h-8 w-8" />
             </div>
             <div>
@@ -471,7 +351,7 @@ export const MyOrders = () => {
               onClick={() => setActiveTab('orders')}
               className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-bold transition-all ${
                 activeTab === 'orders'
-                  ? 'bg-emerald-500 text-white shadow-md'
+                  ? 'bg-[#3F1D5A] text-white shadow-md'
                   : 'bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-850 text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-800/50'
               }`}
             >
@@ -483,7 +363,7 @@ export const MyOrders = () => {
               onClick={() => setActiveTab('buy-requests')}
               className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold transition-all ${
                 activeTab === 'buy-requests'
-                  ? 'bg-emerald-500 text-white shadow-md'
+                  ? 'bg-[#3F1D5A] text-white shadow-md'
                   : 'bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-850 text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-800/50'
               }`}
             >
@@ -502,7 +382,7 @@ export const MyOrders = () => {
               onClick={() => setActiveTab('wishlist')}
               className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold transition-all ${
                 activeTab === 'wishlist'
-                  ? 'bg-emerald-500 text-white shadow-md'
+                  ? 'bg-[#3F1D5A] text-white shadow-md'
                   : 'bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-850 text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-800/50'
               }`}
             >
@@ -510,7 +390,7 @@ export const MyOrders = () => {
                 <Heart className="h-4.5 w-4.5" />
                 <span>{t('my_orders.my_wishlist')}</span>
               </div>
-              <span className={`text-xs px-2 py-0.5 rounded-full ${activeTab === 'wishlist' ? 'bg-emerald-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500'}`}>
+              <span className={`text-xs px-2 py-0.5 rounded-full ${activeTab === 'wishlist' ? 'bg-[#D4A75F] text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500'}`}>
                 {wishlist.length}
               </span>
             </button>
@@ -519,7 +399,7 @@ export const MyOrders = () => {
               onClick={() => setActiveTab('saved')}
               className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold transition-all ${
                 activeTab === 'saved'
-                  ? 'bg-emerald-500 text-white shadow-md'
+                  ? 'bg-[#3F1D5A] text-white shadow-md'
                   : 'bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-850 text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-800/50'
               }`}
             >
@@ -527,24 +407,14 @@ export const MyOrders = () => {
                 <Bookmark className="h-4.5 w-4.5" />
                 <span>{t('my_orders.saved_for_later')}</span>
               </div>
-              <span className={`text-xs px-2 py-0.5 rounded-full ${activeTab === 'saved' ? 'bg-emerald-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500'}`}>
+              <span className={`text-xs px-2 py-0.5 rounded-full ${activeTab === 'saved' ? 'bg-[#D4A75F] text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500'}`}>
                 {savedForLater.length}
               </span>
             </button>
 
 
 
-            <button
-              onClick={() => setActiveTab('profile')}
-              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-bold transition-all ${
-                activeTab === 'profile'
-                  ? 'bg-emerald-500 text-white shadow-md'
-                  : 'bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-850 text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-800/50'
-              }`}
-            >
-              <User className="h-4.5 w-4.5" />
-              <span>{t('my_orders.account_addresses')}</span>
-            </button>
+
           </div>
 
           {/* MAIN WORKSPACE PANEL */}
@@ -556,16 +426,36 @@ export const MyOrders = () => {
                 <h3 className="text-lg font-extrabold text-slate-900 dark:text-white mb-2">{t('my_orders.order_history')}</h3>
                 
                 {ordersLoading && (
-                  <div className="flex flex-col items-center justify-center py-20 bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 rounded-3xl">
-                    <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-emerald-500"></div>
-                    <p className="text-slate-455 mt-4 text-xs font-bold">{t('my_orders.querying_billing')}</p>
+                  <div className="space-y-4">
+                    {Array.from({ length: 3 }).map((_, idx) => (
+                      <div key={idx} className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/80 rounded-2xl p-5 space-y-4">
+                        <div className="flex justify-between items-center pb-3 border-b border-slate-50 dark:border-slate-800/40">
+                          <div className="space-y-2">
+                            <div className="skeleton-premium h-3 w-28 rounded" />
+                            <div className="skeleton-premium h-4 w-36 rounded" />
+                          </div>
+                          <div className="skeleton-premium h-6 w-20 rounded-full" />
+                        </div>
+                        <div className="flex items-center space-x-4">
+                          <div className="skeleton-premium h-16 w-16 rounded-xl flex-shrink-0" />
+                          <div className="flex-1 space-y-2">
+                            <div className="skeleton-premium h-4 w-1/2 rounded" />
+                            <div className="skeleton-premium h-3 w-1/4 rounded" />
+                          </div>
+                        </div>
+                        <div className="flex justify-between items-center pt-2">
+                          <div className="skeleton-premium h-5 w-24 rounded" />
+                          <div className="skeleton-premium h-8 w-20 rounded-lg" />
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 )}
 
                 {ordersError && (
                   <div className="bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900 p-6 rounded-2xl text-center">
                     <p className="text-red-500 font-bold">{ordersError}</p>
-                    <button onClick={fetchOrders} className="mt-3 px-4 py-2 bg-emerald-500 text-white rounded-xl text-xs font-bold">{language === 'hi' ? 'पुनः प्रयास करें' : 'Retry'}</button>
+                    <button onClick={fetchOrders} className="mt-3 px-4 py-2 bg-[#3F1D5A] text-white rounded-xl text-xs font-bold">{language === 'hi' ? 'पुनः प्रयास करें' : 'Retry'}</button>
                   </div>
                 )}
 
@@ -574,7 +464,7 @@ export const MyOrders = () => {
                     <Package className="h-12 w-12 text-slate-300 mx-auto" />
                     <h4 className="text-base font-bold mt-4">{t('my_orders.no_orders_found')}</h4>
                     <p className="text-xs text-slate-450 mt-1">{t('my_orders.check_back_purchase')}</p>
-                    <button onClick={() => navigate('/')} className="mt-5 px-5 py-2 bg-emerald-500 text-white rounded-xl text-xs font-bold shadow-sm">{t('my_orders.shop_catalog')}</button>
+                    <button onClick={() => navigate('/')} className="mt-5 px-5 py-2 bg-[#3F1D5A] text-white rounded-xl text-xs font-bold shadow-sm">{t('my_orders.shop_catalog')}</button>
                   </div>
                 )}
 
@@ -632,13 +522,13 @@ export const MyOrders = () => {
                             <div className="flex items-center space-x-2">
                               <button
                                 onClick={() => setTrackingOrder(order)}
-                                className="px-3 py-1.5 bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-450 border border-emerald-100 dark:border-emerald-900 text-xs font-bold rounded-xl hover:bg-emerald-150 transition-colors"
+                                className="px-3 py-1.5 bg-[#D4A75F]/10 dark:bg-[#D4A75F]/20 text-[#D4A75F] dark:text-[#D4A75F] border border-[#D4A75F]/10 dark:border-[#D4A75F]/45 text-xs font-bold rounded-xl hover:bg-[#D4A75F]/20 transition-colors"
                               >
                                 {t('my_orders.live_track')}
                               </button>
                               <button
                                 onClick={() => toggleExpand(order._id)}
-                                className="p-1.5 text-slate-400 hover:text-emerald-500 rounded-xl"
+                                className="p-1.5 text-slate-400 hover:text-[#D4A75F] rounded-xl"
                               >
                                 {isExpanded ? <ChevronUp className="h-4.5 w-4.5" /> : <ChevronDown className="h-4.5 w-4.5" />}
                               </button>
@@ -666,7 +556,7 @@ export const MyOrders = () => {
                                   <div className="flex flex-col items-start sm:items-end space-y-2 mt-1">
                                     <button 
                                       onClick={() => handleDownloadInvoice(order)}
-                                      className="inline-flex items-center space-x-1.5 text-emerald-600 hover:underline font-bold"
+                                      className="inline-flex items-center space-x-1.5 text-[#D4A75F] hover:underline font-bold"
                                     >
                                       <FileText className="h-4 w-4" />
                                       <span>{t('my_orders.download_invoice')}</span>
@@ -687,7 +577,7 @@ export const MyOrders = () => {
                                           <div className="text-left sm:text-right">
                                             <p className="text-[10px] font-bold text-slate-400">{t('my_orders.return_request_status')}</p>
                                             <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-black mt-1 ${
-                                              order.return_request.status === 'Approved' ? 'bg-emerald-100 text-emerald-700' :
+                                              order.return_request.status === 'Approved' ? 'bg-[#D4A75F]/10 text-[#D4A75F]' :
                                               order.return_request.status === 'Rejected' ? 'bg-red-100 text-red-700' :
                                               'bg-amber-100 text-amber-700'
                                             }`}>
@@ -750,9 +640,22 @@ export const MyOrders = () => {
                 </div>
 
                 {buyRequestsLoading && buyRequests.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center py-12">
-                    <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-emerald-500"></div>
-                    <p className="text-slate-500 text-xs mt-3">{language === 'hi' ? 'अनुरोध लोड हो रहे हैं...' : 'Loading requests...'}</p>
+                  <div className="space-y-4">
+                    {Array.from({ length: 3 }).map((_, idx) => (
+                      <div key={idx} className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/80 rounded-2xl p-5 space-y-4">
+                        <div className="flex justify-between items-center pb-3 border-b border-slate-50 dark:border-slate-800/40">
+                          <div className="space-y-2">
+                            <div className="skeleton-premium h-3.5 w-24 rounded" />
+                            <div className="skeleton-premium h-4 w-40 rounded" />
+                          </div>
+                          <div className="skeleton-premium h-6 w-16 rounded-full" />
+                        </div>
+                        <div className="space-y-2">
+                          <div className="skeleton-premium h-3 w-1/2 rounded" />
+                          <div className="skeleton-premium h-3.5 w-1/3 rounded" />
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 ) : buyRequests.length === 0 ? (
                   <div className="text-center py-12 bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
@@ -776,7 +679,7 @@ export const MyOrders = () => {
                         badgeClass = 'bg-amber-100 text-amber-700 border-amber-200 dark:bg-amber-950/20 dark:text-amber-400 dark:border-amber-900/30';
                         statusText = language === 'hi' ? 'लंबित' : 'Pending';
                       } else if (req.status === 'Approved') {
-                        badgeClass = 'bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-emerald-950/20 dark:text-emerald-400 dark:border-emerald-900/30 animate-pulse';
+                        badgeClass = 'bg-[#D4A75F]/10 text-[#D4A75F] border-[#D4A75F]/20 dark:bg-[#D4A75F]/20 dark:text-[#D4A75F] dark:border-[#D4A75F]/45/30 animate-pulse';
                         statusText = language === 'hi' ? 'स्वीकृत - पुष्टि आवश्यक' : 'Approved - Confirmation Required';
                       } else if (req.status === 'Awaiting Payment') {
                         badgeClass = 'bg-rose-100 text-rose-700 border-rose-200 dark:bg-rose-950/20 dark:text-rose-400 dark:border-rose-900/30 animate-pulse';
@@ -794,7 +697,7 @@ export const MyOrders = () => {
                         badgeClass = 'bg-indigo-100 text-indigo-700 border-indigo-200 dark:bg-indigo-950/20 dark:text-indigo-405 dark:border-indigo-900/30';
                         statusText = language === 'hi' ? 'ऑर्डर की तैयारी...' : 'Order Preparation...';
                       } else if (req.status === 'Available') {
-                        badgeClass = 'bg-emerald-500 text-white border-emerald-600 dark:bg-emerald-600 dark:border-emerald-700 animate-pulse';
+                        badgeClass = 'bg-[#3F1D5A] text-white border-[#D4A75F] dark:bg-[#D4A75F] dark:border-[#D4A75F]/80 animate-pulse';
                         statusText = language === 'hi' ? 'खरीद के लिए उपलब्ध!' : 'Available for Purchase!';
                       } else if (req.status === 'Purchased') {
                         badgeClass = 'bg-slate-100 text-slate-700 border-slate-205 dark:bg-slate-800 dark:text-slate-405 dark:border-slate-700';
@@ -886,7 +789,7 @@ export const MyOrders = () => {
                                 </button>
                                 <button
                                   onClick={() => handleRespondBuyRequest(req.id, 'Confirm')}
-                                  className="flex-1 sm:flex-none px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl text-xs border-none cursor-pointer shadow-md shadow-emerald-500/10 transition-colors"
+                                  className="flex-1 sm:flex-none px-4 py-2 bg-[#3F1D5A] hover:bg-[#D4A75F] text-white font-bold rounded-xl text-xs border-none cursor-pointer shadow-md shadow-[#D4A75F]/10 transition-colors"
                                 >
                                   {language === 'hi' ? 'ऑर्डर की पुष्टि करें' : 'Confirm Order'}
                                 </button>
@@ -903,7 +806,7 @@ export const MyOrders = () => {
                                 </button>
                                 <button
                                   onClick={() => navigate(`/checkout?buy_request_id=${req.id}`)}
-                                  className="flex-1 sm:flex-none px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl text-xs border-none cursor-pointer shadow-md shadow-emerald-500/10 transition-colors animate-pulse"
+                                  className="flex-1 sm:flex-none px-4 py-2 bg-[#3F1D5A] hover:bg-[#D4A75F] text-white font-bold rounded-xl text-xs border-none cursor-pointer shadow-md shadow-[#D4A75F]/10 transition-colors animate-pulse"
                                 >
                                   {language === 'hi' ? 'भुगतान करें' : 'Pay Now'}
                                 </button>
@@ -922,7 +825,7 @@ export const MyOrders = () => {
                             {isAvailable && (
                               <button
                                 onClick={() => handleBuyRequestCheckout(req)}
-                                className="w-full sm:w-auto px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white font-black rounded-xl text-xs border-none cursor-pointer shadow-lg shadow-emerald-500/10 flex items-center justify-center gap-1.5 transition-all active:scale-97"
+                                className="w-full sm:w-auto px-6 py-2.5 bg-[#3F1D5A] hover:bg-[#D4A75F] text-white font-black rounded-xl text-xs border-none cursor-pointer shadow-lg shadow-[#D4A75F]/10 flex items-center justify-center gap-1.5 transition-all active:scale-97"
                               >
                                 <ShoppingBag className="h-4 w-4" />
                                 <span>{t('my_orders.checkout_now')}</span>
@@ -947,7 +850,7 @@ export const MyOrders = () => {
                     <Heart className="h-12 w-12 text-slate-300 mx-auto" />
                     <h4 className="text-base font-bold mt-4">{t('my_orders.wishlist_empty')}</h4>
                     <p className="text-xs text-slate-450 mt-1">{t('my_orders.wishlist_empty_desc')}</p>
-                    <button onClick={() => navigate('/')} className="mt-5 px-5 py-2 bg-emerald-500 text-white rounded-xl text-xs font-bold">{t('my_orders.shop_catalog')}</button>
+                    <button onClick={() => navigate('/')} className="mt-5 px-5 py-2 bg-[#3F1D5A] text-white rounded-xl text-xs font-bold">{t('my_orders.shop_catalog')}</button>
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -962,7 +865,7 @@ export const MyOrders = () => {
                           />
                           <div className="flex-grow min-w-0 flex flex-col justify-between">
                             <div>
-                              <h4 className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-100 truncate hover:text-emerald-500">
+                              <h4 className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-100 truncate hover:text-[#D4A75F]">
                                 <Link to={`/product/${item._id || item.product_id}`}>{item.name}</Link>
                               </h4>
                               <div className="flex items-center space-x-1.5 mt-1">
@@ -970,7 +873,7 @@ export const MyOrders = () => {
                                 {item.discount > 0 && (
                                   <>
                                     <span className="text-[10px] text-slate-400 line-through">₹{item.price}</span>
-                                    <span className="text-[9px] font-bold text-emerald-500 bg-emerald-100/50 dark:bg-emerald-950/40 px-1 rounded">{item.discount}% {t('home.off')}</span>
+                                    <span className="text-[9px] font-bold text-[#D4A75F] bg-[#D4A75F]/10/50 dark:bg-emerald-950/40 px-1 rounded">{item.discount}% {t('home.off')}</span>
                                   </>
                                 )}
                               </div>
@@ -982,7 +885,7 @@ export const MyOrders = () => {
                                   addToCart(item);
                                   removeFromWishlist(item._id || item.product_id);
                                 }}
-                                className="flex-grow py-1.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg text-[10px] font-bold shadow-sm transition-all"
+                                className="flex-grow py-1.5 bg-[#3F1D5A] hover:bg-[#D4A75F] text-white rounded-lg text-[10px] font-bold shadow-sm transition-all"
                               >
                                 {t('my_orders.move_to_cart')}
                               </button>
@@ -1024,7 +927,7 @@ export const MyOrders = () => {
                         />
                         <div className="flex-grow min-w-0 flex flex-col justify-between">
                           <div>
-                            <h4 className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-100 truncate hover:text-emerald-500">
+                            <h4 className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-100 truncate hover:text-[#D4A75F]">
                               <Link to={`/product/${item.product_id}`}>{item.name}</Link>
                             </h4>
                             <div className="flex items-center space-x-1.5 mt-1">
@@ -1035,7 +938,7 @@ export const MyOrders = () => {
                           <div className="flex items-center space-x-2 mt-3">
                             <button
                               onClick={() => moveToCartItem(item.product_id)}
-                              className="flex-grow py-1.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg text-[10px] font-bold shadow-sm transition-all"
+                              className="flex-grow py-1.5 bg-[#3F1D5A] hover:bg-[#D4A75F] text-white rounded-lg text-[10px] font-bold shadow-sm transition-all"
                             >
                               {t('my_orders.add_back_cart')}
                             </button>
@@ -1054,282 +957,6 @@ export const MyOrders = () => {
               </div>
             )}
 
-            {/* TAB: PROFILE MANAGEMENT */}
-            {activeTab === 'profile' && (
-              <div className="space-y-8">
-                {/* Profile Edit Card */}
-                <div className="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 rounded-3xl p-6 shadow-sm">
-                  <h3 className="text-base font-extrabold text-slate-900 dark:text-white mb-4">{t('my_orders.edit_personal_info')}</h3>
-                  
-                  {profileMessage && (
-                    <div className="bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900 text-emerald-650 dark:text-emerald-400 p-4 rounded-xl text-xs font-semibold mb-4 text-center">
-                      {profileMessage}
-                    </div>
-                  )}
-                  {profileError && (
-                    <div className="bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900 text-red-650 dark:text-red-400 p-4 rounded-xl text-xs font-semibold mb-4 text-center">
-                      {profileError}
-                    </div>
-                  )}
-
-                  <form onSubmit={handleProfileUpdate} className="space-y-4">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-xs font-bold text-slate-455 uppercase mb-1">{t('my_orders.your_name')}</label>
-                        <input
-                          type="text"
-                          required
-                          value={profileName}
-                          onChange={(e) => setProfileName(e.target.value)}
-                          className="w-full px-4 py-3 text-base bg-slate-50 dark:bg-slate-955 border border-slate-200 dark:border-slate-800 rounded-xl focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 text-slate-800 dark:text-white"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-bold text-slate-455 uppercase mb-1">{t('my_orders.mobile_number')}</label>
-                        <input
-                          type="tel"
-                          required
-                          value={profileMobile}
-                          onChange={(e) => setProfileMobile(e.target.value)}
-                          className="w-full px-4 py-3 text-base bg-slate-50 dark:bg-slate-955 border border-slate-200 dark:border-slate-800 rounded-xl focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 text-slate-805 dark:text-white"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-bold text-slate-455 uppercase mb-1">{t('my_orders.email_address')}</label>
-                      <input
-                        type="email"
-                        required
-                        value={profileEmail}
-                        onChange={(e) => setProfileEmail(e.target.value)}
-                        className="w-full px-4 py-3 text-base bg-slate-50 dark:bg-slate-955 border border-slate-200 dark:border-slate-800 rounded-xl focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 text-slate-808 dark:text-white"
-                      />
-                    </div>
-
-                    <div className="border-t border-slate-100 dark:border-slate-850 pt-4">
-                      <p className="font-bold text-slate-400 text-xs mb-3 uppercase tracking-wider">{t('my_orders.default_delivery_address')}</p>
-                      
-                      <div className="space-y-3">
-                        <div>
-                          <label className="block text-xs font-bold text-slate-450 mb-1">{t('my_orders.street_address')}</label>
-                          <input
-                            type="text"
-                            placeholder={language === 'hi' ? 'उदा. फ्लैट १०४, ब्लॉक बी, ग्रीन अपार्टमेंट्स' : 'e.g. Flat 104, Block B, Green Apartments'}
-                            value={street}
-                            onChange={(e) => setStreet(e.target.value)}
-                            className="w-full px-4 py-3 text-base bg-slate-50 dark:bg-slate-955 border border-slate-200 dark:border-slate-800 rounded-xl focus:outline-none focus:ring-1 focus:ring-emerald-500 text-slate-800 dark:text-white"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="block text-xs font-bold text-slate-450 mb-1">
-                            {t('checkout_page.alternate_mobile') || 'Alternate Mobile Number (Optional)'}
-                          </label>
-                          <input
-                            type="text"
-                            value={alternateMobile || ''}
-                            onChange={(e) => handleAlternateMobileChange(e.target.value)}
-                            className={`w-full px-4 py-3 text-base bg-slate-50 dark:bg-slate-955 border ${
-                              validationError ? 'border-rose-500 focus:ring-rose-500' : 'border-slate-200 dark:border-slate-800 focus:ring-emerald-500'
-                            } rounded-xl focus:outline-none focus:ring-1 text-slate-800 dark:text-white`}
-                            placeholder="e.g. 9829276750"
-                          />
-                          {validationError && (
-                            <p className="text-rose-500 text-[10px] mt-1 font-semibold">{validationError}</p>
-                          )}
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                          <div>
-                            <label className="block text-xs font-bold text-slate-450 mb-1">{t('my_orders.city')}</label>
-                            <input
-                              type="text"
-                              placeholder={language === 'hi' ? 'बेंगलुरु' : 'Bengaluru'}
-                              value={city}
-                              onChange={(e) => setCity(e.target.value)}
-                              className="w-full px-4 py-3 text-base bg-slate-50 dark:bg-slate-955 border border-slate-200 dark:border-slate-800 rounded-xl focus:outline-none focus:ring-1 focus:ring-emerald-500 text-slate-800 dark:text-white"
-                            />
-                          </div>
-                          <div>
-                            <label className="block text-xs font-bold text-slate-450 mb-1">{t('my_orders.state')}</label>
-                            <input
-                              type="text"
-                              placeholder={language === 'hi' ? 'कर्नाटक' : 'Karnataka'}
-                              value={state}
-                              onChange={(e) => setState(e.target.value)}
-                              className="w-full px-4 py-3 text-base bg-slate-50 dark:bg-slate-955 border border-slate-200 dark:border-slate-800 rounded-xl focus:outline-none focus:ring-1 focus:ring-emerald-500 text-slate-805 dark:text-white"
-                            />
-                          </div>
-                          <div>
-                            <label className="block text-xs font-bold text-slate-455 mb-1">{t('my_orders.pincode')}</label>
-                            <input
-                              type="text"
-                              placeholder="560001"
-                              value={pincode}
-                              onChange={(e) => setPincode(e.target.value)}
-                              className="w-full px-4 py-3 text-base bg-slate-50 dark:bg-slate-955 border border-slate-200 dark:border-slate-800 rounded-xl focus:outline-none focus:ring-1 focus:ring-emerald-500 text-slate-808 dark:text-white"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={profileLoading}
-                      className="px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-xs font-bold transition-all shadow-sm"
-                    >
-                      {profileLoading ? (language === 'hi' ? 'सहेज रहे हैं...' : 'Saving...') : t('my_orders.update_details')}
-                    </button>
-                  </form>
-                </div>
-
-                {/* Password Change Card */}
-                <div className="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 rounded-3xl p-6 shadow-sm mt-8">
-                  <h3 className="text-base font-extrabold text-slate-900 dark:text-white mb-4">{t('my_orders.update_security_password')}</h3>
-                  
-                  {passwordMessage && (
-                    <div className="bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900 text-emerald-650 dark:text-emerald-400 p-4 rounded-xl text-xs font-semibold mb-4 text-center">
-                      {passwordMessage}
-                    </div>
-                  )}
-                  {passwordError && (
-                    <div className="bg-red-50 dark:bg-red-955/20 border border-red-200 dark:border-red-900 text-red-650 dark:text-red-400 p-4 rounded-xl text-xs font-semibold mb-4 text-center">
-                      {passwordError}
-                    </div>
-                  )}
-
-                  <form onSubmit={handlePasswordChange} className="space-y-4">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-xs font-bold text-slate-455 mb-1">{t('my_orders.current_password')}</label>
-                        <input
-                          type="password"
-                          required
-                          value={currentPassword}
-                          onChange={(e) => setCurrentPassword(e.target.value)}
-                          className="w-full px-4 py-3 text-base bg-slate-50 dark:bg-slate-955 border border-slate-200 dark:border-slate-800 rounded-xl focus:outline-none focus:ring-1 focus:ring-emerald-500 text-slate-805 dark:text-white"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-bold text-slate-455 mb-1">{t('my_orders.new_password')}</label>
-                        <input
-                          type="password"
-                          required
-                          value={newPassword}
-                          onChange={(e) => setNewPassword(e.target.value)}
-                          className="w-full px-4 py-3 text-base bg-slate-50 dark:bg-slate-955 border border-slate-200 dark:border-slate-800 rounded-xl focus:outline-none focus:ring-1 focus:ring-emerald-500 text-slate-805 dark:text-white"
-                        />
-                      </div>
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={passwordLoading}
-                      className="px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-xs font-bold transition-all shadow-sm"
-                    >
-                      {passwordLoading ? (language === 'hi' ? 'सत्यापित कर रहे हैं...' : 'Verifying...') : t('my_orders.change_password')}
-                    </button>
-                  </form>
-                </div>
-
-                {/* Language Preferences Card */}
-                <div className="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 rounded-3xl p-6 shadow-sm mt-8">
-                  <h3 className="text-base font-extrabold text-slate-900 dark:text-white mb-4">
-                    {language === 'hi' ? 'भाषा प्राथमिकताएं' : 'Language Preferences'}
-                  </h3>
-                  
-                  {langMessage && (
-                    <div className="bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900 text-emerald-650 dark:text-emerald-400 p-4 rounded-xl text-xs font-semibold mb-4 text-center">
-                      {langMessage}
-                    </div>
-                  )}
-                  {langError && (
-                    <div className="bg-red-50 dark:bg-red-955/20 border border-red-200 dark:border-red-900 text-red-655 dark:text-red-400 p-4 rounded-xl text-xs font-semibold mb-4 text-center">
-                      {langError}
-                    </div>
-                  )}
-
-                  <form onSubmit={handleSaveLanguagePreference} className="space-y-6">
-                    <div>
-                      <label className="block text-xs font-bold text-slate-455 mb-3 uppercase tracking-wider">
-                        {language === 'hi' ? 'पसंदीदा भाषा' : 'Preferred Language'}
-                      </label>
-                      
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {/* English option */}
-                        <button
-                          type="button"
-                          onClick={() => setPrefLang('en')}
-                          className={`flex items-center justify-between p-4 rounded-2xl border transition-all duration-200 text-left cursor-pointer ${
-                            prefLang === 'en'
-                              ? 'border-emerald-500 bg-emerald-50/40 dark:bg-emerald-955/20 shadow-md ring-2 ring-emerald-500/20'
-                              : 'border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50'
-                          }`}
-                        >
-                          <div className="flex items-center space-x-3.5">
-                            <span className="text-2xl select-none" role="img" aria-label="UK Flag">🇬🇧</span>
-                            <div>
-                              <p className="text-sm font-bold text-slate-800 dark:text-white">English</p>
-                              <p className="text-[10px] text-slate-400 dark:text-slate-500">
-                                {language === 'hi' ? 'अंग्रेजी में वेबसाइट लोड करें' : 'Load website in English'}
-                              </p>
-                            </div>
-                          </div>
-                          <div className={`h-5 w-5 rounded-full border flex items-center justify-center transition-all ${
-                            prefLang === 'en'
-                              ? 'border-emerald-500 bg-emerald-500 text-white'
-                              : 'border-slate-300 dark:border-slate-650'
-                          }`}>
-                            {prefLang === 'en' && <Check className="h-3.5 w-3.5 stroke-[3]" />}
-                          </div>
-                        </button>
-
-                        {/* Hindi option */}
-                        <button
-                          type="button"
-                          onClick={() => setPrefLang('hi')}
-                          className={`flex items-center justify-between p-4 rounded-2xl border transition-all duration-200 text-left cursor-pointer ${
-                            prefLang === 'hi'
-                              ? 'border-emerald-500 bg-emerald-50/40 dark:bg-emerald-955/20 shadow-md ring-2 ring-emerald-500/20'
-                              : 'border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50'
-                          }`}
-                        >
-                          <div className="flex items-center space-x-3.5">
-                            <span className="text-2xl select-none" role="img" aria-label="India Flag">🇮🇳</span>
-                            <div>
-                              <p className="text-sm font-bold text-slate-805 dark:text-white">हिन्दी (Hindi)</p>
-                              <p className="text-[10px] text-slate-400 dark:text-slate-500">
-                                {language === 'hi' ? 'हिंदी में वेबसाइट लोड करें' : 'Load website in Hindi'}
-                              </p>
-                            </div>
-                          </div>
-                          <div className={`h-5 w-5 rounded-full border flex items-center justify-center transition-all ${
-                            prefLang === 'hi'
-                              ? 'border-emerald-500 bg-emerald-500 text-white'
-                              : 'border-slate-300 dark:border-slate-650'
-                          }`}>
-                            {prefLang === 'hi' && <Check className="h-3.5 w-3.5 stroke-[3]" />}
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={langLoading}
-                      className="px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-xs font-bold transition-all shadow-sm"
-                    >
-                      {langLoading
-                        ? (language === 'hi' ? 'सहेज रहे हैं...' : 'Saving...')
-                        : (language === 'hi' ? 'वरीयता सहेजें' : 'Save Preference')}
-                    </button>
-                  </form>
-                </div>
-              </div>
-            )}
-
           </div>
         </div>
 
@@ -1340,15 +967,15 @@ export const MyOrders = () => {
         <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 w-full max-w-2xl rounded-3xl p-6 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
             <h3 className="text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
-              <Truck className="h-5 w-5 text-emerald-500" />
+              <Truck className="h-5 w-5 text-[#D4A75F]" />
               <span>{t('my_orders.tracking.title', { id: trackingOrder.order_id })}</span>
             </h3>
 
             {/* Simulated Delivery Date */}
-            <div className="bg-emerald-500/5 border border-emerald-500/10 dark:bg-emerald-950/20 p-4 rounded-2xl mt-4 flex items-center justify-between">
+            <div className="bg-[#D4A75F]/5 border border-[#D4A75F]/10 dark:bg-[#D4A75F]/20 p-4 rounded-2xl mt-4 flex items-center justify-between">
               <div>
                 <p className="text-[10px] font-bold text-slate-455 uppercase tracking-wider">{t('my_orders.tracking.est_delivery_title')}</p>
-                <p className="text-sm font-extrabold text-emerald-600 dark:text-emerald-400 mt-0.5">
+                <p className="text-sm font-extrabold text-[#D4A75F] dark:text-[#D4A75F] mt-0.5">
                   {trackingOrder.delivery_date || t('my_orders.tracking.est_delivery_default')}
                 </p>
               </div>
@@ -1374,8 +1001,8 @@ export const MyOrders = () => {
                   {getTimelineSteps(trackingOrder.status).map((step, idx) => (
                     <div key={idx} className="flex sm:flex-col items-center text-left sm:text-center relative z-10 gap-3 sm:gap-1.5 flex-1">
                       <div className={`h-8 w-8 rounded-full border-2 flex items-center justify-center transition-all ${
-                        step.active ? 'bg-emerald-500 border-emerald-500 text-white ring-4 ring-emerald-500/20' :
-                        step.completed ? 'bg-emerald-500 border-emerald-500 text-white' :
+                        step.active ? 'bg-[#3F1D5A] border-[#D4A75F] text-white ring-4 ring-[#D4A75F]/20' :
+                        step.completed ? 'bg-[#3F1D5A] border-[#D4A75F] text-white' :
                         'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-350 dark:text-slate-655'
                       }`}>
                         {step.completed ? <CheckCircle className="h-5 w-5" /> : <div className="h-2 w-2 rounded-full bg-slate-350 dark:bg-slate-655" />}
@@ -1401,7 +1028,7 @@ export const MyOrders = () => {
                   trackingOrder.tracking_history.slice().reverse().map((log, idx) => (
                     <div key={idx} className="flex gap-3 text-xs">
                       <div className="flex flex-col items-center">
-                        <div className="h-2.5 w-2.5 bg-emerald-500 rounded-full mt-1.5" />
+                        <div className="h-2.5 w-2.5 bg-[#3F1D5A] rounded-full mt-1.5" />
                         {idx !== trackingOrder.tracking_history.length - 1 && <div className="w-0.5 bg-slate-200 dark:bg-slate-800 flex-grow mt-1" />}
                       </div>
                       <div>
@@ -1450,7 +1077,7 @@ export const MyOrders = () => {
                   placeholder={t('my_orders.return.placeholder')}
                   value={returnReason}
                   onChange={(e) => setReturnReason(e.target.value)}
-                  className="w-full px-3 py-2.5 text-xs bg-slate-50 dark:bg-slate-955 border border-slate-200 dark:border-slate-800 rounded-2xl focus:outline-none focus:ring-1 focus:ring-emerald-500 text-slate-808 dark:text-white h-28 resize-none"
+                  className="w-full px-3 py-2.5 text-xs bg-slate-50 dark:bg-slate-955 border border-slate-200 dark:border-slate-800 rounded-2xl focus:outline-none focus:ring-1 focus:ring-[#D4A75F] text-slate-808 dark:text-white h-28 resize-none"
                 />
               </div>
 

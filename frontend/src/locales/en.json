@@ -1,13 +1,15 @@
 {
   "common": {
     "namaste": "Namaste",
-    "search_placeholder": "Search products, groceries, brands...",
+    "search_placeholder": "Search jewelry, rings, necklaces, earrings...",
     "categories": "Categories",
     "all": "All",
-    "electronics": "Electronics",
-    "fashion": "Fashion",
-    "grocery": "Grocery",
-    "books": "Books",
+    "electronics": "Necklaces",
+    "fashion": "Rings",
+    "grocery": "Earrings",
+    "books": "Bracelets",
+    "bangles": "Bangles",
+    "bridal": "Bridal Collection",
     "home": "Home",
     "cart": "Cart",
     "wishlist": "Wishlist",
@@ -62,8 +64,8 @@
     "off": "OFF"
   },
   "footer": {
-    "about_title": "BharatBasket",
-    "about_desc": "Your premier online destination for premium groceries, fresh vegetables, daily essentials, and organic items. Quality guaranteed, delivered with speed.",
+    "about_title": "SSJewellery",
+    "about_desc": "Your premier online destination for premium luxury jewelry, rings, necklaces, earrings, and designer bracelets. Masterfully crafted with unmatched elegance and premium materials.",
     "quick_links": "Quick Links",
     "help_support": "Help & Support",
     "faqs": "FAQs & Instructions",
@@ -72,14 +74,14 @@
     "email": "Email",
     "phone": "Phone",
     "address": "Address",
-    "copyright": "© 2026 BharatBasket Ltd. All rights reserved. Made in India."
+    "copyright": "© 2026 SSJewellery Ltd. All rights reserved. Made with love in India."
   },
   "livechat": {
-    "chat_title": "BharatBasket Support Bot",
+    "chat_title": "SSJewellery Support Bot",
     "chat_online": "Online",
     "input_placeholder": "Type your question...",
     "send": "Send",
-    "welcome_msg": "Hello! I am your BharatBasket support assistant. How can I help you today?",
+    "welcome_msg": "Hello! I am your SSJewellery support assistant. How can I help you today?",
     "options": {
       "order_status": "Check Order Status",
       "returns": "Return Policy & Refunds",
@@ -118,7 +120,7 @@
     "confirm_password_placeholder": "Confirm new password",
     "back_to_verification": "Back to Verification",
     "create_account": "Create Account",
-    "register_desc": "Register below to start purchasing premium products on BharatBasket.",
+    "register_desc": "Register below to start purchasing premium luxury jewelry on SSJewellery.",
     "account_created_success": "Account created successfully! Redirecting you to login...",
     "full_name_label": "Full Name *",
     "mobile_number_label": "Mobile Number *",
@@ -242,9 +244,9 @@
       "cancel_btn": "Cancel"
     },
     "invoice": {
-      "title": "BharatBasket Invoice",
+      "title": "SSJewellery Invoice",
       "reference": "Order Reference: {id}",
-      "company": "BharatBasket Ltd.",
+      "company": "SSJewellery Ltd.",
       "shipping_address": "Shipping Address",
       "info": "Invoice Info",
       "date": "Date: {date}",
@@ -324,7 +326,7 @@
   },
   "cart_page": {
     "shopping_cart": "Shopping Cart",
-    "empty_title": "Your Basket is Empty",
+    "empty_title": "Your Cart is Empty",
     "empty_desc": "Before you checkout, you must add some products. Check out our featured items on the home page!",
     "back_shopping": "Back to Shopping",
     "continue_shopping": "Continue Shopping",
@@ -336,7 +338,7 @@
     "unlock_free": "Add products worth ₹{amount} more to unlock FREE shipping!",
     "total_amount": "Total Amount",
     "proceed_checkout": "Proceed to Checkout",
-    "secure_checkout": "Secure checkout verified by BharatBasket",
+      "secure_checkout": "Secure checkout verified by SSJewellery",
     "items": "items",
     "item": "item"
   },
@@ -372,7 +374,7 @@
     "billing_details": "Billing details",
     "shipping_cost": "Shipping Cost",
     "order_success": "Order Placed Successfully!",
-    "thank_you": "Thank you for shopping at BharatBasket. Your order code is:",
+    "thank_you": "Thank you for shopping at SSJewellery. Your order code is:",
     "status": "Status",
     "total_paid": "Total Paid",
     "est_delivery": "Estimated Delivery",
@@ -383,7 +385,7 @@
     "agreement_step1": "Full payment must be completed before order processing.",
     "agreement_step2": "Once payment is completed, the order cannot be cancelled.",
     "agreement_step3": "Products are Non-Refundable & Non-Replaceable.",
-    "agreement_step4": "After successful delivery, BharatBasket will not be responsible for product damage, misuse, or issues arising after delivery.",
+    "agreement_step4": "After successful delivery, SSJewellery will not be responsible for product damage, misuse, or issues arising after delivery.",
     "agreement_step5": "By continuing, you acknowledge and agree to all terms mentioned above.",
     "agree_checkbox": "I have read, understood, and agree to the above Terms & Conditions.",
     "cancel": "Cancel",
@@ -424,8 +426,8 @@
     "form_validation": "Please fill in all form fields.",
     "faqs": {
       "faq_1": {
-        "question": "What is BharatBasket?",
-        "answer": "BharatBasket is a modern e-commerce site where you can buy daily essentials, groceries, electronics, and fashion items, inspired by Flipkart and Amazon."
+        "question": "What is SSJewellery?",
+        "answer": "SSJewellery is a premium luxury e-commerce brand specializing in masterfully crafted rings, necklaces, earrings, bracelets, bangles, and bridal collections."
       },
       "faq_2": {
         "question": "How do I track my order?",

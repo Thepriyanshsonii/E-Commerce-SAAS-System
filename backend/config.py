@@ -9,9 +9,9 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = os.environ.get("SQLALCHEMY_ECHO", "False").lower() in ("true", "1", "yes")
     SQLALCHEMY_ENGINE_OPTIONS = {
-        "connect_args": {
-            "init_command": "SET time_zone='Asia/Kolkata'"
-        }
+        # "connect_args": {
+        #     "init_command": "SET time_zone='Asia/Kolkata'"
+        # }
     }
 
     # Flask-Mail Configuration

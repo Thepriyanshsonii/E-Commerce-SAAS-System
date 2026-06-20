@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingBag, Mail, Phone, MapPin, Heart, Globe, MessageSquare } from 'lucide-react';
+import { Mail, Phone, MapPin, Heart, Globe, MessageSquare } from 'lucide-react';
 import axios from 'axios';
 import { AuthContext, API_BASE_URL } from '../context/AuthContext';
 import { CartContext } from '../context/CartContext';
@@ -22,7 +22,7 @@ export const Footer = () => {
 
   const [supportLinks, setSupportLinks] = useState([
     { id: 1, title: "+91 98765 43210", title_hi: "+91 98765 43210", url: "tel:+919876543210", icon: "Phone" },
-    { id: 2, title: "support@bharatbasket.com", title_hi: "support@bharatbasket.com", url: "mailto:support@bharatbasket.com", icon: "Mail" },
+    { id: 2, title: "support@SSJewellery.com", title_hi: "support@SSJewellery.com", url: "mailto:support@SSJewellery.com", icon: "Mail" },
     { id: 3, title: "Connaught Place, New Delhi, India", title_hi: "कनॉट प्लेस, नई दिल्ली, भारत", url: "https://maps.google.com/?q=Connaught+Place,+New+Delhi,+India", icon: "MapPin" }
   ]);
 
@@ -41,32 +41,31 @@ export const Footer = () => {
   }, []);
 
   return (
-    <footer className="bg-slate-900 text-slate-300 border-t border-slate-800">
+    <footer className="bg-[#05051F] text-[#FFFFFF] border-t border-[#D4A75F]/30">
       <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           
           {/* Brand Column */}
           <div className="space-y-4">
-            <Link to="/" className="flex items-center space-x-2 text-white">
-              <ShoppingBag className="h-8 w-8 text-emerald-500" />
-              <span className="text-2xl font-bold tracking-tight bg-gradient-to-r from-emerald-400 to-teal-500 bg-clip-text text-transparent">
-                BharatBasket
+            <Link to="/" className="flex items-center space-x-2">
+              <span className="text-2xl font-serif font-bold tracking-widest text-[#D4A75F] uppercase">
+                SSJewellery
               </span>
             </Link>
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-[#FFFFFF] leading-relaxed">
               {t('footer.about_desc')}
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">{t('footer.quick_links')}</h3>
-            <ul className="space-y-2 text-sm flex flex-col items-start">
+            <h3 className="text-base font-semibold text-[#D4A75F] uppercase tracking-wider mb-4">{t('footer.quick_links')}</h3>
+            <ul className="space-y-3 text-sm flex flex-col items-start">
               <li>
-                <Link to="/" className="hover:text-emerald-400 transition-colors">{t('common.home')}</Link>
+                <Link to="/" className="text-[#F5F5F5] hover:text-[#D4A75F] transition-colors">{t('common.home')}</Link>
               </li>
               <li>
-                <Link to="/support" className="hover:text-emerald-400 transition-colors">{t('footer.help_support')}</Link>
+                <Link to="/support" className="text-[#F5F5F5] hover:text-[#D4A75F] transition-colors">{t('footer.help_support')}</Link>
               </li>
               <li>
                 <button
@@ -77,7 +76,7 @@ export const Footer = () => {
                       navigate('/cart');
                     }
                   }}
-                  className="hover:text-emerald-400 transition-colors text-left bg-transparent border-none cursor-pointer p-0"
+                  className="text-[#F5F5F5] hover:text-[#D4A75F] transition-colors text-left bg-transparent border-none cursor-pointer p-0"
                 >
                   {t('common.cart')}
                 </button>
@@ -91,7 +90,7 @@ export const Footer = () => {
                       navigate('/orders');
                     }
                   }}
-                  className="hover:text-emerald-400 transition-colors text-left bg-transparent border-none cursor-pointer p-0"
+                  className="text-[#F5F5F5] hover:text-[#D4A75F] transition-colors text-left bg-transparent border-none cursor-pointer p-0"
                 >
                   {t('navbar.my_orders')}
                 </button>
@@ -99,28 +98,34 @@ export const Footer = () => {
             </ul>
           </div>
 
-          {/* Customer Service */}
+          {/* Categories */}
           <div>
-            <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">{t('common.categories')}</h3>
-            <ul className="space-y-2 text-sm">
-              <li><Link to="/?category=Electronics" className="hover:text-emerald-400 transition-colors">{t('common.electronics')}</Link></li>
-              <li><Link to="/?category=Fashion" className="hover:text-emerald-400 transition-colors">{t('common.fashion')}</Link></li>
-              <li><Link to="/?category=Grocery" className="hover:text-emerald-400 transition-colors">{t('common.grocery')}</Link></li>
-              <li><Link to="/?category=Books" className="hover:text-emerald-400 transition-colors">{t('common.books')}</Link></li>
+            <h3 className="text-base font-semibold text-[#D4A75F] uppercase tracking-wider mb-4">{t('common.categories')}</h3>
+            <ul className="space-y-3 text-sm flex flex-col items-start">
+              <li><Link to="/?category=Necklaces" className="text-[#F5F5F5] hover:text-[#D4A75F] transition-colors">{t('common.electronics')}</Link></li>
+              <li><Link to="/?category=Rings" className="text-[#F5F5F5] hover:text-[#D4A75F] transition-colors">{t('common.fashion')}</Link></li>
+              <li><Link to="/?category=Earrings" className="text-[#F5F5F5] hover:text-[#D4A75F] transition-colors">{t('common.grocery')}</Link></li>
+              <li><Link to="/?category=Bracelets" className="text-[#F5F5F5] hover:text-[#D4A75F] transition-colors">{t('common.books')}</Link></li>
             </ul>
           </div>
 
           {/* Contact Details */}
           <div>
-            <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">{t('footer.contact_us')}</h3>
-            <ul className="space-y-3 text-sm">
+            <h3 className="text-base font-semibold text-[#D4A75F] uppercase tracking-wider mb-4">{t('footer.contact_us')}</h3>
+            <ul className="space-y-3 text-sm flex flex-col items-start">
               {supportLinks.map(link => {
                 const IconComponent = IconMap[link.icon] || Phone;
+                let displayTitle = localize(link, 'title');
+                let displayUrl = link.url;
+                if (displayTitle === "support@SSJewellery.com") {
+                  displayTitle = "support@SSJewellery.com";
+                  displayUrl = "mailto:support@SSJewellery.com";
+                }
                 return (
                   <li key={link.id || link._id}>
-                    <a href={link.url} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 hover:text-emerald-400 transition-colors">
-                      <IconComponent className="h-4 w-4 text-emerald-500 flex-shrink-0" />
-                      <span>{localize(link, 'title')}</span>
+                    <a href={displayUrl} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 text-[#F5F5F5] hover:text-[#D4A75F] transition-colors">
+                      <IconComponent className="h-4.5 w-4.5 text-[#D4A75F] flex-shrink-0" />
+                      <span>{displayTitle}</span>
                     </a>
                   </li>
                 );
@@ -130,10 +135,10 @@ export const Footer = () => {
 
         </div>
 
-        <div className="mt-12 border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-400">
-          <p>{t('footer.copyright')}</p>
-          <p className="flex items-center mt-4 md:mt-0">
-            Made with <Heart className="h-3 w-3 text-red-500 mx-1 fill-current" /> for developers & shoppers.
+        <div className="mt-12 border-t border-slate-800/80 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-[#E5E7EB]">
+          <p className="font-medium">{t('footer.copyright')}</p>
+          <p className="flex items-center mt-4 md:mt-0 font-medium">
+            Made with <Heart className="h-3.5 w-3.5 text-[#D4A75F] mx-1 fill-current" /> for jewelry lovers.
           </p>
         </div>
       </div>
