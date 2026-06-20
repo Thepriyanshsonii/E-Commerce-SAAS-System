@@ -7,7 +7,8 @@ cloudinary==1.40.0
 gunicorn==22.0.0
 Flask-SQLAlchemy==3.1.1
 Flask-Migrate==4.1.0
-PyMySQL==1.2.0
+Flask-Mail==0.10.0
+psycopg2-binary==2.9.9
 cryptography==48.0.0
 pytz
 pandas

@@ -6,3 +6,6 @@ __pycache__/
 node_modules/
 .next/
 dist/
+*.log
+flask_server.log
+.vercel/
