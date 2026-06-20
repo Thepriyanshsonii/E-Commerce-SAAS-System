@@ -59,7 +59,13 @@ def get_admin_name_from_request():
 def get_products():
     category = request.args.get('category')
     search = request.args.get('search')
-    products = ProductModel.get_all(category, search)
+    admin_view = request.args.get('admin_view') or request.args.get('admin')
+    
+    homepage_only = False
+    if not category and not search and admin_view != 'true':
+        homepage_only = True
+        
+    products = ProductModel.get_all(category, search, homepage_only=homepage_only)
     return jsonify(products), 200
 
 @products_bp.route('/<id>', methods=['GET'])
