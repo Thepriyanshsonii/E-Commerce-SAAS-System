@@ -1,0 +1,1114 @@
+[CLOUDINARY] Credentials missing. Falling back to local upload serving.
+2026-06-15 00:01:38,933 INFO sqlalchemy.engine.Engine SELECT DATABASE()
+2026-06-15 00:01:38,933 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,934 INFO sqlalchemy.engine.Engine SELECT @@sql_mode
+2026-06-15 00:01:38,934 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,934 INFO sqlalchemy.engine.Engine SELECT @@lower_case_table_names
+2026-06-15 00:01:38,934 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,935 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:38,935 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`categories`
+2026-06-15 00:01:38,935 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,940 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`product_images`
+2026-06-15 00:01:38,940 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,943 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`products`
+2026-06-15 00:01:38,943 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,946 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`stock_history`
+2026-06-15 00:01:38,946 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,947 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`product_audit_logs`
+2026-06-15 00:01:38,947 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,949 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`category_attributes`
+2026-06-15 00:01:38,949 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,950 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`product_variants`
+2026-06-15 00:01:38,951 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,952 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`buy_requests`
+2026-06-15 00:01:38,953 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,957 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`delivery_addresses`
+2026-06-15 00:01:38,957 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,961 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`carts`
+2026-06-15 00:01:38,961 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,962 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`cart_items`
+2026-06-15 00:01:38,962 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,964 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`wishlists`
+2026-06-15 00:01:38,964 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,966 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`users`
+2026-06-15 00:01:38,966 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,968 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`user_status_audit_logs`
+2026-06-15 00:01:38,968 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,969 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`order_items`
+2026-06-15 00:01:38,969 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,970 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`transactions`
+2026-06-15 00:01:38,970 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,973 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`orders`
+2026-06-15 00:01:38,973 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,976 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`reviews`
+2026-06-15 00:01:38,976 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,978 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`support_messages`
+2026-06-15 00:01:38,978 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,979 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`faqs`
+2026-06-15 00:01:38,979 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,981 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`support_links`
+2026-06-15 00:01:38,981 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,982 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`support_replies`
+2026-06-15 00:01:38,982 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,983 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`coupons`
+2026-06-15 00:01:38,983 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,984 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`otp_verifications`
+2026-06-15 00:01:38,984 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,986 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`admins`
+2026-06-15 00:01:38,986 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,989 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`admin_audit_logs`
+2026-06-15 00:01:38,989 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,994 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`admin_notifications`
+2026-06-15 00:01:38,994 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,995 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`banners`
+2026-06-15 00:01:38,996 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,997 INFO sqlalchemy.engine.Engine DESCRIBE `bharatbasket`.`notifications`
+2026-06-15 00:01:38,997 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-15 00:01:38,998 INFO sqlalchemy.engine.Engine COMMIT
+2026-06-15 00:01:39,039 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:39,046 INFO sqlalchemy.engine.Engine SELECT count(*) AS count_1 
+FROM (SELECT products.id AS products_id, products.name AS products_name, products.price AS products_price, products.discount AS products_discount, products.description AS products_description, products.images AS products_images, products.stock AS products_stock, products.category_id AS products_category_id, products.ratings AS products_ratings, products.created_at AS products_created_at, products.updated_at AS products_updated_at, products.discount_applied_at AS products_discount_applied_at, products.name_translations AS products_name_translations, products.description_translations AS products_description_translations, products.created_by AS products_created_by, products.modified_by AS products_modified_by, products.status AS products_status, products.name_en AS products_name_en, products.name_hi AS products_name_hi, products.description_en AS products_description_en, products.description_hi AS products_description_hi, products.features_en AS products_features_en, products.features_hi AS products_features_hi, products.specifications_en AS products_specifications_en, products.specifications_hi AS products_specifications_hi 
+FROM products) AS anon_1
+2026-06-15 00:01:39,046 INFO sqlalchemy.engine.Engine [generated in 0.00016s] {}
+[SEED] Products already exist. Skipping seed.
+2026-06-15 00:01:39,048 INFO sqlalchemy.engine.Engine SELECT count(*) AS count_1 
+FROM (SELECT coupons.id AS coupons_id, coupons.code AS coupons_code, coupons.discount_type AS coupons_discount_type, coupons.discount_value AS coupons_discount_value, coupons.min_order_amount AS coupons_min_order_amount, coupons.is_active AS coupons_is_active, coupons.created_at AS coupons_created_at 
+FROM coupons) AS anon_1
+2026-06-15 00:01:39,048 INFO sqlalchemy.engine.Engine [generated in 0.00013s] {}
+[SEED] Coupons already exist. Skipping seed.
+2026-06-15 00:01:39,050 INFO sqlalchemy.engine.Engine SELECT count(*) AS count_1 
+FROM (SELECT banners.id AS banners_id, banners.title AS banners_title, banners.subtitle AS banners_subtitle, banners.description AS banners_description, banners.button_text AS banners_button_text, banners.button_link AS banners_button_link, banners.image_url AS banners_image_url, banners.background_style AS banners_background_style, banners.category AS banners_category, banners.display_order AS banners_display_order, banners.is_active AS banners_is_active, banners.created_at AS banners_created_at, banners.updated_at AS banners_updated_at 
+FROM banners) AS anon_1
+2026-06-15 00:01:39,050 INFO sqlalchemy.engine.Engine [generated in 0.00012s] {}
+[SEED] Banners already exist. Skipping seed.
+2026-06-15 00:01:39,401 INFO sqlalchemy.engine.Engine ROLLBACK
+ * Serving Flask app 'app'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.254.232.60:5000
+[33mPress CTRL+C to quit[0m
+[REPORT SCHEDULER] Starting automated report worker loop...
+2026-06-15 00:01:44,402 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:44,403 INFO sqlalchemy.engine.Engine 
+        CREATE TABLE IF NOT EXISTS monthly_report_logs (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            report_month VARCHAR(50) NOT NULL,
+            report_year INT NOT NULL,
+            excel_filename VARCHAR(255) NOT NULL,
+            email_status VARCHAR(50) NOT NULL,
+            archive_status VARCHAR(50) NOT NULL,
+            cleanup_status VARCHAR(50) NOT NULL,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        ) ENGINE=InnoDB;
+        
+2026-06-15 00:01:44,403 INFO sqlalchemy.engine.Engine [generated in 0.00035s] {}
+2026-06-15 00:01:44,420 INFO sqlalchemy.engine.Engine 
+        CREATE TABLE IF NOT EXISTS system_settings (
+            setting_key VARCHAR(100) PRIMARY KEY,
+            setting_value TEXT NOT NULL
+        ) ENGINE=InnoDB;
+        
+2026-06-15 00:01:44,422 INFO sqlalchemy.engine.Engine [generated in 0.00188s] {}
+2026-06-15 00:01:44,429 INFO sqlalchemy.engine.Engine CREATE TABLE IF NOT EXISTS orders_archive LIKE orders;
+2026-06-15 00:01:44,429 INFO sqlalchemy.engine.Engine [generated in 0.00031s] {}
+2026-06-15 00:01:44,436 INFO sqlalchemy.engine.Engine CREATE TABLE IF NOT EXISTS sales_archive LIKE order_items;
+2026-06-15 00:01:44,436 INFO sqlalchemy.engine.Engine [generated in 0.00026s] {}
+2026-06-15 00:01:44,443 INFO sqlalchemy.engine.Engine CREATE TABLE IF NOT EXISTS buy_requests_archive LIKE buy_requests;
+2026-06-15 00:01:44,444 INFO sqlalchemy.engine.Engine [generated in 0.00047s] {}
+2026-06-15 00:01:44,450 INFO sqlalchemy.engine.Engine CREATE TABLE IF NOT EXISTS support_tickets_archive LIKE support_messages;
+2026-06-15 00:01:44,450 INFO sqlalchemy.engine.Engine [generated in 0.00026s] {}
+2026-06-15 00:01:44,457 INFO sqlalchemy.engine.Engine CREATE TABLE IF NOT EXISTS transactions_archive LIKE transactions;
+2026-06-15 00:01:44,458 INFO sqlalchemy.engine.Engine [generated in 0.00082s] {}
+2026-06-15 00:01:44,466 INFO sqlalchemy.engine.Engine COMMIT
+[REPORT AUTOMATION] Database tables verified/created successfully.
+2026-06-15 00:01:44,467 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:44,467 INFO sqlalchemy.engine.Engine ALTER TABLE monthly_report_logs MODIFY COLUMN email_status TEXT NOT NULL;
+2026-06-15 00:01:44,467 INFO sqlalchemy.engine.Engine [generated in 0.00023s] {}
+2026-06-15 00:01:44,498 INFO sqlalchemy.engine.Engine COMMIT
+[REPORT AUTOMATION] Altered email_status column to TEXT successfully.
+2026-06-15 00:01:44,499 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:44,500 INFO sqlalchemy.engine.Engine SELECT COUNT(*) FROM system_settings
+2026-06-15 00:01:44,500 INFO sqlalchemy.engine.Engine [generated in 0.00029s] {}
+2026-06-15 00:01:44,502 INFO sqlalchemy.engine.Engine 
+            SELECT COUNT(*) FROM monthly_report_logs 
+            WHERE report_month = %(month)s AND report_year = %(year)s 
+              AND email_status = 'Success' AND archive_status = 'Success' AND cleanup_status = 'Success'
+        
+2026-06-15 00:01:44,503 INFO sqlalchemy.engine.Engine [generated in 0.00028s] {'month': 'May', 'year': 2026}
+2026-06-15 00:01:50,499 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:50,506 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.email = %(email_1)s OR users.phone = %(phone_1)s 
+ LIMIT %(param_1)s FOR UPDATE
+2026-06-15 00:01:50,506 INFO sqlalchemy.engine.Engine [generated in 0.00505s] {'email_1': 'BB_ENC:NsevnzDsw2FCzkgXF2ayn1aDNC5kVwlgDoEhEMdVe7eb1y16TPff8iCh21sx99+kr3efnc2eZnQcFMLJdSYn3g==', 'phone_1': 'BB_ENC:NsevnzDsw2FCzkgXF2ayn1aDNC5kVwlgDoEhEMdVe7eb1y16TPff8iCh21sx99+kr3efnc2eZnQcFMLJdSYn3g==', 'param_1': 1}
+2026-06-15 00:01:50,761 INFO sqlalchemy.engine.Engine UPDATE users SET updated_at=%(updated_at)s, last_login=%(last_login)s WHERE users.id = %(users_id)s
+2026-06-15 00:01:50,762 INFO sqlalchemy.engine.Engine [generated in 0.00027s] {'updated_at': datetime.datetime(2026, 6, 15, 0, 1, 50, 761777, tzinfo=<DstTzInfo 'Asia/Kolkata' IST+5:30:00 STD>), 'last_login': datetime.datetime(2026, 6, 15, 0, 1, 50, 758186), 'users_id': 54}
+2026-06-15 00:01:50,772 INFO sqlalchemy.engine.Engine COMMIT
+2026-06-15 00:01:50,782 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:50,783 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:01:50,783 INFO sqlalchemy.engine.Engine [generated in 0.00011s] {'pk_1': 54}
+2026-06-15 00:01:50,785 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:01:50,785 INFO sqlalchemy.engine.Engine [generated in 0.00012s] {'param_1': 54}
+2026-06-15 00:01:50,789 INFO sqlalchemy.engine.Engine SELECT wishlists.id AS wishlists_id, wishlists.user_id AS wishlists_user_id, wishlists.product_id AS wishlists_product_id, wishlists.created_at AS wishlists_created_at 
+FROM wishlists 
+WHERE %(param_1)s = wishlists.user_id
+2026-06-15 00:01:50,790 INFO sqlalchemy.engine.Engine [generated in 0.00027s] {'param_1': 54}
+2026-06-15 00:01:50,794 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:01:50,794 INFO sqlalchemy.engine.Engine [generated in 0.00045s] {'param_1': 54}
+2026-06-15 00:01:50,796 INFO sqlalchemy.engine.Engine SELECT cart_items.id AS cart_items_id, cart_items.cart_id AS cart_items_cart_id, cart_items.product_id AS cart_items_product_id, cart_items.quantity AS cart_items_quantity, cart_items.saved_for_later AS cart_items_saved_for_later, cart_items.created_at AS cart_items_created_at 
+FROM cart_items 
+WHERE %(param_1)s = cart_items.cart_id
+2026-06-15 00:01:50,796 INFO sqlalchemy.engine.Engine [generated in 0.00015s] {'param_1': 25}
+2026-06-15 00:01:50,798 INFO sqlalchemy.engine.Engine ROLLBACK
+127.0.0.1 - - [15/Jun/2026 00:01:50] "POST /api/auth/login HTTP/1.1" 200 -
+2026-06-15 00:01:50,802 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:50,811 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:01:50,811 INFO sqlalchemy.engine.Engine [generated in 0.00045s] {'pk_1': 54}
+2026-06-15 00:01:50,817 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:01:50,829 INFO sqlalchemy.engine.Engine [cached since 0.04418s ago] {'param_1': 54}
+2026-06-15 00:01:50,832 INFO sqlalchemy.engine.Engine SELECT wishlists.id AS wishlists_id, wishlists.user_id AS wishlists_user_id, wishlists.product_id AS wishlists_product_id, wishlists.created_at AS wishlists_created_at 
+FROM wishlists 
+WHERE %(param_1)s = wishlists.user_id
+2026-06-15 00:01:50,832 INFO sqlalchemy.engine.Engine [cached since 0.04232s ago] {'param_1': 54}
+2026-06-15 00:01:50,833 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:01:50,836 INFO sqlalchemy.engine.Engine [cached since 0.04198s ago] {'param_1': 54}
+2026-06-15 00:01:50,841 INFO sqlalchemy.engine.Engine SELECT cart_items.id AS cart_items_id, cart_items.cart_id AS cart_items_cart_id, cart_items.product_id AS cart_items_product_id, cart_items.quantity AS cart_items_quantity, cart_items.saved_for_later AS cart_items_saved_for_later, cart_items.created_at AS cart_items_created_at 
+FROM cart_items 
+WHERE %(param_1)s = cart_items.cart_id
+2026-06-15 00:01:50,842 INFO sqlalchemy.engine.Engine [cached since 0.0459s ago] {'param_1': 25}
+2026-06-15 00:01:50,864 INFO sqlalchemy.engine.Engine SELECT products.id AS products_id, products.name AS products_name, products.price AS products_price, products.discount AS products_discount, products.description AS products_description, products.images AS products_images, products.stock AS products_stock, products.category_id AS products_category_id, products.ratings AS products_ratings, products.created_at AS products_created_at, products.updated_at AS products_updated_at, products.discount_applied_at AS products_discount_applied_at, products.name_translations AS products_name_translations, products.description_translations AS products_description_translations, products.created_by AS products_created_by, products.modified_by AS products_modified_by, products.status AS products_status, products.name_en AS products_name_en, products.name_hi AS products_name_hi, products.description_en AS products_description_en, products.description_hi AS products_description_hi, products.features_en AS products_features_en, products.features_hi AS products_features_hi, products.specifications_en AS products_specifications_en, products.specifications_hi AS products_specifications_hi 
+FROM products 
+WHERE products.id IN (%(id_1_1)s) FOR UPDATE
+2026-06-15 00:01:50,868 INFO sqlalchemy.engine.Engine [generated in 0.00418s] {'id_1_1': 258}
+2026-06-15 00:01:50,882 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s FOR UPDATE
+2026-06-15 00:01:50,886 INFO sqlalchemy.engine.Engine [generated in 0.00358s] {'pk_1': 54}
+2026-06-15 00:01:50,902 INFO sqlalchemy.engine.Engine SELECT buy_requests.id AS buy_requests_id, buy_requests.product_id AS buy_requests_product_id, buy_requests.user_id AS buy_requests_user_id, buy_requests.product_name AS buy_requests_product_name, buy_requests.quantity AS buy_requests_quantity, buy_requests.selected_variant AS buy_requests_selected_variant, buy_requests.status AS buy_requests_status, buy_requests.expected_delivery_date AS buy_requests_expected_delivery_date, buy_requests.expected_availability_date AS buy_requests_expected_availability_date, buy_requests.admin_note AS buy_requests_admin_note, buy_requests.created_at AS buy_requests_created_at, buy_requests.city AS buy_requests_city, buy_requests.customer_confirmed AS buy_requests_customer_confirmed, buy_requests.selected_address_id AS buy_requests_selected_address_id, buy_requests.payment_completed AS buy_requests_payment_completed, buy_requests.converted_order_id AS buy_requests_converted_order_id, buy_requests.converted_to_order_at AS buy_requests_converted_to_order_at 
+FROM buy_requests 
+WHERE buy_requests.product_id = %(product_id_1)s AND buy_requests.user_id = %(user_id_1)s AND buy_requests.status = %(status_1)s 
+ LIMIT %(param_1)s FOR UPDATE
+2026-06-15 00:01:50,909 INFO sqlalchemy.engine.Engine [generated in 0.00566s] {'product_id_1': 258, 'user_id_1': 54, 'status_1': 'Available', 'param_1': 1}
+2026-06-15 00:01:50,906 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:50,912 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:01:50,912 INFO sqlalchemy.engine.Engine [cached since 0.1011s ago] {'pk_1': 54}
+2026-06-15 00:01:50,917 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:01:50,924 INFO sqlalchemy.engine.Engine [cached since 0.1388s ago] {'param_1': 54}
+2026-06-15 00:01:50,923 INFO sqlalchemy.engine.Engine SELECT buy_requests.id AS buy_requests_id, buy_requests.product_id AS buy_requests_product_id, buy_requests.user_id AS buy_requests_user_id, buy_requests.product_name AS buy_requests_product_name, buy_requests.quantity AS buy_requests_quantity, buy_requests.selected_variant AS buy_requests_selected_variant, buy_requests.status AS buy_requests_status, buy_requests.expected_delivery_date AS buy_requests_expected_delivery_date, buy_requests.expected_availability_date AS buy_requests_expected_availability_date, buy_requests.admin_note AS buy_requests_admin_note, buy_requests.created_at AS buy_requests_created_at, buy_requests.city AS buy_requests_city, buy_requests.customer_confirmed AS buy_requests_customer_confirmed, buy_requests.selected_address_id AS buy_requests_selected_address_id, buy_requests.payment_completed AS buy_requests_payment_completed, buy_requests.converted_order_id AS buy_requests_converted_order_id, buy_requests.converted_to_order_at AS buy_requests_converted_to_order_at 
+FROM buy_requests 
+WHERE buy_requests.product_id = %(product_id_1)s AND buy_requests.user_id = %(user_id_1)s AND buy_requests.status = %(status_1)s 
+ LIMIT %(param_1)s FOR UPDATE
+2026-06-15 00:01:50,925 INFO sqlalchemy.engine.Engine [cached since 0.02247s ago] {'product_id_1': 258, 'user_id_1': 54, 'status_1': 'Available', 'param_1': 1}
+2026-06-15 00:01:50,927 INFO sqlalchemy.engine.Engine SELECT wishlists.id AS wishlists_id, wishlists.user_id AS wishlists_user_id, wishlists.product_id AS wishlists_product_id, wishlists.created_at AS wishlists_created_at 
+FROM wishlists 
+WHERE %(param_1)s = wishlists.user_id
+2026-06-15 00:01:50,932 INFO sqlalchemy.engine.Engine [cached since 0.1423s ago] {'param_1': 54}
+2026-06-15 00:01:50,932 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:50,931 INFO sqlalchemy.engine.Engine INSERT INTO orders (order_id, user_id, total_amount, order_status, status, delivery_date, tracking_history, return_request, shipping_address, carrier, tracking_id, created_at, terms_accepted, terms_accepted_at) VALUES (%(order_id)s, %(user_id)s, %(total_amount)s, %(order_status)s, %(status)s, %(delivery_date)s, %(tracking_history)s, %(return_request)s, %(shipping_address)s, %(carrier)s, %(tracking_id)s, %(created_at)s, %(terms_accepted)s, %(terms_accepted_at)s)
+2026-06-15 00:01:50,934 INFO sqlalchemy.engine.Engine [generated in 0.00242s] {'order_id': 'BB-460283', 'user_id': 54, 'total_amount': 2099.0, 'order_status': 'Pending', 'status': 'Pending', 'delivery_date': '20-06-2026', 'tracking_history': '[{"status": "Pending", "message": "Order placed successfully and is awaiting confirmation.", "updated_at": "2026-06-15T00:01:50.928548+05:30"}]', 'return_request': '{"status": "None", "reason": "", "message": "", "created_at": null}', 'shipping_address': '{"encrypted_data": "BB_ENC:z+p0ebQF4WFJpIaoUz6lTHUcedo3Gew+6PFLO3yqlWhnIpxf4twPWZTi94XovyiizPrBsCf4hlgidgxYvRGqNTJgOUpx1OJ5f8z8ogt3kFQaZaJ7pnutX1tnAN ... (31 characters truncated) ... vOT/QDG9gPwLL4f4lSA2PaPysNyqd+AZ+hjPJd6j6cDGhb+MEXQRiEmZRinK1GYhDjKrrPPbXa831rdIb1x0i+E6lkZuKod5wxW3BKi6hYLkmwWU9wHscrIrcV5ePccesnO0bEpQ7KybzO9CWE="}', 'carrier': None, 'tracking_id': None, 'created_at': datetime.datetime(2026, 6, 15, 0, 1, 50, 928615), 'terms_accepted': 1, 'terms_accepted_at': datetime.datetime(2026, 6, 15, 0, 1, 50, 928607)}
+2026-06-15 00:01:50,932 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:01:50,934 INFO sqlalchemy.engine.Engine [cached since 0.1232s ago] {'pk_1': 54}
+2026-06-15 00:01:50,933 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:01:50,934 INFO sqlalchemy.engine.Engine [cached since 0.1404s ago] {'param_1': 54}
+2026-06-15 00:01:50,935 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:01:50,939 INFO sqlalchemy.engine.Engine [cached since 0.1537s ago] {'param_1': 54}
+2026-06-15 00:01:50,939 INFO sqlalchemy.engine.Engine INSERT INTO product_audit_logs (product_id, admin_id, action_type, field_name, old_value, new_value, created_at) VALUES (%(product_id)s, %(admin_id)s, %(action_type)s, %(field_name)s, %(old_value)s, %(new_value)s, %(created_at)s)
+2026-06-15 00:01:50,942 INFO sqlalchemy.engine.Engine [generated in 0.00287s] {'product_id': 258, 'admin_id': 'system', 'action_type': 'Stock Update', 'field_name': 'stock', 'old_value': '5', 'new_value': '4', 'created_at': datetime.datetime(2026, 6, 15, 0, 1, 50, 928417)}
+2026-06-15 00:01:50,941 INFO sqlalchemy.engine.Engine SELECT cart_items.id AS cart_items_id, cart_items.cart_id AS cart_items_cart_id, cart_items.product_id AS cart_items_product_id, cart_items.quantity AS cart_items_quantity, cart_items.saved_for_later AS cart_items_saved_for_later, cart_items.created_at AS cart_items_created_at 
+FROM cart_items 
+WHERE %(param_1)s = cart_items.cart_id
+2026-06-15 00:01:50,944 INFO sqlalchemy.engine.Engine [cached since 0.1478s ago] {'param_1': 25}
+2026-06-15 00:01:50,943 INFO sqlalchemy.engine.Engine SELECT wishlists.id AS wishlists_id, wishlists.user_id AS wishlists_user_id, wishlists.product_id AS wishlists_product_id, wishlists.created_at AS wishlists_created_at 
+FROM wishlists 
+WHERE %(param_1)s = wishlists.user_id
+2026-06-15 00:01:50,946 INFO sqlalchemy.engine.Engine [cached since 0.1569s ago] {'param_1': 54}
+2026-06-15 00:01:50,948 INFO sqlalchemy.engine.Engine SELECT products.id AS products_id, products.name AS products_name, products.price AS products_price, products.discount AS products_discount, products.description AS products_description, products.images AS products_images, products.stock AS products_stock, products.category_id AS products_category_id, products.ratings AS products_ratings, products.created_at AS products_created_at, products.updated_at AS products_updated_at, products.discount_applied_at AS products_discount_applied_at, products.name_translations AS products_name_translations, products.description_translations AS products_description_translations, products.created_by AS products_created_by, products.modified_by AS products_modified_by, products.status AS products_status, products.name_en AS products_name_en, products.name_hi AS products_name_hi, products.description_en AS products_description_en, products.description_hi AS products_description_hi, products.features_en AS products_features_en, products.features_hi AS products_features_hi, products.specifications_en AS products_specifications_en, products.specifications_hi AS products_specifications_hi 
+FROM products 
+WHERE products.id IN (%(id_1_1)s) FOR UPDATE
+2026-06-15 00:01:50,948 INFO sqlalchemy.engine.Engine [cached since 0.08357s ago] {'id_1_1': 258}
+2026-06-15 00:01:50,949 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:01:50,949 INFO sqlalchemy.engine.Engine [cached since 0.1552s ago] {'param_1': 54}
+2026-06-15 00:01:50,946 INFO sqlalchemy.engine.Engine UPDATE products SET stock=%(stock)s, updated_at=%(updated_at)s WHERE products.id = %(products_id)s
+2026-06-15 00:01:50,949 INFO sqlalchemy.engine.Engine [generated in 0.00420s] {'stock': 4, 'updated_at': datetime.datetime(2026, 6, 15, 0, 1, 50, 945986, tzinfo=<DstTzInfo 'Asia/Kolkata' IST+5:30:00 STD>), 'products_id': 258}
+2026-06-15 00:01:50,951 INFO sqlalchemy.engine.Engine SELECT cart_items.id AS cart_items_id, cart_items.cart_id AS cart_items_cart_id, cart_items.product_id AS cart_items_product_id, cart_items.quantity AS cart_items_quantity, cart_items.saved_for_later AS cart_items_saved_for_later, cart_items.created_at AS cart_items_created_at 
+FROM cart_items 
+WHERE %(param_1)s = cart_items.cart_id
+2026-06-15 00:01:50,951 INFO sqlalchemy.engine.Engine [cached since 0.1546s ago] {'param_1': 25}
+2026-06-15 00:01:50,952 INFO sqlalchemy.engine.Engine INSERT INTO stock_history (product_id, change_type, change_amount, old_stock, new_stock, created_at) VALUES (%(product_id)s, %(change_type)s, %(change_amount)s, %(old_stock)s, %(new_stock)s, %(created_at)s)
+2026-06-15 00:01:50,952 INFO sqlalchemy.engine.Engine [generated in 0.00015s] {'product_id': 258, 'change_type': 'order_placed', 'change_amount': -1, 'old_stock': 5, 'new_stock': 4, 'created_at': datetime.datetime(2026, 6, 15, 0, 1, 50, 928260)}
+2026-06-15 00:01:50,962 INFO sqlalchemy.engine.Engine INSERT INTO order_items (order_id, product_id, quantity, price, name, image) VALUES (%(order_id)s, %(product_id)s, %(quantity)s, %(price)s, %(name)s, %(image)s)
+2026-06-15 00:01:50,966 INFO sqlalchemy.engine.Engine [generated in 0.00442s] {'order_id': 51, 'product_id': 258, 'quantity': 1, 'price': 2099.0, 'name': 'TEST_PERSIST_PRODUCT', 'image': ''}
+2026-06-15 00:01:50,965 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:50,962 INFO sqlalchemy.engine.Engine SELECT products.id AS products_id, products.name AS products_name, products.price AS products_price, products.discount AS products_discount, products.description AS products_description, products.images AS products_images, products.stock AS products_stock, products.category_id AS products_category_id, products.ratings AS products_ratings, products.created_at AS products_created_at, products.updated_at AS products_updated_at, products.discount_applied_at AS products_discount_applied_at, products.name_translations AS products_name_translations, products.description_translations AS products_description_translations, products.created_by AS products_created_by, products.modified_by AS products_modified_by, products.status AS products_status, products.name_en AS products_name_en, products.name_hi AS products_name_hi, products.description_en AS products_description_en, products.description_hi AS products_description_hi, products.features_en AS products_features_en, products.features_hi AS products_features_hi, products.specifications_en AS products_specifications_en, products.specifications_hi AS products_specifications_hi 
+FROM products 
+WHERE products.id IN (%(id_1_1)s) FOR UPDATE
+2026-06-15 00:01:50,967 INFO sqlalchemy.engine.Engine [cached since 0.1031s ago] {'id_1_1': 258}
+2026-06-15 00:01:50,967 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:01:50,968 INFO sqlalchemy.engine.Engine [cached since 0.157s ago] {'pk_1': 54}
+2026-06-15 00:01:50,970 INFO sqlalchemy.engine.Engine SELECT order_items.id AS order_items_id, order_items.order_id AS order_items_order_id, order_items.product_id AS order_items_product_id, order_items.quantity AS order_items_quantity, order_items.price AS order_items_price, order_items.name AS order_items_name, order_items.image AS order_items_image 
+FROM order_items 
+WHERE %(param_1)s = order_items.order_id
+2026-06-15 00:01:50,974 INFO sqlalchemy.engine.Engine [generated in 0.00433s] {'param_1': 51}
+2026-06-15 00:01:50,973 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:01:50,975 INFO sqlalchemy.engine.Engine [cached since 0.1894s ago] {'param_1': 54}
+2026-06-15 00:01:50,977 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s FOR UPDATE
+2026-06-15 00:01:50,978 INFO sqlalchemy.engine.Engine [cached since 0.09582s ago] {'pk_1': 54}
+2026-06-15 00:01:50,981 INFO sqlalchemy.engine.Engine SELECT wishlists.id AS wishlists_id, wishlists.user_id AS wishlists_user_id, wishlists.product_id AS wishlists_product_id, wishlists.created_at AS wishlists_created_at 
+FROM wishlists 
+WHERE %(param_1)s = wishlists.user_id
+2026-06-15 00:01:50,983 INFO sqlalchemy.engine.Engine [cached since 0.1936s ago] {'param_1': 54}
+2026-06-15 00:01:50,982 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:01:50,984 INFO sqlalchemy.engine.Engine [cached since 0.1898s ago] {'param_1': 54}
+2026-06-15 00:01:50,984 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:01:50,985 INFO sqlalchemy.engine.Engine [cached since 0.1908s ago] {'param_1': 54}
+2026-06-15 00:01:50,987 INFO sqlalchemy.engine.Engine SELECT cart_items.id AS cart_items_id, cart_items.cart_id AS cart_items_cart_id, cart_items.product_id AS cart_items_product_id, cart_items.quantity AS cart_items_quantity, cart_items.saved_for_later AS cart_items_saved_for_later, cart_items.created_at AS cart_items_created_at 
+FROM cart_items 
+WHERE %(param_1)s = cart_items.cart_id
+2026-06-15 00:01:50,991 INFO sqlalchemy.engine.Engine [cached since 0.1954s ago] {'param_1': 25}
+2026-06-15 00:01:50,988 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:50,992 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:01:50,993 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:50,994 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:01:50,994 INFO sqlalchemy.engine.Engine [cached since 0.1833s ago] {'pk_1': 54}
+2026-06-15 00:01:50,991 INFO sqlalchemy.engine.Engine DELETE FROM cart_items WHERE cart_items.cart_id = %(cart_id_1)s AND cart_items.saved_for_later = false
+2026-06-15 00:01:50,995 INFO sqlalchemy.engine.Engine [generated in 0.00361s] {'cart_id_1': 25}
+2026-06-15 00:01:50,993 INFO sqlalchemy.engine.Engine [cached since 0.1821s ago] {'pk_1': 54}
+2026-06-15 00:01:50,995 INFO sqlalchemy.engine.Engine SELECT products.id AS products_id, products.name AS products_name, products.price AS products_price, products.discount AS products_discount, products.description AS products_description, products.images AS products_images, products.stock AS products_stock, products.category_id AS products_category_id, products.ratings AS products_ratings, products.created_at AS products_created_at, products.updated_at AS products_updated_at, products.discount_applied_at AS products_discount_applied_at, products.name_translations AS products_name_translations, products.description_translations AS products_description_translations, products.created_by AS products_created_by, products.modified_by AS products_modified_by, products.status AS products_status, products.name_en AS products_name_en, products.name_hi AS products_name_hi, products.description_en AS products_description_en, products.description_hi AS products_description_hi, products.features_en AS products_features_en, products.features_hi AS products_features_hi, products.specifications_en AS products_specifications_en, products.specifications_hi AS products_specifications_hi 
+FROM products 
+WHERE products.id IN (%(id_1_1)s) FOR UPDATE
+2026-06-15 00:01:50,996 INFO sqlalchemy.engine.Engine [cached since 0.1321s ago] {'id_1_1': 258}
+2026-06-15 00:01:50,998 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:01:50,999 INFO sqlalchemy.engine.Engine [cached since 0.2141s ago] {'param_1': 54}
+2026-06-15 00:01:50,998 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:01:51,001 INFO sqlalchemy.engine.Engine [cached since 0.2153s ago] {'param_1': 54}
+2026-06-15 00:01:50,999 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:01:51,001 INFO sqlalchemy.engine.Engine [cached since 0.2156s ago] {'param_1': 54}
+2026-06-15 00:01:51,000 INFO sqlalchemy.engine.Engine SELECT wishlists.id AS wishlists_id, wishlists.user_id AS wishlists_user_id, wishlists.product_id AS wishlists_product_id, wishlists.created_at AS wishlists_created_at 
+FROM wishlists 
+WHERE %(param_1)s = wishlists.user_id
+2026-06-15 00:01:51,004 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-06-15 00:01:51,006 INFO sqlalchemy.engine.Engine [generated in 0.00253s] {'email_1': 'BB_ENC:NsevnzDsw2FCzkgXF2ayn1aDNC5kVwlgDoEhEMdVe7eb1y16TPff8iCh21sx99+kr3efnc2eZnQcFMLJdSYn3g==', 'param_1': 1}
+2026-06-15 00:01:51,006 INFO sqlalchemy.engine.Engine SELECT wishlists.id AS wishlists_id, wishlists.user_id AS wishlists_user_id, wishlists.product_id AS wishlists_product_id, wishlists.created_at AS wishlists_created_at 
+FROM wishlists 
+WHERE %(param_1)s = wishlists.user_id
+2026-06-15 00:01:51,006 INFO sqlalchemy.engine.Engine [cached since 0.2168s ago] {'param_1': 54}
+2026-06-15 00:01:51,005 INFO sqlalchemy.engine.Engine [cached since 0.2156s ago] {'param_1': 54}
+2026-06-15 00:01:51,008 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:01:51,009 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:01:51,012 INFO sqlalchemy.engine.Engine [cached since 0.2185s ago] {'param_1': 54}
+2026-06-15 00:01:51,012 INFO sqlalchemy.engine.Engine [cached since 0.2184s ago] {'param_1': 54}
+2026-06-15 00:01:51,012 INFO sqlalchemy.engine.Engine COMMIT
+2026-06-15 00:01:51,014 INFO sqlalchemy.engine.Engine SELECT cart_items.id AS cart_items_id, cart_items.cart_id AS cart_items_cart_id, cart_items.product_id AS cart_items_product_id, cart_items.quantity AS cart_items_quantity, cart_items.saved_for_later AS cart_items_saved_for_later, cart_items.created_at AS cart_items_created_at 
+FROM cart_items 
+WHERE %(param_1)s = cart_items.cart_id
+2026-06-15 00:01:51,015 INFO sqlalchemy.engine.Engine SELECT cart_items.id AS cart_items_id, cart_items.cart_id AS cart_items_cart_id, cart_items.product_id AS cart_items_product_id, cart_items.quantity AS cart_items_quantity, cart_items.saved_for_later AS cart_items_saved_for_later, cart_items.created_at AS cart_items_created_at 
+FROM cart_items 
+WHERE %(param_1)s = cart_items.cart_id
+2026-06-15 00:01:51,015 INFO sqlalchemy.engine.Engine [cached since 0.2194s ago] {'param_1': 25}
+2026-06-15 00:01:51,015 INFO sqlalchemy.engine.Engine [cached since 0.2194s ago] {'param_1': 25}
+2026-06-15 00:01:51,017 INFO sqlalchemy.engine.Engine SELECT products.id AS products_id, products.name AS products_name, products.price AS products_price, products.discount AS products_discount, products.description AS products_description, products.images AS products_images, products.stock AS products_stock, products.category_id AS products_category_id, products.ratings AS products_ratings, products.created_at AS products_created_at, products.updated_at AS products_updated_at, products.discount_applied_at AS products_discount_applied_at, products.name_translations AS products_name_translations, products.description_translations AS products_description_translations, products.created_by AS products_created_by, products.modified_by AS products_modified_by, products.status AS products_status, products.name_en AS products_name_en, products.name_hi AS products_name_hi, products.description_en AS products_description_en, products.description_hi AS products_description_hi, products.features_en AS products_features_en, products.features_hi AS products_features_hi, products.specifications_en AS products_specifications_en, products.specifications_hi AS products_specifications_hi 
+FROM products 
+WHERE products.id IN (%(id_1_1)s) FOR UPDATE
+2026-06-15 00:01:51,017 INFO sqlalchemy.engine.Engine [cached since 0.1527s ago] {'id_1_1': 258}
+2026-06-15 00:01:51,018 INFO sqlalchemy.engine.Engine SELECT products.id AS products_id, products.name AS products_name, products.price AS products_price, products.discount AS products_discount, products.description AS products_description, products.images AS products_images, products.stock AS products_stock, products.category_id AS products_category_id, products.ratings AS products_ratings, products.created_at AS products_created_at, products.updated_at AS products_updated_at, products.discount_applied_at AS products_discount_applied_at, products.name_translations AS products_name_translations, products.description_translations AS products_description_translations, products.created_by AS products_created_by, products.modified_by AS products_modified_by, products.status AS products_status, products.name_en AS products_name_en, products.name_hi AS products_name_hi, products.description_en AS products_description_en, products.description_hi AS products_description_hi, products.features_en AS products_features_en, products.features_hi AS products_features_hi, products.specifications_en AS products_specifications_en, products.specifications_hi AS products_specifications_hi 
+FROM products 
+WHERE products.id IN (%(id_1_1)s) FOR UPDATE
+2026-06-15 00:01:51,018 INFO sqlalchemy.engine.Engine [cached since 0.1537s ago] {'id_1_1': 258}
+2026-06-15 00:01:51,023 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s FOR UPDATE
+2026-06-15 00:01:51,025 INFO sqlalchemy.engine.Engine [cached since 0.143s ago] {'pk_1': 54}
+2026-06-15 00:01:51,033 INFO sqlalchemy.engine.Engine SELECT buy_requests.id AS buy_requests_id, buy_requests.product_id AS buy_requests_product_id, buy_requests.user_id AS buy_requests_user_id, buy_requests.product_name AS buy_requests_product_name, buy_requests.quantity AS buy_requests_quantity, buy_requests.selected_variant AS buy_requests_selected_variant, buy_requests.status AS buy_requests_status, buy_requests.expected_delivery_date AS buy_requests_expected_delivery_date, buy_requests.expected_availability_date AS buy_requests_expected_availability_date, buy_requests.admin_note AS buy_requests_admin_note, buy_requests.created_at AS buy_requests_created_at, buy_requests.city AS buy_requests_city, buy_requests.customer_confirmed AS buy_requests_customer_confirmed, buy_requests.selected_address_id AS buy_requests_selected_address_id, buy_requests.payment_completed AS buy_requests_payment_completed, buy_requests.converted_order_id AS buy_requests_converted_order_id, buy_requests.converted_to_order_at AS buy_requests_converted_to_order_at 
+FROM buy_requests 
+WHERE buy_requests.product_id = %(product_id_1)s AND buy_requests.user_id = %(user_id_1)s AND buy_requests.status = %(status_1)s 
+ LIMIT %(param_1)s FOR UPDATE
+2026-06-15 00:01:51,033 INFO sqlalchemy.engine.Engine [cached since 0.131s ago] {'product_id_1': 258, 'user_id_1': 54, 'status_1': 'Available', 'param_1': 1}
+2026-06-15 00:01:51,035 INFO sqlalchemy.engine.Engine SELECT buy_requests.id AS buy_requests_id, buy_requests.product_id AS buy_requests_product_id, buy_requests.user_id AS buy_requests_user_id, buy_requests.product_name AS buy_requests_product_name, buy_requests.quantity AS buy_requests_quantity, buy_requests.selected_variant AS buy_requests_selected_variant, buy_requests.status AS buy_requests_status, buy_requests.expected_delivery_date AS buy_requests_expected_delivery_date, buy_requests.expected_availability_date AS buy_requests_expected_availability_date, buy_requests.admin_note AS buy_requests_admin_note, buy_requests.created_at AS buy_requests_created_at, buy_requests.city AS buy_requests_city, buy_requests.customer_confirmed AS buy_requests_customer_confirmed, buy_requests.selected_address_id AS buy_requests_selected_address_id, buy_requests.payment_completed AS buy_requests_payment_completed, buy_requests.converted_order_id AS buy_requests_converted_order_id, buy_requests.converted_to_order_at AS buy_requests_converted_to_order_at 
+FROM buy_requests 
+WHERE buy_requests.product_id = %(product_id_1)s AND buy_requests.user_id = %(user_id_1)s AND buy_requests.status = %(status_1)s 
+ LIMIT %(param_1)s FOR UPDATE
+2026-06-15 00:01:51,036 INFO sqlalchemy.engine.Engine [cached since 0.134s ago] {'product_id_1': 258, 'user_id_1': 54, 'status_1': 'Available', 'param_1': 1}
+2026-06-15 00:01:51,038 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:51,040 INFO sqlalchemy.engine.Engine INSERT INTO orders (order_id, user_id, total_amount, order_status, status, delivery_date, tracking_history, return_request, shipping_address, carrier, tracking_id, created_at, terms_accepted, terms_accepted_at) VALUES (%(order_id)s, %(user_id)s, %(total_amount)s, %(order_status)s, %(status)s, %(delivery_date)s, %(tracking_history)s, %(return_request)s, %(shipping_address)s, %(carrier)s, %(tracking_id)s, %(created_at)s, %(terms_accepted)s, %(terms_accepted_at)s)
+2026-06-15 00:01:51,042 INFO sqlalchemy.engine.Engine [cached since 0.1106s ago] {'order_id': 'BB-233476', 'user_id': 54, 'total_amount': 2099.0, 'order_status': 'Pending', 'status': 'Pending', 'delivery_date': '20-06-2026', 'tracking_history': '[{"status": "Pending", "message": "Order placed successfully and is awaiting confirmation.", "updated_at": "2026-06-15T00:01:51.040103+05:30"}]', 'return_request': '{"status": "None", "reason": "", "message": "", "created_at": null}', 'shipping_address': '{"encrypted_data": "BB_ENC:z+p0ebQF4WFJpIaoUz6lTHUcedo3Gew+6PFLO3yqlWhnIpxf4twPWZTi94XovyiizPrBsCf4hlgidgxYvRGqNTJgOUpx1OJ5f8z8ogt3kFQaZaJ7pnutX1tnAN ... (31 characters truncated) ... vOT/QDG9gPwLL4f4lSA2PaPysNyqd+AZ+hjPJd6j6cDGhb+MEXQRiEmZRinK1GYhDjKrrPPbXa831rdIb1x0i+E6lkZuKod5wxW3BKi6hYLkmwWU9wHscrIrcV5ePccesnO0bEpQ7KybzO9CWE="}', 'carrier': None, 'tracking_id': None, 'created_at': datetime.datetime(2026, 6, 15, 0, 1, 51, 40142), 'terms_accepted': 1, 'terms_accepted_at': datetime.datetime(2026, 6, 15, 0, 1, 51, 40138)}
+2026-06-15 00:01:51,041 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:01:51,039 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:51,039 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:51,044 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:01:51,044 INFO sqlalchemy.engine.Engine [cached since 0.2331s ago] {'pk_1': 54}
+2026-06-15 00:01:51,044 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:01:51,043 INFO sqlalchemy.engine.Engine [cached since 0.2324s ago] {'pk_1': 54}
+2026-06-15 00:01:51,044 INFO sqlalchemy.engine.Engine INSERT INTO product_audit_logs (product_id, admin_id, action_type, field_name, old_value, new_value, created_at) VALUES (%(product_id)s, %(admin_id)s, %(action_type)s, %(field_name)s, %(old_value)s, %(new_value)s, %(created_at)s)
+2026-06-15 00:01:51,046 INFO sqlalchemy.engine.Engine [cached since 0.1068s ago] {'product_id': 258, 'admin_id': 'system', 'action_type': 'Stock Update', 'field_name': 'stock', 'old_value': '4', 'new_value': '3', 'created_at': datetime.datetime(2026, 6, 15, 0, 1, 51, 40031)}
+2026-06-15 00:01:51,045 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:01:51,046 INFO sqlalchemy.engine.Engine [cached since 0.2605s ago] {'param_1': 54}
+2026-06-15 00:01:51,045 INFO sqlalchemy.engine.Engine [cached since 0.2339s ago] {'pk_1': 54}
+2026-06-15 00:01:51,047 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:01:51,047 INFO sqlalchemy.engine.Engine UPDATE products SET stock=%(stock)s, updated_at=%(updated_at)s WHERE products.id = %(products_id)s
+2026-06-15 00:01:51,048 INFO sqlalchemy.engine.Engine [cached since 0.2623s ago] {'param_1': 54}
+2026-06-15 00:01:51,048 INFO sqlalchemy.engine.Engine [cached since 0.1024s ago] {'stock': 3, 'updated_at': datetime.datetime(2026, 6, 15, 0, 1, 51, 47797, tzinfo=<DstTzInfo 'Asia/Kolkata' IST+5:30:00 STD>), 'products_id': 258}
+2026-06-15 00:01:51,048 INFO sqlalchemy.engine.Engine SELECT wishlists.id AS wishlists_id, wishlists.user_id AS wishlists_user_id, wishlists.product_id AS wishlists_product_id, wishlists.created_at AS wishlists_created_at 
+FROM wishlists 
+WHERE %(param_1)s = wishlists.user_id
+2026-06-15 00:01:51,049 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:01:51,050 INFO sqlalchemy.engine.Engine [cached since 0.2644s ago] {'param_1': 54}
+2026-06-15 00:01:51,049 INFO sqlalchemy.engine.Engine [cached since 0.2601s ago] {'param_1': 54}
+2026-06-15 00:01:51,051 INFO sqlalchemy.engine.Engine SELECT wishlists.id AS wishlists_id, wishlists.user_id AS wishlists_user_id, wishlists.product_id AS wishlists_product_id, wishlists.created_at AS wishlists_created_at 
+FROM wishlists 
+WHERE %(param_1)s = wishlists.user_id
+2026-06-15 00:01:51,051 INFO sqlalchemy.engine.Engine [cached since 0.262s ago] {'param_1': 54}
+2026-06-15 00:01:51,051 INFO sqlalchemy.engine.Engine SELECT wishlists.id AS wishlists_id, wishlists.user_id AS wishlists_user_id, wishlists.product_id AS wishlists_product_id, wishlists.created_at AS wishlists_created_at 
+FROM wishlists 
+WHERE %(param_1)s = wishlists.user_id
+2026-06-15 00:01:51,051 INFO sqlalchemy.engine.Engine [cached since 0.2621s ago] {'param_1': 54}
+2026-06-15 00:01:51,052 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:01:51,052 INFO sqlalchemy.engine.Engine [cached since 0.2584s ago] {'param_1': 54}
+2026-06-15 00:01:51,053 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:01:51,055 INFO sqlalchemy.engine.Engine [cached since 0.2615s ago] {'param_1': 54}
+2026-06-15 00:01:51,055 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:01:51,055 INFO sqlalchemy.engine.Engine [cached since 0.2617s ago] {'param_1': 54}
+2026-06-15 00:01:51,055 INFO sqlalchemy.engine.Engine INSERT INTO stock_history (product_id, change_type, change_amount, old_stock, new_stock, created_at) VALUES (%(product_id)s, %(change_type)s, %(change_amount)s, %(old_stock)s, %(new_stock)s, %(created_at)s)
+2026-06-15 00:01:51,057 INFO sqlalchemy.engine.Engine [cached since 0.1049s ago] {'product_id': 258, 'change_type': 'order_placed', 'change_amount': -1, 'old_stock': 4, 'new_stock': 3, 'created_at': datetime.datetime(2026, 6, 15, 0, 1, 51, 39923)}
+2026-06-15 00:01:51,056 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:51,056 INFO sqlalchemy.engine.Engine SELECT cart_items.id AS cart_items_id, cart_items.cart_id AS cart_items_cart_id, cart_items.product_id AS cart_items_product_id, cart_items.quantity AS cart_items_quantity, cart_items.saved_for_later AS cart_items_saved_for_later, cart_items.created_at AS cart_items_created_at 
+FROM cart_items 
+WHERE %(param_1)s = cart_items.cart_id
+2026-06-15 00:01:51,060 INFO sqlalchemy.engine.Engine [cached since 0.2639s ago] {'param_1': 25}
+2026-06-15 00:01:51,059 INFO sqlalchemy.engine.Engine SELECT cart_items.id AS cart_items_id, cart_items.cart_id AS cart_items_cart_id, cart_items.product_id AS cart_items_product_id, cart_items.quantity AS cart_items_quantity, cart_items.saved_for_later AS cart_items_saved_for_later, cart_items.created_at AS cart_items_created_at 
+FROM cart_items 
+WHERE %(param_1)s = cart_items.cart_id
+2026-06-15 00:01:51,060 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:01:51,058 INFO sqlalchemy.engine.Engine SELECT cart_items.id AS cart_items_id, cart_items.cart_id AS cart_items_cart_id, cart_items.product_id AS cart_items_product_id, cart_items.quantity AS cart_items_quantity, cart_items.saved_for_later AS cart_items_saved_for_later, cart_items.created_at AS cart_items_created_at 
+FROM cart_items 
+WHERE %(param_1)s = cart_items.cart_id
+2026-06-15 00:01:51,061 INFO sqlalchemy.engine.Engine INSERT INTO order_items (order_id, product_id, quantity, price, name, image) VALUES (%(order_id)s, %(product_id)s, %(quantity)s, %(price)s, %(name)s, %(image)s)
+2026-06-15 00:01:51,061 INFO sqlalchemy.engine.Engine [cached since 0.265s ago] {'param_1': 25}
+2026-06-15 00:01:51,061 INFO sqlalchemy.engine.Engine [cached since 0.2652s ago] {'param_1': 25}
+2026-06-15 00:01:51,061 INFO sqlalchemy.engine.Engine [cached since 0.2504s ago] {'pk_1': 54}
+2026-06-15 00:01:51,061 INFO sqlalchemy.engine.Engine [cached since 0.09981s ago] {'order_id': 52, 'product_id': 258, 'quantity': 1, 'price': 2099.0, 'name': 'TEST_PERSIST_PRODUCT', 'image': ''}
+2026-06-15 00:01:51,062 INFO sqlalchemy.engine.Engine SELECT products.id AS products_id, products.name AS products_name, products.price AS products_price, products.discount AS products_discount, products.description AS products_description, products.images AS products_images, products.stock AS products_stock, products.category_id AS products_category_id, products.ratings AS products_ratings, products.created_at AS products_created_at, products.updated_at AS products_updated_at, products.discount_applied_at AS products_discount_applied_at, products.name_translations AS products_name_translations, products.description_translations AS products_description_translations, products.created_by AS products_created_by, products.modified_by AS products_modified_by, products.status AS products_status, products.name_en AS products_name_en, products.name_hi AS products_name_hi, products.description_en AS products_description_en, products.description_hi AS products_description_hi, products.features_en AS products_features_en, products.features_hi AS products_features_hi, products.specifications_en AS products_specifications_en, products.specifications_hi AS products_specifications_hi 
+FROM products 
+WHERE products.id IN (%(id_1_1)s) FOR UPDATE
+2026-06-15 00:01:51,063 INFO sqlalchemy.engine.Engine [cached since 0.1985s ago] {'id_1_1': 258}
+2026-06-15 00:01:51,064 INFO sqlalchemy.engine.Engine SELECT products.id AS products_id, products.name AS products_name, products.price AS products_price, products.discount AS products_discount, products.description AS products_description, products.images AS products_images, products.stock AS products_stock, products.category_id AS products_category_id, products.ratings AS products_ratings, products.created_at AS products_created_at, products.updated_at AS products_updated_at, products.discount_applied_at AS products_discount_applied_at, products.name_translations AS products_name_translations, products.description_translations AS products_description_translations, products.created_by AS products_created_by, products.modified_by AS products_modified_by, products.status AS products_status, products.name_en AS products_name_en, products.name_hi AS products_name_hi, products.description_en AS products_description_en, products.description_hi AS products_description_hi, products.features_en AS products_features_en, products.features_hi AS products_features_hi, products.specifications_en AS products_specifications_en, products.specifications_hi AS products_specifications_hi 
+FROM products 
+WHERE products.id IN (%(id_1_1)s) FOR UPDATE
+2026-06-15 00:01:51,064 INFO sqlalchemy.engine.Engine [cached since 0.2s ago] {'id_1_1': 258}
+2026-06-15 00:01:51,064 INFO sqlalchemy.engine.Engine SELECT order_items.id AS order_items_id, order_items.order_id AS order_items_order_id, order_items.product_id AS order_items_product_id, order_items.quantity AS order_items_quantity, order_items.price AS order_items_price, order_items.name AS order_items_name, order_items.image AS order_items_image 
+FROM order_items 
+WHERE %(param_1)s = order_items.order_id
+2026-06-15 00:01:51,065 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:01:51,066 INFO sqlalchemy.engine.Engine [cached since 0.2809s ago] {'param_1': 54}
+2026-06-15 00:01:51,066 INFO sqlalchemy.engine.Engine [cached since 0.09607s ago] {'param_1': 52}
+2026-06-15 00:01:51,066 INFO sqlalchemy.engine.Engine SELECT products.id AS products_id, products.name AS products_name, products.price AS products_price, products.discount AS products_discount, products.description AS products_description, products.images AS products_images, products.stock AS products_stock, products.category_id AS products_category_id, products.ratings AS products_ratings, products.created_at AS products_created_at, products.updated_at AS products_updated_at, products.discount_applied_at AS products_discount_applied_at, products.name_translations AS products_name_translations, products.description_translations AS products_description_translations, products.created_by AS products_created_by, products.modified_by AS products_modified_by, products.status AS products_status, products.name_en AS products_name_en, products.name_hi AS products_name_hi, products.description_en AS products_description_en, products.description_hi AS products_description_hi, products.features_en AS products_features_en, products.features_hi AS products_features_hi, products.specifications_en AS products_specifications_en, products.specifications_hi AS products_specifications_hi 
+FROM products 
+WHERE products.id IN (%(id_1_1)s) FOR UPDATE
+2026-06-15 00:01:51,066 INFO sqlalchemy.engine.Engine [cached since 0.202s ago] {'id_1_1': 258}
+2026-06-15 00:01:51,067 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s FOR UPDATE
+2026-06-15 00:01:51,068 INFO sqlalchemy.engine.Engine SELECT wishlists.id AS wishlists_id, wishlists.user_id AS wishlists_user_id, wishlists.product_id AS wishlists_product_id, wishlists.created_at AS wishlists_created_at 
+FROM wishlists 
+WHERE %(param_1)s = wishlists.user_id
+2026-06-15 00:01:51,068 INFO sqlalchemy.engine.Engine [cached since 0.2789s ago] {'param_1': 54}
+2026-06-15 00:01:51,068 INFO sqlalchemy.engine.Engine [cached since 0.1858s ago] {'pk_1': 54}
+2026-06-15 00:01:51,069 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:01:51,069 INFO sqlalchemy.engine.Engine [cached since 0.2754s ago] {'param_1': 54}
+2026-06-15 00:01:51,071 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:01:51,072 INFO sqlalchemy.engine.Engine [cached since 0.2779s ago] {'param_1': 54}
+2026-06-15 00:01:51,073 INFO sqlalchemy.engine.Engine DELETE FROM cart_items WHERE cart_items.cart_id = %(cart_id_1)s AND cart_items.saved_for_later = false
+2026-06-15 00:01:51,074 INFO sqlalchemy.engine.Engine SELECT cart_items.id AS cart_items_id, cart_items.cart_id AS cart_items_cart_id, cart_items.product_id AS cart_items_product_id, cart_items.quantity AS cart_items_quantity, cart_items.saved_for_later AS cart_items_saved_for_later, cart_items.created_at AS cart_items_created_at 
+FROM cart_items 
+WHERE %(param_1)s = cart_items.cart_id
+2026-06-15 00:01:51,074 INFO sqlalchemy.engine.Engine [cached since 0.08297s ago] {'cart_id_1': 25}
+2026-06-15 00:01:51,074 INFO sqlalchemy.engine.Engine [cached since 0.2784s ago] {'param_1': 25}
+2026-06-15 00:01:51,075 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:01:51,076 INFO sqlalchemy.engine.Engine [cached since 0.2903s ago] {'param_1': 54}
+2026-06-15 00:01:51,077 INFO sqlalchemy.engine.Engine SELECT products.id AS products_id, products.name AS products_name, products.price AS products_price, products.discount AS products_discount, products.description AS products_description, products.images AS products_images, products.stock AS products_stock, products.category_id AS products_category_id, products.ratings AS products_ratings, products.created_at AS products_created_at, products.updated_at AS products_updated_at, products.discount_applied_at AS products_discount_applied_at, products.name_translations AS products_name_translations, products.description_translations AS products_description_translations, products.created_by AS products_created_by, products.modified_by AS products_modified_by, products.status AS products_status, products.name_en AS products_name_en, products.name_hi AS products_name_hi, products.description_en AS products_description_en, products.description_hi AS products_description_hi, products.features_en AS products_features_en, products.features_hi AS products_features_hi, products.specifications_en AS products_specifications_en, products.specifications_hi AS products_specifications_hi 
+FROM products 
+WHERE products.id IN (%(id_1_1)s) FOR UPDATE
+2026-06-15 00:01:51,079 INFO sqlalchemy.engine.Engine [cached since 0.2143s ago] {'id_1_1': 258}
+2026-06-15 00:01:51,079 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-06-15 00:01:51,079 INFO sqlalchemy.engine.Engine [cached since 0.07541s ago] {'email_1': 'BB_ENC:NsevnzDsw2FCzkgXF2ayn1aDNC5kVwlgDoEhEMdVe7eb1y16TPff8iCh21sx99+kr3efnc2eZnQcFMLJdSYn3g==', 'param_1': 1}
+2026-06-15 00:01:51,080 INFO sqlalchemy.engine.Engine COMMIT
+2026-06-15 00:01:51,096 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s FOR UPDATE
+2026-06-15 00:01:51,096 INFO sqlalchemy.engine.Engine [cached since 0.2138s ago] {'pk_1': 54}
+2026-06-15 00:01:51,097 INFO sqlalchemy.engine.Engine SELECT buy_requests.id AS buy_requests_id, buy_requests.product_id AS buy_requests_product_id, buy_requests.user_id AS buy_requests_user_id, buy_requests.product_name AS buy_requests_product_name, buy_requests.quantity AS buy_requests_quantity, buy_requests.selected_variant AS buy_requests_selected_variant, buy_requests.status AS buy_requests_status, buy_requests.expected_delivery_date AS buy_requests_expected_delivery_date, buy_requests.expected_availability_date AS buy_requests_expected_availability_date, buy_requests.admin_note AS buy_requests_admin_note, buy_requests.created_at AS buy_requests_created_at, buy_requests.city AS buy_requests_city, buy_requests.customer_confirmed AS buy_requests_customer_confirmed, buy_requests.selected_address_id AS buy_requests_selected_address_id, buy_requests.payment_completed AS buy_requests_payment_completed, buy_requests.converted_order_id AS buy_requests_converted_order_id, buy_requests.converted_to_order_at AS buy_requests_converted_to_order_at 
+FROM buy_requests 
+WHERE buy_requests.product_id = %(product_id_1)s AND buy_requests.user_id = %(user_id_1)s AND buy_requests.status = %(status_1)s 
+ LIMIT %(param_1)s FOR UPDATE
+2026-06-15 00:01:51,098 INFO sqlalchemy.engine.Engine [cached since 0.1954s ago] {'product_id_1': 258, 'user_id_1': 54, 'status_1': 'Available', 'param_1': 1}
+2026-06-15 00:01:51,099 INFO sqlalchemy.engine.Engine SELECT buy_requests.id AS buy_requests_id, buy_requests.product_id AS buy_requests_product_id, buy_requests.user_id AS buy_requests_user_id, buy_requests.product_name AS buy_requests_product_name, buy_requests.quantity AS buy_requests_quantity, buy_requests.selected_variant AS buy_requests_selected_variant, buy_requests.status AS buy_requests_status, buy_requests.expected_delivery_date AS buy_requests_expected_delivery_date, buy_requests.expected_availability_date AS buy_requests_expected_availability_date, buy_requests.admin_note AS buy_requests_admin_note, buy_requests.created_at AS buy_requests_created_at, buy_requests.city AS buy_requests_city, buy_requests.customer_confirmed AS buy_requests_customer_confirmed, buy_requests.selected_address_id AS buy_requests_selected_address_id, buy_requests.payment_completed AS buy_requests_payment_completed, buy_requests.converted_order_id AS buy_requests_converted_order_id, buy_requests.converted_to_order_at AS buy_requests_converted_to_order_at 
+FROM buy_requests 
+WHERE buy_requests.product_id = %(product_id_1)s AND buy_requests.user_id = %(user_id_1)s AND buy_requests.status = %(status_1)s 
+ LIMIT %(param_1)s FOR UPDATE
+2026-06-15 00:01:51,099 INFO sqlalchemy.engine.Engine [cached since 0.1965s ago] {'product_id_1': 258, 'user_id_1': 54, 'status_1': 'Available', 'param_1': 1}
+2026-06-15 00:01:51,100 INFO sqlalchemy.engine.Engine INSERT INTO orders (order_id, user_id, total_amount, order_status, status, delivery_date, tracking_history, return_request, shipping_address, carrier, tracking_id, created_at, terms_accepted, terms_accepted_at) VALUES (%(order_id)s, %(user_id)s, %(total_amount)s, %(order_status)s, %(status)s, %(delivery_date)s, %(tracking_history)s, %(return_request)s, %(shipping_address)s, %(carrier)s, %(tracking_id)s, %(created_at)s, %(terms_accepted)s, %(terms_accepted_at)s)
+2026-06-15 00:01:51,100 INFO sqlalchemy.engine.Engine [cached since 0.1688s ago] {'order_id': 'BB-842110', 'user_id': 54, 'total_amount': 2099.0, 'order_status': 'Pending', 'status': 'Pending', 'delivery_date': '20-06-2026', 'tracking_history': '[{"status": "Pending", "message": "Order placed successfully and is awaiting confirmation.", "updated_at": "2026-06-15T00:01:51.099802+05:30"}]', 'return_request': '{"status": "None", "reason": "", "message": "", "created_at": null}', 'shipping_address': '{"encrypted_data": "BB_ENC:z+p0ebQF4WFJpIaoUz6lTHUcedo3Gew+6PFLO3yqlWhnIpxf4twPWZTi94XovyiizPrBsCf4hlgidgxYvRGqNTJgOUpx1OJ5f8z8ogt3kFQaZaJ7pnutX1tnAN ... (31 characters truncated) ... vOT/QDG9gPwLL4f4lSA2PaPysNyqd+AZ+hjPJd6j6cDGhb+MEXQRiEmZRinK1GYhDjKrrPPbXa831rdIb1x0i+E6lkZuKod5wxW3BKi6hYLkmwWU9wHscrIrcV5ePccesnO0bEpQ7KybzO9CWE="}', 'carrier': None, 'tracking_id': None, 'created_at': datetime.datetime(2026, 6, 15, 0, 1, 51, 99837), 'terms_accepted': 1, 'terms_accepted_at': datetime.datetime(2026, 6, 15, 0, 1, 51, 99833)}
+2026-06-15 00:01:51,101 INFO sqlalchemy.engine.Engine INSERT INTO product_audit_logs (product_id, admin_id, action_type, field_name, old_value, new_value, created_at) VALUES (%(product_id)s, %(admin_id)s, %(action_type)s, %(field_name)s, %(old_value)s, %(new_value)s, %(created_at)s)
+2026-06-15 00:01:51,101 INFO sqlalchemy.engine.Engine [cached since 0.1619s ago] {'product_id': 258, 'admin_id': 'system', 'action_type': 'Stock Update', 'field_name': 'stock', 'old_value': '3', 'new_value': '2', 'created_at': datetime.datetime(2026, 6, 15, 0, 1, 51, 99744)}
+2026-06-15 00:01:51,101 INFO sqlalchemy.engine.Engine UPDATE products SET stock=%(stock)s, updated_at=%(updated_at)s WHERE products.id = %(products_id)s
+2026-06-15 00:01:51,101 INFO sqlalchemy.engine.Engine [cached since 0.1558s ago] {'stock': 2, 'updated_at': datetime.datetime(2026, 6, 15, 0, 1, 51, 101475, tzinfo=<DstTzInfo 'Asia/Kolkata' IST+5:30:00 STD>), 'products_id': 258}
+2026-06-15 00:01:51,102 INFO sqlalchemy.engine.Engine INSERT INTO stock_history (product_id, change_type, change_amount, old_stock, new_stock, created_at) VALUES (%(product_id)s, %(change_type)s, %(change_amount)s, %(old_stock)s, %(new_stock)s, %(created_at)s)
+2026-06-15 00:01:51,102 INFO sqlalchemy.engine.Engine [cached since 0.1497s ago] {'product_id': 258, 'change_type': 'order_placed', 'change_amount': -1, 'old_stock': 3, 'new_stock': 2, 'created_at': datetime.datetime(2026, 6, 15, 0, 1, 51, 99678)}
+2026-06-15 00:01:51,102 INFO sqlalchemy.engine.Engine INSERT INTO order_items (order_id, product_id, quantity, price, name, image) VALUES (%(order_id)s, %(product_id)s, %(quantity)s, %(price)s, %(name)s, %(image)s)
+2026-06-15 00:01:51,102 INFO sqlalchemy.engine.Engine [cached since 0.1407s ago] {'order_id': 53, 'product_id': 258, 'quantity': 1, 'price': 2099.0, 'name': 'TEST_PERSIST_PRODUCT', 'image': ''}
+2026-06-15 00:01:51,105 INFO sqlalchemy.engine.Engine SELECT order_items.id AS order_items_id, order_items.order_id AS order_items_order_id, order_items.product_id AS order_items_product_id, order_items.quantity AS order_items_quantity, order_items.price AS order_items_price, order_items.name AS order_items_name, order_items.image AS order_items_image 
+FROM order_items 
+WHERE %(param_1)s = order_items.order_id
+2026-06-15 00:01:51,105 INFO sqlalchemy.engine.Engine [cached since 0.1349s ago] {'param_1': 53}
+2026-06-15 00:01:51,107 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s FOR UPDATE
+2026-06-15 00:01:51,108 INFO sqlalchemy.engine.Engine [cached since 0.2253s ago] {'pk_1': 54}
+2026-06-15 00:01:51,110 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:01:51,110 INFO sqlalchemy.engine.Engine [cached since 0.3164s ago] {'param_1': 54}
+2026-06-15 00:01:51,111 INFO sqlalchemy.engine.Engine DELETE FROM cart_items WHERE cart_items.cart_id = %(cart_id_1)s AND cart_items.saved_for_later = false
+2026-06-15 00:01:51,111 INFO sqlalchemy.engine.Engine [cached since 0.1198s ago] {'cart_id_1': 25}
+2026-06-15 00:01:51,112 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:01:51,112 INFO sqlalchemy.engine.Engine [cached since 0.3265s ago] {'param_1': 54}
+2026-06-15 00:01:51,113 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-06-15 00:01:51,113 INFO sqlalchemy.engine.Engine [cached since 0.1096s ago] {'email_1': 'BB_ENC:NsevnzDsw2FCzkgXF2ayn1aDNC5kVwlgDoEhEMdVe7eb1y16TPff8iCh21sx99+kr3efnc2eZnQcFMLJdSYn3g==', 'param_1': 1}
+2026-06-15 00:01:51,114 INFO sqlalchemy.engine.Engine COMMIT
+2026-06-15 00:01:51,125 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s FOR UPDATE
+2026-06-15 00:01:51,126 INFO sqlalchemy.engine.Engine [cached since 0.2433s ago] {'pk_1': 54}
+2026-06-15 00:01:51,127 INFO sqlalchemy.engine.Engine SELECT buy_requests.id AS buy_requests_id, buy_requests.product_id AS buy_requests_product_id, buy_requests.user_id AS buy_requests_user_id, buy_requests.product_name AS buy_requests_product_name, buy_requests.quantity AS buy_requests_quantity, buy_requests.selected_variant AS buy_requests_selected_variant, buy_requests.status AS buy_requests_status, buy_requests.expected_delivery_date AS buy_requests_expected_delivery_date, buy_requests.expected_availability_date AS buy_requests_expected_availability_date, buy_requests.admin_note AS buy_requests_admin_note, buy_requests.created_at AS buy_requests_created_at, buy_requests.city AS buy_requests_city, buy_requests.customer_confirmed AS buy_requests_customer_confirmed, buy_requests.selected_address_id AS buy_requests_selected_address_id, buy_requests.payment_completed AS buy_requests_payment_completed, buy_requests.converted_order_id AS buy_requests_converted_order_id, buy_requests.converted_to_order_at AS buy_requests_converted_to_order_at 
+FROM buy_requests 
+WHERE buy_requests.product_id = %(product_id_1)s AND buy_requests.user_id = %(user_id_1)s AND buy_requests.status = %(status_1)s 
+ LIMIT %(param_1)s FOR UPDATE
+2026-06-15 00:01:51,127 INFO sqlalchemy.engine.Engine [cached since 0.2252s ago] {'product_id_1': 258, 'user_id_1': 54, 'status_1': 'Available', 'param_1': 1}
+2026-06-15 00:01:51,128 INFO sqlalchemy.engine.Engine SELECT buy_requests.id AS buy_requests_id, buy_requests.product_id AS buy_requests_product_id, buy_requests.user_id AS buy_requests_user_id, buy_requests.product_name AS buy_requests_product_name, buy_requests.quantity AS buy_requests_quantity, buy_requests.selected_variant AS buy_requests_selected_variant, buy_requests.status AS buy_requests_status, buy_requests.expected_delivery_date AS buy_requests_expected_delivery_date, buy_requests.expected_availability_date AS buy_requests_expected_availability_date, buy_requests.admin_note AS buy_requests_admin_note, buy_requests.created_at AS buy_requests_created_at, buy_requests.city AS buy_requests_city, buy_requests.customer_confirmed AS buy_requests_customer_confirmed, buy_requests.selected_address_id AS buy_requests_selected_address_id, buy_requests.payment_completed AS buy_requests_payment_completed, buy_requests.converted_order_id AS buy_requests_converted_order_id, buy_requests.converted_to_order_at AS buy_requests_converted_to_order_at 
+FROM buy_requests 
+WHERE buy_requests.product_id = %(product_id_1)s AND buy_requests.user_id = %(user_id_1)s AND buy_requests.status = %(status_1)s 
+ LIMIT %(param_1)s FOR UPDATE
+2026-06-15 00:01:51,128 INFO sqlalchemy.engine.Engine [cached since 0.2262s ago] {'product_id_1': 258, 'user_id_1': 54, 'status_1': 'Available', 'param_1': 1}
+2026-06-15 00:01:51,130 INFO sqlalchemy.engine.Engine INSERT INTO orders (order_id, user_id, total_amount, order_status, status, delivery_date, tracking_history, return_request, shipping_address, carrier, tracking_id, created_at, terms_accepted, terms_accepted_at) VALUES (%(order_id)s, %(user_id)s, %(total_amount)s, %(order_status)s, %(status)s, %(delivery_date)s, %(tracking_history)s, %(return_request)s, %(shipping_address)s, %(carrier)s, %(tracking_id)s, %(created_at)s, %(terms_accepted)s, %(terms_accepted_at)s)
+2026-06-15 00:01:51,130 INFO sqlalchemy.engine.Engine [cached since 0.1985s ago] {'order_id': 'BB-322436', 'user_id': 54, 'total_amount': 2099.0, 'order_status': 'Pending', 'status': 'Pending', 'delivery_date': '20-06-2026', 'tracking_history': '[{"status": "Pending", "message": "Order placed successfully and is awaiting confirmation.", "updated_at": "2026-06-15T00:01:51.129494+05:30"}]', 'return_request': '{"status": "None", "reason": "", "message": "", "created_at": null}', 'shipping_address': '{"encrypted_data": "BB_ENC:z+p0ebQF4WFJpIaoUz6lTHUcedo3Gew+6PFLO3yqlWhnIpxf4twPWZTi94XovyiizPrBsCf4hlgidgxYvRGqNTJgOUpx1OJ5f8z8ogt3kFQaZaJ7pnutX1tnAN ... (31 characters truncated) ... vOT/QDG9gPwLL4f4lSA2PaPysNyqd+AZ+hjPJd6j6cDGhb+MEXQRiEmZRinK1GYhDjKrrPPbXa831rdIb1x0i+E6lkZuKod5wxW3BKi6hYLkmwWU9wHscrIrcV5ePccesnO0bEpQ7KybzO9CWE="}', 'carrier': None, 'tracking_id': None, 'created_at': datetime.datetime(2026, 6, 15, 0, 1, 51, 129530), 'terms_accepted': 1, 'terms_accepted_at': datetime.datetime(2026, 6, 15, 0, 1, 51, 129526)}
+2026-06-15 00:01:51,130 INFO sqlalchemy.engine.Engine INSERT INTO product_audit_logs (product_id, admin_id, action_type, field_name, old_value, new_value, created_at) VALUES (%(product_id)s, %(admin_id)s, %(action_type)s, %(field_name)s, %(old_value)s, %(new_value)s, %(created_at)s)
+2026-06-15 00:01:51,130 INFO sqlalchemy.engine.Engine [cached since 0.1916s ago] {'product_id': 258, 'admin_id': 'system', 'action_type': 'Stock Update', 'field_name': 'stock', 'old_value': '2', 'new_value': '1', 'created_at': datetime.datetime(2026, 6, 15, 0, 1, 51, 129438)}
+2026-06-15 00:01:51,131 INFO sqlalchemy.engine.Engine UPDATE products SET stock=%(stock)s, updated_at=%(updated_at)s WHERE products.id = %(products_id)s
+2026-06-15 00:01:51,131 INFO sqlalchemy.engine.Engine [cached since 0.1855s ago] {'stock': 1, 'updated_at': datetime.datetime(2026, 6, 15, 0, 1, 51, 131193, tzinfo=<DstTzInfo 'Asia/Kolkata' IST+5:30:00 STD>), 'products_id': 258}
+2026-06-15 00:01:51,131 INFO sqlalchemy.engine.Engine INSERT INTO stock_history (product_id, change_type, change_amount, old_stock, new_stock, created_at) VALUES (%(product_id)s, %(change_type)s, %(change_amount)s, %(old_stock)s, %(new_stock)s, %(created_at)s)
+2026-06-15 00:01:51,131 INFO sqlalchemy.engine.Engine [cached since 0.1796s ago] {'product_id': 258, 'change_type': 'order_placed', 'change_amount': -1, 'old_stock': 2, 'new_stock': 1, 'created_at': datetime.datetime(2026, 6, 15, 0, 1, 51, 129374)}
+2026-06-15 00:01:51,132 INFO sqlalchemy.engine.Engine INSERT INTO order_items (order_id, product_id, quantity, price, name, image) VALUES (%(order_id)s, %(product_id)s, %(quantity)s, %(price)s, %(name)s, %(image)s)
+2026-06-15 00:01:51,132 INFO sqlalchemy.engine.Engine [cached since 0.1707s ago] {'order_id': 54, 'product_id': 258, 'quantity': 1, 'price': 2099.0, 'name': 'TEST_PERSIST_PRODUCT', 'image': ''}
+2026-06-15 00:01:51,133 INFO sqlalchemy.engine.Engine SELECT order_items.id AS order_items_id, order_items.order_id AS order_items_order_id, order_items.product_id AS order_items_product_id, order_items.quantity AS order_items_quantity, order_items.price AS order_items_price, order_items.name AS order_items_name, order_items.image AS order_items_image 
+FROM order_items 
+WHERE %(param_1)s = order_items.order_id
+2026-06-15 00:01:51,133 INFO sqlalchemy.engine.Engine [cached since 0.1629s ago] {'param_1': 54}
+2026-06-15 00:01:51,134 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s FOR UPDATE
+2026-06-15 00:01:51,134 INFO sqlalchemy.engine.Engine [cached since 0.2514s ago] {'pk_1': 54}
+2026-06-15 00:01:51,135 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:01:51,135 INFO sqlalchemy.engine.Engine [cached since 0.3409s ago] {'param_1': 54}
+2026-06-15 00:01:51,136 INFO sqlalchemy.engine.Engine DELETE FROM cart_items WHERE cart_items.cart_id = %(cart_id_1)s AND cart_items.saved_for_later = false
+2026-06-15 00:01:51,136 INFO sqlalchemy.engine.Engine [cached since 0.1444s ago] {'cart_id_1': 25}
+2026-06-15 00:01:51,138 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:01:51,138 INFO sqlalchemy.engine.Engine [cached since 0.353s ago] {'param_1': 54}
+2026-06-15 00:01:51,143 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-06-15 00:01:51,143 INFO sqlalchemy.engine.Engine [cached since 0.1397s ago] {'email_1': 'BB_ENC:NsevnzDsw2FCzkgXF2ayn1aDNC5kVwlgDoEhEMdVe7eb1y16TPff8iCh21sx99+kr3efnc2eZnQcFMLJdSYn3g==', 'param_1': 1}
+2026-06-15 00:01:51,144 INFO sqlalchemy.engine.Engine COMMIT
+2026-06-15 00:01:51,153 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s FOR UPDATE
+2026-06-15 00:01:51,154 INFO sqlalchemy.engine.Engine [cached since 0.2713s ago] {'pk_1': 54}
+2026-06-15 00:01:51,159 INFO sqlalchemy.engine.Engine SELECT buy_requests.id AS buy_requests_id, buy_requests.product_id AS buy_requests_product_id, buy_requests.user_id AS buy_requests_user_id, buy_requests.product_name AS buy_requests_product_name, buy_requests.quantity AS buy_requests_quantity, buy_requests.selected_variant AS buy_requests_selected_variant, buy_requests.status AS buy_requests_status, buy_requests.expected_delivery_date AS buy_requests_expected_delivery_date, buy_requests.expected_availability_date AS buy_requests_expected_availability_date, buy_requests.admin_note AS buy_requests_admin_note, buy_requests.created_at AS buy_requests_created_at, buy_requests.city AS buy_requests_city, buy_requests.customer_confirmed AS buy_requests_customer_confirmed, buy_requests.selected_address_id AS buy_requests_selected_address_id, buy_requests.payment_completed AS buy_requests_payment_completed, buy_requests.converted_order_id AS buy_requests_converted_order_id, buy_requests.converted_to_order_at AS buy_requests_converted_to_order_at 
+FROM buy_requests 
+WHERE buy_requests.product_id = %(product_id_1)s AND buy_requests.user_id = %(user_id_1)s AND buy_requests.status = %(status_1)s 
+ LIMIT %(param_1)s FOR UPDATE
+2026-06-15 00:01:51,159 INFO sqlalchemy.engine.Engine [cached since 0.2571s ago] {'product_id_1': 258, 'user_id_1': 54, 'status_1': 'Available', 'param_1': 1}
+2026-06-15 00:01:51,161 INFO sqlalchemy.engine.Engine SELECT buy_requests.id AS buy_requests_id, buy_requests.product_id AS buy_requests_product_id, buy_requests.user_id AS buy_requests_user_id, buy_requests.product_name AS buy_requests_product_name, buy_requests.quantity AS buy_requests_quantity, buy_requests.selected_variant AS buy_requests_selected_variant, buy_requests.status AS buy_requests_status, buy_requests.expected_delivery_date AS buy_requests_expected_delivery_date, buy_requests.expected_availability_date AS buy_requests_expected_availability_date, buy_requests.admin_note AS buy_requests_admin_note, buy_requests.created_at AS buy_requests_created_at, buy_requests.city AS buy_requests_city, buy_requests.customer_confirmed AS buy_requests_customer_confirmed, buy_requests.selected_address_id AS buy_requests_selected_address_id, buy_requests.payment_completed AS buy_requests_payment_completed, buy_requests.converted_order_id AS buy_requests_converted_order_id, buy_requests.converted_to_order_at AS buy_requests_converted_to_order_at 
+FROM buy_requests 
+WHERE buy_requests.product_id = %(product_id_1)s AND buy_requests.user_id = %(user_id_1)s AND buy_requests.status = %(status_1)s 
+ LIMIT %(param_1)s FOR UPDATE
+2026-06-15 00:01:51,161 INFO sqlalchemy.engine.Engine [cached since 0.2589s ago] {'product_id_1': 258, 'user_id_1': 54, 'status_1': 'Available', 'param_1': 1}
+2026-06-15 00:01:51,163 INFO sqlalchemy.engine.Engine INSERT INTO orders (order_id, user_id, total_amount, order_status, status, delivery_date, tracking_history, return_request, shipping_address, carrier, tracking_id, created_at, terms_accepted, terms_accepted_at) VALUES (%(order_id)s, %(user_id)s, %(total_amount)s, %(order_status)s, %(status)s, %(delivery_date)s, %(tracking_history)s, %(return_request)s, %(shipping_address)s, %(carrier)s, %(tracking_id)s, %(created_at)s, %(terms_accepted)s, %(terms_accepted_at)s)
+2026-06-15 00:01:51,163 INFO sqlalchemy.engine.Engine [cached since 0.2316s ago] {'order_id': 'BB-874056', 'user_id': 54, 'total_amount': 2099.0, 'order_status': 'Pending', 'status': 'Pending', 'delivery_date': '20-06-2026', 'tracking_history': '[{"status": "Pending", "message": "Order placed successfully and is awaiting confirmation.", "updated_at": "2026-06-15T00:01:51.162451+05:30"}]', 'return_request': '{"status": "None", "reason": "", "message": "", "created_at": null}', 'shipping_address': '{"encrypted_data": "BB_ENC:z+p0ebQF4WFJpIaoUz6lTHUcedo3Gew+6PFLO3yqlWhnIpxf4twPWZTi94XovyiizPrBsCf4hlgidgxYvRGqNTJgOUpx1OJ5f8z8ogt3kFQaZaJ7pnutX1tnAN ... (31 characters truncated) ... vOT/QDG9gPwLL4f4lSA2PaPysNyqd+AZ+hjPJd6j6cDGhb+MEXQRiEmZRinK1GYhDjKrrPPbXa831rdIb1x0i+E6lkZuKod5wxW3BKi6hYLkmwWU9wHscrIrcV5ePccesnO0bEpQ7KybzO9CWE="}', 'carrier': None, 'tracking_id': None, 'created_at': datetime.datetime(2026, 6, 15, 0, 1, 51, 162494), 'terms_accepted': 1, 'terms_accepted_at': datetime.datetime(2026, 6, 15, 0, 1, 51, 162489)}
+2026-06-15 00:01:51,164 INFO sqlalchemy.engine.Engine INSERT INTO product_audit_logs (product_id, admin_id, action_type, field_name, old_value, new_value, created_at) VALUES (%(product_id)s, %(admin_id)s, %(action_type)s, %(field_name)s, %(old_value)s, %(new_value)s, %(created_at)s)
+2026-06-15 00:01:51,164 INFO sqlalchemy.engine.Engine [cached since 0.2249s ago] {'product_id': 258, 'admin_id': 'system', 'action_type': 'Stock Update', 'field_name': 'stock', 'old_value': '1', 'new_value': '0', 'created_at': datetime.datetime(2026, 6, 15, 0, 1, 51, 162375)}
+2026-06-15 00:01:51,164 INFO sqlalchemy.engine.Engine UPDATE products SET stock=%(stock)s, updated_at=%(updated_at)s WHERE products.id = %(products_id)s
+2026-06-15 00:01:51,164 INFO sqlalchemy.engine.Engine [cached since 0.219s ago] {'stock': 0, 'updated_at': datetime.datetime(2026, 6, 15, 0, 1, 51, 164656, tzinfo=<DstTzInfo 'Asia/Kolkata' IST+5:30:00 STD>), 'products_id': 258}
+2026-06-15 00:01:51,165 INFO sqlalchemy.engine.Engine INSERT INTO stock_history (product_id, change_type, change_amount, old_stock, new_stock, created_at) VALUES (%(product_id)s, %(change_type)s, %(change_amount)s, %(old_stock)s, %(new_stock)s, %(created_at)s)
+2026-06-15 00:01:51,165 INFO sqlalchemy.engine.Engine [cached since 0.213s ago] {'product_id': 258, 'change_type': 'order_placed', 'change_amount': -1, 'old_stock': 1, 'new_stock': 0, 'created_at': datetime.datetime(2026, 6, 15, 0, 1, 51, 162273)}
+2026-06-15 00:01:51,166 INFO sqlalchemy.engine.Engine INSERT INTO order_items (order_id, product_id, quantity, price, name, image) VALUES (%(order_id)s, %(product_id)s, %(quantity)s, %(price)s, %(name)s, %(image)s)
+2026-06-15 00:01:51,166 INFO sqlalchemy.engine.Engine [cached since 0.2042s ago] {'order_id': 55, 'product_id': 258, 'quantity': 1, 'price': 2099.0, 'name': 'TEST_PERSIST_PRODUCT', 'image': ''}
+2026-06-15 00:01:51,166 INFO sqlalchemy.engine.Engine SELECT order_items.id AS order_items_id, order_items.order_id AS order_items_order_id, order_items.product_id AS order_items_product_id, order_items.quantity AS order_items_quantity, order_items.price AS order_items_price, order_items.name AS order_items_name, order_items.image AS order_items_image 
+FROM order_items 
+WHERE %(param_1)s = order_items.order_id
+2026-06-15 00:01:51,166 INFO sqlalchemy.engine.Engine [cached since 0.1965s ago] {'param_1': 55}
+2026-06-15 00:01:51,167 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s FOR UPDATE
+2026-06-15 00:01:51,167 INFO sqlalchemy.engine.Engine [cached since 0.2852s ago] {'pk_1': 54}
+2026-06-15 00:01:51,169 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:01:51,169 INFO sqlalchemy.engine.Engine [cached since 0.3749s ago] {'param_1': 54}
+2026-06-15 00:01:51,170 INFO sqlalchemy.engine.Engine DELETE FROM cart_items WHERE cart_items.cart_id = %(cart_id_1)s AND cart_items.saved_for_later = false
+2026-06-15 00:01:51,170 INFO sqlalchemy.engine.Engine [cached since 0.1783s ago] {'cart_id_1': 25}
+2026-06-15 00:01:51,171 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:01:51,171 INFO sqlalchemy.engine.Engine [cached since 0.3859s ago] {'param_1': 54}
+2026-06-15 00:01:51,175 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-06-15 00:01:51,175 INFO sqlalchemy.engine.Engine [cached since 0.1716s ago] {'email_1': 'BB_ENC:NsevnzDsw2FCzkgXF2ayn1aDNC5kVwlgDoEhEMdVe7eb1y16TPff8iCh21sx99+kr3efnc2eZnQcFMLJdSYn3g==', 'param_1': 1}
+2026-06-15 00:01:51,177 INFO sqlalchemy.engine.Engine COMMIT
+2026-06-15 00:01:51,188 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s FOR UPDATE
+2026-06-15 00:01:51,189 INFO sqlalchemy.engine.Engine [cached since 0.3066s ago] {'pk_1': 54}
+2026-06-15 00:01:51,193 INFO sqlalchemy.engine.Engine SELECT buy_requests.id AS buy_requests_id, buy_requests.product_id AS buy_requests_product_id, buy_requests.user_id AS buy_requests_user_id, buy_requests.product_name AS buy_requests_product_name, buy_requests.quantity AS buy_requests_quantity, buy_requests.selected_variant AS buy_requests_selected_variant, buy_requests.status AS buy_requests_status, buy_requests.expected_delivery_date AS buy_requests_expected_delivery_date, buy_requests.expected_availability_date AS buy_requests_expected_availability_date, buy_requests.admin_note AS buy_requests_admin_note, buy_requests.created_at AS buy_requests_created_at, buy_requests.city AS buy_requests_city, buy_requests.customer_confirmed AS buy_requests_customer_confirmed, buy_requests.selected_address_id AS buy_requests_selected_address_id, buy_requests.payment_completed AS buy_requests_payment_completed, buy_requests.converted_order_id AS buy_requests_converted_order_id, buy_requests.converted_to_order_at AS buy_requests_converted_to_order_at 
+FROM buy_requests 
+WHERE buy_requests.product_id = %(product_id_1)s AND buy_requests.user_id = %(user_id_1)s AND buy_requests.status = %(status_1)s 
+ LIMIT %(param_1)s FOR UPDATE
+2026-06-15 00:01:51,193 INFO sqlalchemy.engine.Engine [cached since 0.2909s ago] {'product_id_1': 258, 'user_id_1': 54, 'status_1': 'Available', 'param_1': 1}
+2026-06-15 00:01:51,195 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-06-15 00:01:51,196 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s FOR UPDATE
+2026-06-15 00:01:51,196 INFO sqlalchemy.engine.Engine [cached since 0.3141s ago] {'pk_1': 54}
+127.0.0.1 - - [15/Jun/2026 00:01:51] "[31m[1mPOST /api/orders HTTP/1.1[0m" 400 -
+2026-06-15 00:01:51,199 INFO sqlalchemy.engine.Engine SELECT buy_requests.id AS buy_requests_id, buy_requests.product_id AS buy_requests_product_id, buy_requests.user_id AS buy_requests_user_id, buy_requests.product_name AS buy_requests_product_name, buy_requests.quantity AS buy_requests_quantity, buy_requests.selected_variant AS buy_requests_selected_variant, buy_requests.status AS buy_requests_status, buy_requests.expected_delivery_date AS buy_requests_expected_delivery_date, buy_requests.expected_availability_date AS buy_requests_expected_availability_date, buy_requests.admin_note AS buy_requests_admin_note, buy_requests.created_at AS buy_requests_created_at, buy_requests.city AS buy_requests_city, buy_requests.customer_confirmed AS buy_requests_customer_confirmed, buy_requests.selected_address_id AS buy_requests_selected_address_id, buy_requests.payment_completed AS buy_requests_payment_completed, buy_requests.converted_order_id AS buy_requests_converted_order_id, buy_requests.converted_to_order_at AS buy_requests_converted_to_order_at 
+FROM buy_requests 
+WHERE buy_requests.product_id = %(product_id_1)s AND buy_requests.user_id = %(user_id_1)s AND buy_requests.status = %(status_1)s 
+ LIMIT %(param_1)s FOR UPDATE
+2026-06-15 00:01:51,199 INFO sqlalchemy.engine.Engine [cached since 0.2973s ago] {'product_id_1': 258, 'user_id_1': 54, 'status_1': 'Available', 'param_1': 1}
+2026-06-15 00:01:51,201 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-06-15 00:01:51,202 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s FOR UPDATE
+2026-06-15 00:01:51,203 INFO sqlalchemy.engine.Engine [cached since 0.3203s ago] {'pk_1': 54}
+127.0.0.1 - - [15/Jun/2026 00:01:51] "[31m[1mPOST /api/orders HTTP/1.1[0m" 400 -
+2026-06-15 00:01:51,210 INFO sqlalchemy.engine.Engine SELECT buy_requests.id AS buy_requests_id, buy_requests.product_id AS buy_requests_product_id, buy_requests.user_id AS buy_requests_user_id, buy_requests.product_name AS buy_requests_product_name, buy_requests.quantity AS buy_requests_quantity, buy_requests.selected_variant AS buy_requests_selected_variant, buy_requests.status AS buy_requests_status, buy_requests.expected_delivery_date AS buy_requests_expected_delivery_date, buy_requests.expected_availability_date AS buy_requests_expected_availability_date, buy_requests.admin_note AS buy_requests_admin_note, buy_requests.created_at AS buy_requests_created_at, buy_requests.city AS buy_requests_city, buy_requests.customer_confirmed AS buy_requests_customer_confirmed, buy_requests.selected_address_id AS buy_requests_selected_address_id, buy_requests.payment_completed AS buy_requests_payment_completed, buy_requests.converted_order_id AS buy_requests_converted_order_id, buy_requests.converted_to_order_at AS buy_requests_converted_to_order_at 
+FROM buy_requests 
+WHERE buy_requests.product_id = %(product_id_1)s AND buy_requests.user_id = %(user_id_1)s AND buy_requests.status = %(status_1)s 
+ LIMIT %(param_1)s FOR UPDATE
+2026-06-15 00:01:51,210 INFO sqlalchemy.engine.Engine [cached since 0.3081s ago] {'product_id_1': 258, 'user_id_1': 54, 'status_1': 'Available', 'param_1': 1}
+2026-06-15 00:01:51,212 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-06-15 00:01:51,213 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s FOR UPDATE
+2026-06-15 00:01:51,213 INFO sqlalchemy.engine.Engine [cached since 0.3308s ago] {'pk_1': 54}
+127.0.0.1 - - [15/Jun/2026 00:01:51] "[31m[1mPOST /api/orders HTTP/1.1[0m" 400 -
+2026-06-15 00:01:51,216 INFO sqlalchemy.engine.Engine SELECT buy_requests.id AS buy_requests_id, buy_requests.product_id AS buy_requests_product_id, buy_requests.user_id AS buy_requests_user_id, buy_requests.product_name AS buy_requests_product_name, buy_requests.quantity AS buy_requests_quantity, buy_requests.selected_variant AS buy_requests_selected_variant, buy_requests.status AS buy_requests_status, buy_requests.expected_delivery_date AS buy_requests_expected_delivery_date, buy_requests.expected_availability_date AS buy_requests_expected_availability_date, buy_requests.admin_note AS buy_requests_admin_note, buy_requests.created_at AS buy_requests_created_at, buy_requests.city AS buy_requests_city, buy_requests.customer_confirmed AS buy_requests_customer_confirmed, buy_requests.selected_address_id AS buy_requests_selected_address_id, buy_requests.payment_completed AS buy_requests_payment_completed, buy_requests.converted_order_id AS buy_requests_converted_order_id, buy_requests.converted_to_order_at AS buy_requests_converted_to_order_at 
+FROM buy_requests 
+WHERE buy_requests.product_id = %(product_id_1)s AND buy_requests.user_id = %(user_id_1)s AND buy_requests.status = %(status_1)s 
+ LIMIT %(param_1)s FOR UPDATE
+2026-06-15 00:01:51,216 INFO sqlalchemy.engine.Engine [cached since 0.3141s ago] {'product_id_1': 258, 'user_id_1': 54, 'status_1': 'Available', 'param_1': 1}
+2026-06-15 00:01:51,218 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-06-15 00:01:51,220 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s FOR UPDATE
+2026-06-15 00:01:51,222 INFO sqlalchemy.engine.Engine [cached since 0.3392s ago] {'pk_1': 54}
+127.0.0.1 - - [15/Jun/2026 00:01:51] "[31m[1mPOST /api/orders HTTP/1.1[0m" 400 -
+2026-06-15 00:01:51,227 INFO sqlalchemy.engine.Engine SELECT buy_requests.id AS buy_requests_id, buy_requests.product_id AS buy_requests_product_id, buy_requests.user_id AS buy_requests_user_id, buy_requests.product_name AS buy_requests_product_name, buy_requests.quantity AS buy_requests_quantity, buy_requests.selected_variant AS buy_requests_selected_variant, buy_requests.status AS buy_requests_status, buy_requests.expected_delivery_date AS buy_requests_expected_delivery_date, buy_requests.expected_availability_date AS buy_requests_expected_availability_date, buy_requests.admin_note AS buy_requests_admin_note, buy_requests.created_at AS buy_requests_created_at, buy_requests.city AS buy_requests_city, buy_requests.customer_confirmed AS buy_requests_customer_confirmed, buy_requests.selected_address_id AS buy_requests_selected_address_id, buy_requests.payment_completed AS buy_requests_payment_completed, buy_requests.converted_order_id AS buy_requests_converted_order_id, buy_requests.converted_to_order_at AS buy_requests_converted_to_order_at 
+FROM buy_requests 
+WHERE buy_requests.product_id = %(product_id_1)s AND buy_requests.user_id = %(user_id_1)s AND buy_requests.status = %(status_1)s 
+ LIMIT %(param_1)s FOR UPDATE
+2026-06-15 00:01:51,228 INFO sqlalchemy.engine.Engine [cached since 0.3254s ago] {'product_id_1': 258, 'user_id_1': 54, 'status_1': 'Available', 'param_1': 1}
+2026-06-15 00:01:51,229 INFO sqlalchemy.engine.Engine ROLLBACK
+127.0.0.1 - - [15/Jun/2026 00:01:51] "[31m[1mPOST /api/orders HTTP/1.1[0m" 400 -
+Email successfully sent via Flask-Mail to test_persist_user@bharatbasket.com
+2026-06-15 00:01:55,714 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:55,715 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:01:55,715 INFO sqlalchemy.engine.Engine [cached since 4.932s ago] {'pk_1': 54}
+2026-06-15 00:01:55,719 INFO sqlalchemy.engine.Engine UPDATE users SET notifications=%(notifications)s, updated_at=%(updated_at)s WHERE users.id = %(users_id)s
+2026-06-15 00:01:55,719 INFO sqlalchemy.engine.Engine [generated in 0.00059s] {'notifications': '[{"id": "02739181-2b08-4151-a3d6-450c4b4ba0a8", "read": false, "title": "Order Placed", "message": "Your order BB-569396 for \\u20b92099.0 has been s ... (2133 characters truncated) ...  "message": "Your order BB-233476 for \\u20b92099.0 has been successfully placed.", "read": false, "created_at": "2026-06-15T00:01:55.717615+05:30"}]', 'updated_at': datetime.datetime(2026, 6, 15, 0, 1, 55, 719108, tzinfo=<DstTzInfo 'Asia/Kolkata' IST+5:30:00 STD>), 'users_id': 54}
+2026-06-15 00:01:55,723 INFO sqlalchemy.engine.Engine COMMIT
+2026-06-15 00:01:55,742 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:55,745 INFO sqlalchemy.engine.Engine INSERT INTO admin_notifications (title, message, `read`, created_at) VALUES (%(title)s, %(message)s, %(read)s, %(created_at)s)
+2026-06-15 00:01:55,745 INFO sqlalchemy.engine.Engine [generated in 0.00044s] {'title': '🛒 New Order', 'message': 'Order #BB-233476 placed', 'read': 0, 'created_at': datetime.datetime(2026, 6, 15, 0, 1, 55, 745530)}
+2026-06-15 00:01:55,747 INFO sqlalchemy.engine.Engine COMMIT
+Email successfully sent via Flask-Mail to test_persist_user@bharatbasket.com
+2026-06-15 00:01:55,760 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:55,762 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:01:55,762 INFO sqlalchemy.engine.Engine [cached since 4.979s ago] {'pk_1': 54}
+2026-06-15 00:01:55,765 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:55,768 INFO sqlalchemy.engine.Engine INSERT INTO notifications (type, title, description, user_id, order_id, status, created_at, read_at) VALUES (%(type)s, %(title)s, %(description)s, %(user_id)s, %(order_id)s, %(status)s, %(created_at)s, %(read_at)s)
+2026-06-15 00:01:55,768 INFO sqlalchemy.engine.Engine [generated in 0.00083s] {'type': 'NEW_ORDER', 'title': '🛒 New Order', 'description': 'Order #BB-233476 placed', 'user_id': None, 'order_id': 52, 'status': 'unread', 'created_at': datetime.datetime(2026, 6, 15, 0, 1, 55, 767918, tzinfo=<DstTzInfo 'Asia/Kolkata' IST+5:30:00 STD>), 'read_at': None}
+2026-06-15 00:01:55,777 INFO sqlalchemy.engine.Engine UPDATE users SET notifications=%(notifications)s, updated_at=%(updated_at)s WHERE users.id = %(users_id)s
+2026-06-15 00:01:55,777 INFO sqlalchemy.engine.Engine [cached since 0.05893s ago] {'notifications': '[{"id": "02739181-2b08-4151-a3d6-450c4b4ba0a8", "read": false, "title": "Order Placed", "message": "Your order BB-569396 for \\u20b92099.0 has been s ... (2354 characters truncated) ...  "message": "Your order BB-874056 for \\u20b92099.0 has been successfully placed.", "read": false, "created_at": "2026-06-15T00:01:55.773650+05:30"}]', 'updated_at': datetime.datetime(2026, 6, 15, 0, 1, 55, 777233, tzinfo=<DstTzInfo 'Asia/Kolkata' IST+5:30:00 STD>), 'users_id': 54}
+2026-06-15 00:01:55,779 INFO sqlalchemy.engine.Engine COMMIT
+2026-06-15 00:01:55,779 INFO sqlalchemy.engine.Engine COMMIT
+127.0.0.1 - - [15/Jun/2026 00:01:55] "[35m[1mPOST /api/orders HTTP/1.1[0m" 201 -
+2026-06-15 00:01:55,797 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:55,798 INFO sqlalchemy.engine.Engine INSERT INTO admin_notifications (title, message, `read`, created_at) VALUES (%(title)s, %(message)s, %(read)s, %(created_at)s)
+2026-06-15 00:01:55,798 INFO sqlalchemy.engine.Engine [cached since 0.05291s ago] {'title': '🛒 New Order', 'message': 'Order #BB-874056 placed', 'read': 0, 'created_at': datetime.datetime(2026, 6, 15, 0, 1, 55, 798229)}
+2026-06-15 00:01:55,801 INFO sqlalchemy.engine.Engine COMMIT
+2026-06-15 00:01:55,810 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:55,810 INFO sqlalchemy.engine.Engine INSERT INTO notifications (type, title, description, user_id, order_id, status, created_at, read_at) VALUES (%(type)s, %(title)s, %(description)s, %(user_id)s, %(order_id)s, %(status)s, %(created_at)s, %(read_at)s)
+2026-06-15 00:01:55,811 INFO sqlalchemy.engine.Engine [cached since 0.04321s ago] {'type': 'NEW_ORDER', 'title': '🛒 New Order', 'description': 'Order #BB-874056 placed', 'user_id': None, 'order_id': 55, 'status': 'unread', 'created_at': datetime.datetime(2026, 6, 15, 0, 1, 55, 810913, tzinfo=<DstTzInfo 'Asia/Kolkata' IST+5:30:00 STD>), 'read_at': None}
+2026-06-15 00:01:55,812 INFO sqlalchemy.engine.Engine COMMIT
+127.0.0.1 - - [15/Jun/2026 00:01:55] "[35m[1mPOST /api/orders HTTP/1.1[0m" 201 -
+Email successfully sent via Flask-Mail to test_persist_user@bharatbasket.com
+2026-06-15 00:01:55,995 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:55,995 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:01:55,996 INFO sqlalchemy.engine.Engine [cached since 5.213s ago] {'pk_1': 54}
+2026-06-15 00:01:55,999 INFO sqlalchemy.engine.Engine UPDATE users SET notifications=%(notifications)s, updated_at=%(updated_at)s WHERE users.id = %(users_id)s
+2026-06-15 00:01:55,999 INFO sqlalchemy.engine.Engine [cached since 0.2806s ago] {'notifications': '[{"id": "02739181-2b08-4151-a3d6-450c4b4ba0a8", "read": false, "title": "Order Placed", "message": "Your order BB-569396 for \\u20b92099.0 has been s ... (2575 characters truncated) ...  "message": "Your order BB-322436 for \\u20b92099.0 has been successfully placed.", "read": false, "created_at": "2026-06-15T00:01:55.998386+05:30"}]', 'updated_at': datetime.datetime(2026, 6, 15, 0, 1, 55, 999192, tzinfo=<DstTzInfo 'Asia/Kolkata' IST+5:30:00 STD>), 'users_id': 54}
+2026-06-15 00:01:56,002 INFO sqlalchemy.engine.Engine COMMIT
+2026-06-15 00:01:56,015 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:56,016 INFO sqlalchemy.engine.Engine INSERT INTO admin_notifications (title, message, `read`, created_at) VALUES (%(title)s, %(message)s, %(read)s, %(created_at)s)
+2026-06-15 00:01:56,016 INFO sqlalchemy.engine.Engine [cached since 0.2712s ago] {'title': '🛒 New Order', 'message': 'Order #BB-322436 placed', 'read': 0, 'created_at': datetime.datetime(2026, 6, 15, 0, 1, 56, 16332)}
+2026-06-15 00:01:56,018 INFO sqlalchemy.engine.Engine COMMIT
+2026-06-15 00:01:56,029 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:56,029 INFO sqlalchemy.engine.Engine INSERT INTO notifications (type, title, description, user_id, order_id, status, created_at, read_at) VALUES (%(type)s, %(title)s, %(description)s, %(user_id)s, %(order_id)s, %(status)s, %(created_at)s, %(read_at)s)
+2026-06-15 00:01:56,030 INFO sqlalchemy.engine.Engine [cached since 0.2622s ago] {'type': 'NEW_ORDER', 'title': '🛒 New Order', 'description': 'Order #BB-322436 placed', 'user_id': None, 'order_id': 54, 'status': 'unread', 'created_at': datetime.datetime(2026, 6, 15, 0, 1, 56, 29798, tzinfo=<DstTzInfo 'Asia/Kolkata' IST+5:30:00 STD>), 'read_at': None}
+2026-06-15 00:01:56,031 INFO sqlalchemy.engine.Engine COMMIT
+127.0.0.1 - - [15/Jun/2026 00:01:56] "[35m[1mPOST /api/orders HTTP/1.1[0m" 201 -
+Email successfully sent via Flask-Mail to test_persist_user@bharatbasket.com
+2026-06-15 00:01:56,165 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:56,165 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:01:56,165 INFO sqlalchemy.engine.Engine [cached since 5.383s ago] {'pk_1': 54}
+2026-06-15 00:01:56,169 INFO sqlalchemy.engine.Engine UPDATE users SET notifications=%(notifications)s, updated_at=%(updated_at)s WHERE users.id = %(users_id)s
+2026-06-15 00:01:56,169 INFO sqlalchemy.engine.Engine [cached since 0.4506s ago] {'notifications': '[{"id": "02739181-2b08-4151-a3d6-450c4b4ba0a8", "read": false, "title": "Order Placed", "message": "Your order BB-569396 for \\u20b92099.0 has been s ... (2796 characters truncated) ...  "message": "Your order BB-842110 for \\u20b92099.0 has been successfully placed.", "read": false, "created_at": "2026-06-15T00:01:56.168424+05:30"}]', 'updated_at': datetime.datetime(2026, 6, 15, 0, 1, 56, 169248, tzinfo=<DstTzInfo 'Asia/Kolkata' IST+5:30:00 STD>), 'users_id': 54}
+2026-06-15 00:01:56,174 INFO sqlalchemy.engine.Engine COMMIT
+2026-06-15 00:01:56,189 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:56,191 INFO sqlalchemy.engine.Engine INSERT INTO admin_notifications (title, message, `read`, created_at) VALUES (%(title)s, %(message)s, %(read)s, %(created_at)s)
+2026-06-15 00:01:56,192 INFO sqlalchemy.engine.Engine [cached since 0.4466s ago] {'title': '🛒 New Order', 'message': 'Order #BB-842110 placed', 'read': 0, 'created_at': datetime.datetime(2026, 6, 15, 0, 1, 56, 190881)}
+2026-06-15 00:01:56,194 INFO sqlalchemy.engine.Engine COMMIT
+2026-06-15 00:01:56,210 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:56,211 INFO sqlalchemy.engine.Engine INSERT INTO notifications (type, title, description, user_id, order_id, status, created_at, read_at) VALUES (%(type)s, %(title)s, %(description)s, %(user_id)s, %(order_id)s, %(status)s, %(created_at)s, %(read_at)s)
+2026-06-15 00:01:56,211 INFO sqlalchemy.engine.Engine [cached since 0.4434s ago] {'type': 'NEW_ORDER', 'title': '🛒 New Order', 'description': 'Order #BB-842110 placed', 'user_id': None, 'order_id': 53, 'status': 'unread', 'created_at': datetime.datetime(2026, 6, 15, 0, 1, 56, 210980, tzinfo=<DstTzInfo 'Asia/Kolkata' IST+5:30:00 STD>), 'read_at': None}
+2026-06-15 00:01:56,213 INFO sqlalchemy.engine.Engine COMMIT
+127.0.0.1 - - [15/Jun/2026 00:01:56] "[35m[1mPOST /api/orders HTTP/1.1[0m" 201 -
+Email successfully sent via Flask-Mail to test_persist_user@bharatbasket.com
+2026-06-15 00:01:56,265 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:56,266 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:01:56,267 INFO sqlalchemy.engine.Engine [cached since 5.484s ago] {'pk_1': 54}
+2026-06-15 00:01:56,273 INFO sqlalchemy.engine.Engine UPDATE users SET notifications=%(notifications)s, updated_at=%(updated_at)s WHERE users.id = %(users_id)s
+2026-06-15 00:01:56,274 INFO sqlalchemy.engine.Engine [cached since 0.5552s ago] {'notifications': '[{"id": "02739181-2b08-4151-a3d6-450c4b4ba0a8", "read": false, "title": "Order Placed", "message": "Your order BB-569396 for \\u20b92099.0 has been s ... (3017 characters truncated) ...  "message": "Your order BB-460283 for \\u20b92099.0 has been successfully placed.", "read": false, "created_at": "2026-06-15T00:01:56.270068+05:30"}]', 'updated_at': datetime.datetime(2026, 6, 15, 0, 1, 56, 272984, tzinfo=<DstTzInfo 'Asia/Kolkata' IST+5:30:00 STD>), 'users_id': 54}
+2026-06-15 00:01:56,278 INFO sqlalchemy.engine.Engine COMMIT
+2026-06-15 00:01:56,289 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:56,290 INFO sqlalchemy.engine.Engine INSERT INTO admin_notifications (title, message, `read`, created_at) VALUES (%(title)s, %(message)s, %(read)s, %(created_at)s)
+2026-06-15 00:01:56,290 INFO sqlalchemy.engine.Engine [cached since 0.5452s ago] {'title': '🛒 New Order', 'message': 'Order #BB-460283 placed', 'read': 0, 'created_at': datetime.datetime(2026, 6, 15, 0, 1, 56, 290089)}
+2026-06-15 00:01:56,293 INFO sqlalchemy.engine.Engine COMMIT
+2026-06-15 00:01:56,301 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:01:56,301 INFO sqlalchemy.engine.Engine INSERT INTO notifications (type, title, description, user_id, order_id, status, created_at, read_at) VALUES (%(type)s, %(title)s, %(description)s, %(user_id)s, %(order_id)s, %(status)s, %(created_at)s, %(read_at)s)
+2026-06-15 00:01:56,301 INFO sqlalchemy.engine.Engine [cached since 0.5341s ago] {'type': 'NEW_ORDER', 'title': '🛒 New Order', 'description': 'Order #BB-460283 placed', 'user_id': None, 'order_id': 51, 'status': 'unread', 'created_at': datetime.datetime(2026, 6, 15, 0, 1, 56, 301842, tzinfo=<DstTzInfo 'Asia/Kolkata' IST+5:30:00 STD>), 'read_at': None}
+2026-06-15 00:01:56,302 INFO sqlalchemy.engine.Engine COMMIT
+127.0.0.1 - - [15/Jun/2026 00:01:56] "[35m[1mPOST /api/orders HTTP/1.1[0m" 201 -
+127.0.0.1 - - [15/Jun/2026 00:02:15] "OPTIONS /api/auth/notifications HTTP/1.1" 200 -
+2026-06-15 00:02:15,161 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:02:15,162 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:02:15,162 INFO sqlalchemy.engine.Engine [cached since 24.35s ago] {'pk_1': 51}
+2026-06-15 00:02:15,163 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:02:15,163 INFO sqlalchemy.engine.Engine [cached since 24.38s ago] {'param_1': 51}
+2026-06-15 00:02:15,165 INFO sqlalchemy.engine.Engine SELECT wishlists.id AS wishlists_id, wishlists.user_id AS wishlists_user_id, wishlists.product_id AS wishlists_product_id, wishlists.created_at AS wishlists_created_at 
+FROM wishlists 
+WHERE %(param_1)s = wishlists.user_id
+2026-06-15 00:02:15,165 INFO sqlalchemy.engine.Engine [cached since 24.38s ago] {'param_1': 51}
+2026-06-15 00:02:15,166 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:02:15,166 INFO sqlalchemy.engine.Engine [cached since 24.37s ago] {'param_1': 51}
+2026-06-15 00:02:15,168 INFO sqlalchemy.engine.Engine SELECT cart_items.id AS cart_items_id, cart_items.cart_id AS cart_items_cart_id, cart_items.product_id AS cart_items_product_id, cart_items.quantity AS cart_items_quantity, cart_items.saved_for_later AS cart_items_saved_for_later, cart_items.created_at AS cart_items_created_at 
+FROM cart_items 
+WHERE %(param_1)s = cart_items.cart_id
+2026-06-15 00:02:15,168 INFO sqlalchemy.engine.Engine [cached since 24.37s ago] {'param_1': 22}
+2026-06-15 00:02:15,172 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:02:15,173 INFO sqlalchemy.engine.Engine [cached since 24.36s ago] {'pk_1': 51}
+2026-06-15 00:02:15,176 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:02:15,177 INFO sqlalchemy.engine.Engine [cached since 24.39s ago] {'param_1': 51}
+2026-06-15 00:02:15,178 INFO sqlalchemy.engine.Engine SELECT wishlists.id AS wishlists_id, wishlists.user_id AS wishlists_user_id, wishlists.product_id AS wishlists_product_id, wishlists.created_at AS wishlists_created_at 
+FROM wishlists 
+WHERE %(param_1)s = wishlists.user_id
+2026-06-15 00:02:15,179 INFO sqlalchemy.engine.Engine [cached since 24.39s ago] {'param_1': 51}
+2026-06-15 00:02:15,180 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:02:15,180 INFO sqlalchemy.engine.Engine [cached since 24.39s ago] {'param_1': 51}
+2026-06-15 00:02:15,181 INFO sqlalchemy.engine.Engine SELECT cart_items.id AS cart_items_id, cart_items.cart_id AS cart_items_cart_id, cart_items.product_id AS cart_items_product_id, cart_items.quantity AS cart_items_quantity, cart_items.saved_for_later AS cart_items_saved_for_later, cart_items.created_at AS cart_items_created_at 
+FROM cart_items 
+WHERE %(param_1)s = cart_items.cart_id
+2026-06-15 00:02:15,181 INFO sqlalchemy.engine.Engine [cached since 24.38s ago] {'param_1': 22}
+2026-06-15 00:02:15,182 INFO sqlalchemy.engine.Engine ROLLBACK
+127.0.0.1 - - [15/Jun/2026 00:02:15] "GET /api/auth/notifications HTTP/1.1" 200 -
+127.0.0.1 - - [15/Jun/2026 00:03:15] "OPTIONS /api/auth/notifications HTTP/1.1" 200 -
+2026-06-15 00:03:15,112 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:03:15,113 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:03:15,113 INFO sqlalchemy.engine.Engine [cached since 84.3s ago] {'pk_1': 51}
+2026-06-15 00:03:15,116 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:03:15,116 INFO sqlalchemy.engine.Engine [cached since 84.33s ago] {'param_1': 51}
+2026-06-15 00:03:15,119 INFO sqlalchemy.engine.Engine SELECT wishlists.id AS wishlists_id, wishlists.user_id AS wishlists_user_id, wishlists.product_id AS wishlists_product_id, wishlists.created_at AS wishlists_created_at 
+FROM wishlists 
+WHERE %(param_1)s = wishlists.user_id
+2026-06-15 00:03:15,119 INFO sqlalchemy.engine.Engine [cached since 84.33s ago] {'param_1': 51}
+2026-06-15 00:03:15,122 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:03:15,123 INFO sqlalchemy.engine.Engine [cached since 84.33s ago] {'param_1': 51}
+2026-06-15 00:03:15,126 INFO sqlalchemy.engine.Engine SELECT cart_items.id AS cart_items_id, cart_items.cart_id AS cart_items_cart_id, cart_items.product_id AS cart_items_product_id, cart_items.quantity AS cart_items_quantity, cart_items.saved_for_later AS cart_items_saved_for_later, cart_items.created_at AS cart_items_created_at 
+FROM cart_items 
+WHERE %(param_1)s = cart_items.cart_id
+2026-06-15 00:03:15,126 INFO sqlalchemy.engine.Engine [cached since 84.33s ago] {'param_1': 22}
+2026-06-15 00:03:15,128 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:03:15,129 INFO sqlalchemy.engine.Engine [cached since 84.32s ago] {'pk_1': 51}
+2026-06-15 00:03:15,131 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:03:15,131 INFO sqlalchemy.engine.Engine [cached since 84.35s ago] {'param_1': 51}
+2026-06-15 00:03:15,136 INFO sqlalchemy.engine.Engine SELECT wishlists.id AS wishlists_id, wishlists.user_id AS wishlists_user_id, wishlists.product_id AS wishlists_product_id, wishlists.created_at AS wishlists_created_at 
+FROM wishlists 
+WHERE %(param_1)s = wishlists.user_id
+2026-06-15 00:03:15,136 INFO sqlalchemy.engine.Engine [cached since 84.35s ago] {'param_1': 51}
+2026-06-15 00:03:15,139 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:03:15,140 INFO sqlalchemy.engine.Engine [cached since 84.35s ago] {'param_1': 51}
+2026-06-15 00:03:15,143 INFO sqlalchemy.engine.Engine SELECT cart_items.id AS cart_items_id, cart_items.cart_id AS cart_items_cart_id, cart_items.product_id AS cart_items_product_id, cart_items.quantity AS cart_items_quantity, cart_items.saved_for_later AS cart_items_saved_for_later, cart_items.created_at AS cart_items_created_at 
+FROM cart_items 
+WHERE %(param_1)s = cart_items.cart_id
+2026-06-15 00:03:15,143 INFO sqlalchemy.engine.Engine [cached since 84.35s ago] {'param_1': 22}
+2026-06-15 00:03:15,146 INFO sqlalchemy.engine.Engine ROLLBACK
+127.0.0.1 - - [15/Jun/2026 00:03:15] "GET /api/auth/notifications HTTP/1.1" 200 -
+127.0.0.1 - - [15/Jun/2026 00:04:15] "OPTIONS /api/auth/notifications HTTP/1.1" 200 -
+2026-06-15 00:04:15,161 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:04:15,161 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:04:15,161 INFO sqlalchemy.engine.Engine [cached since 144.4s ago] {'pk_1': 51}
+2026-06-15 00:04:15,163 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:04:15,163 INFO sqlalchemy.engine.Engine [cached since 144.4s ago] {'param_1': 51}
+2026-06-15 00:04:15,164 INFO sqlalchemy.engine.Engine SELECT wishlists.id AS wishlists_id, wishlists.user_id AS wishlists_user_id, wishlists.product_id AS wishlists_product_id, wishlists.created_at AS wishlists_created_at 
+FROM wishlists 
+WHERE %(param_1)s = wishlists.user_id
+2026-06-15 00:04:15,164 INFO sqlalchemy.engine.Engine [cached since 144.4s ago] {'param_1': 51}
+2026-06-15 00:04:15,165 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:04:15,165 INFO sqlalchemy.engine.Engine [cached since 144.4s ago] {'param_1': 51}
+2026-06-15 00:04:15,173 INFO sqlalchemy.engine.Engine SELECT cart_items.id AS cart_items_id, cart_items.cart_id AS cart_items_cart_id, cart_items.product_id AS cart_items_product_id, cart_items.quantity AS cart_items_quantity, cart_items.saved_for_later AS cart_items_saved_for_later, cart_items.created_at AS cart_items_created_at 
+FROM cart_items 
+WHERE %(param_1)s = cart_items.cart_id
+2026-06-15 00:04:15,173 INFO sqlalchemy.engine.Engine [cached since 144.4s ago] {'param_1': 22}
+2026-06-15 00:04:15,175 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:04:15,175 INFO sqlalchemy.engine.Engine [cached since 144.4s ago] {'pk_1': 51}
+2026-06-15 00:04:15,177 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:04:15,177 INFO sqlalchemy.engine.Engine [cached since 144.4s ago] {'param_1': 51}
+2026-06-15 00:04:15,179 INFO sqlalchemy.engine.Engine SELECT wishlists.id AS wishlists_id, wishlists.user_id AS wishlists_user_id, wishlists.product_id AS wishlists_product_id, wishlists.created_at AS wishlists_created_at 
+FROM wishlists 
+WHERE %(param_1)s = wishlists.user_id
+2026-06-15 00:04:15,180 INFO sqlalchemy.engine.Engine [cached since 144.4s ago] {'param_1': 51}
+2026-06-15 00:04:15,181 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:04:15,181 INFO sqlalchemy.engine.Engine [cached since 144.4s ago] {'param_1': 51}
+2026-06-15 00:04:15,182 INFO sqlalchemy.engine.Engine SELECT cart_items.id AS cart_items_id, cart_items.cart_id AS cart_items_cart_id, cart_items.product_id AS cart_items_product_id, cart_items.quantity AS cart_items_quantity, cart_items.saved_for_later AS cart_items_saved_for_later, cart_items.created_at AS cart_items_created_at 
+FROM cart_items 
+WHERE %(param_1)s = cart_items.cart_id
+2026-06-15 00:04:15,182 INFO sqlalchemy.engine.Engine [cached since 144.4s ago] {'param_1': 22}
+2026-06-15 00:04:15,185 INFO sqlalchemy.engine.Engine ROLLBACK
+127.0.0.1 - - [15/Jun/2026 00:04:15] "GET /api/auth/notifications HTTP/1.1" 200 -
+127.0.0.1 - - [15/Jun/2026 00:05:15] "OPTIONS /api/auth/notifications HTTP/1.1" 200 -
+2026-06-15 00:05:15,163 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:05:15,164 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:05:15,164 INFO sqlalchemy.engine.Engine [cached since 204.4s ago] {'pk_1': 51}
+2026-06-15 00:05:15,167 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:05:15,167 INFO sqlalchemy.engine.Engine [cached since 204.4s ago] {'param_1': 51}
+2026-06-15 00:05:15,170 INFO sqlalchemy.engine.Engine SELECT wishlists.id AS wishlists_id, wishlists.user_id AS wishlists_user_id, wishlists.product_id AS wishlists_product_id, wishlists.created_at AS wishlists_created_at 
+FROM wishlists 
+WHERE %(param_1)s = wishlists.user_id
+2026-06-15 00:05:15,171 INFO sqlalchemy.engine.Engine [cached since 204.4s ago] {'param_1': 51}
+2026-06-15 00:05:15,174 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:05:15,174 INFO sqlalchemy.engine.Engine [cached since 204.4s ago] {'param_1': 51}
+2026-06-15 00:05:15,175 INFO sqlalchemy.engine.Engine SELECT cart_items.id AS cart_items_id, cart_items.cart_id AS cart_items_cart_id, cart_items.product_id AS cart_items_product_id, cart_items.quantity AS cart_items_quantity, cart_items.saved_for_later AS cart_items_saved_for_later, cart_items.created_at AS cart_items_created_at 
+FROM cart_items 
+WHERE %(param_1)s = cart_items.cart_id
+2026-06-15 00:05:15,175 INFO sqlalchemy.engine.Engine [cached since 204.4s ago] {'param_1': 22}
+2026-06-15 00:05:15,176 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:05:15,177 INFO sqlalchemy.engine.Engine [cached since 204.4s ago] {'pk_1': 51}
+2026-06-15 00:05:15,178 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:05:15,178 INFO sqlalchemy.engine.Engine [cached since 204.4s ago] {'param_1': 51}
+2026-06-15 00:05:15,179 INFO sqlalchemy.engine.Engine SELECT wishlists.id AS wishlists_id, wishlists.user_id AS wishlists_user_id, wishlists.product_id AS wishlists_product_id, wishlists.created_at AS wishlists_created_at 
+FROM wishlists 
+WHERE %(param_1)s = wishlists.user_id
+2026-06-15 00:05:15,180 INFO sqlalchemy.engine.Engine [cached since 204.4s ago] {'param_1': 51}
+2026-06-15 00:05:15,180 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:05:15,181 INFO sqlalchemy.engine.Engine [cached since 204.4s ago] {'param_1': 51}
+2026-06-15 00:05:15,182 INFO sqlalchemy.engine.Engine SELECT cart_items.id AS cart_items_id, cart_items.cart_id AS cart_items_cart_id, cart_items.product_id AS cart_items_product_id, cart_items.quantity AS cart_items_quantity, cart_items.saved_for_later AS cart_items_saved_for_later, cart_items.created_at AS cart_items_created_at 
+FROM cart_items 
+WHERE %(param_1)s = cart_items.cart_id
+2026-06-15 00:05:15,182 INFO sqlalchemy.engine.Engine [cached since 204.4s ago] {'param_1': 22}
+2026-06-15 00:05:15,185 INFO sqlalchemy.engine.Engine ROLLBACK
+127.0.0.1 - - [15/Jun/2026 00:05:15] "GET /api/auth/notifications HTTP/1.1" 200 -
+127.0.0.1 - - [15/Jun/2026 00:06:15] "OPTIONS /api/auth/notifications HTTP/1.1" 200 -
+2026-06-15 00:06:15,156 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:06:15,156 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:06:15,156 INFO sqlalchemy.engine.Engine [cached since 264.3s ago] {'pk_1': 51}
+2026-06-15 00:06:15,158 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:06:15,158 INFO sqlalchemy.engine.Engine [cached since 264.4s ago] {'param_1': 51}
+2026-06-15 00:06:15,159 INFO sqlalchemy.engine.Engine SELECT wishlists.id AS wishlists_id, wishlists.user_id AS wishlists_user_id, wishlists.product_id AS wishlists_product_id, wishlists.created_at AS wishlists_created_at 
+FROM wishlists 
+WHERE %(param_1)s = wishlists.user_id
+2026-06-15 00:06:15,159 INFO sqlalchemy.engine.Engine [cached since 264.4s ago] {'param_1': 51}
+2026-06-15 00:06:15,160 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:06:15,160 INFO sqlalchemy.engine.Engine [cached since 264.4s ago] {'param_1': 51}
+2026-06-15 00:06:15,161 INFO sqlalchemy.engine.Engine SELECT cart_items.id AS cart_items_id, cart_items.cart_id AS cart_items_cart_id, cart_items.product_id AS cart_items_product_id, cart_items.quantity AS cart_items_quantity, cart_items.saved_for_later AS cart_items_saved_for_later, cart_items.created_at AS cart_items_created_at 
+FROM cart_items 
+WHERE %(param_1)s = cart_items.cart_id
+2026-06-15 00:06:15,161 INFO sqlalchemy.engine.Engine [cached since 264.4s ago] {'param_1': 22}
+2026-06-15 00:06:15,162 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:06:15,162 INFO sqlalchemy.engine.Engine [cached since 264.4s ago] {'pk_1': 51}
+2026-06-15 00:06:15,167 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:06:15,167 INFO sqlalchemy.engine.Engine [cached since 264.4s ago] {'param_1': 51}
+2026-06-15 00:06:15,171 INFO sqlalchemy.engine.Engine SELECT wishlists.id AS wishlists_id, wishlists.user_id AS wishlists_user_id, wishlists.product_id AS wishlists_product_id, wishlists.created_at AS wishlists_created_at 
+FROM wishlists 
+WHERE %(param_1)s = wishlists.user_id
+2026-06-15 00:06:15,171 INFO sqlalchemy.engine.Engine [cached since 264.4s ago] {'param_1': 51}
+2026-06-15 00:06:15,172 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:06:15,173 INFO sqlalchemy.engine.Engine [cached since 264.4s ago] {'param_1': 51}
+2026-06-15 00:06:15,173 INFO sqlalchemy.engine.Engine SELECT cart_items.id AS cart_items_id, cart_items.cart_id AS cart_items_cart_id, cart_items.product_id AS cart_items_product_id, cart_items.quantity AS cart_items_quantity, cart_items.saved_for_later AS cart_items_saved_for_later, cart_items.created_at AS cart_items_created_at 
+FROM cart_items 
+WHERE %(param_1)s = cart_items.cart_id
+2026-06-15 00:06:15,174 INFO sqlalchemy.engine.Engine [cached since 264.4s ago] {'param_1': 22}
+2026-06-15 00:06:15,175 INFO sqlalchemy.engine.Engine ROLLBACK
+127.0.0.1 - - [15/Jun/2026 00:06:15] "GET /api/auth/notifications HTTP/1.1" 200 -
+127.0.0.1 - - [15/Jun/2026 00:07:15] "OPTIONS /api/auth/notifications HTTP/1.1" 200 -
+2026-06-15 00:07:15,162 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:07:15,162 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:07:15,163 INFO sqlalchemy.engine.Engine [cached since 324.4s ago] {'pk_1': 51}
+2026-06-15 00:07:15,165 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:07:15,165 INFO sqlalchemy.engine.Engine [cached since 324.4s ago] {'param_1': 51}
+2026-06-15 00:07:15,168 INFO sqlalchemy.engine.Engine SELECT wishlists.id AS wishlists_id, wishlists.user_id AS wishlists_user_id, wishlists.product_id AS wishlists_product_id, wishlists.created_at AS wishlists_created_at 
+FROM wishlists 
+WHERE %(param_1)s = wishlists.user_id
+2026-06-15 00:07:15,168 INFO sqlalchemy.engine.Engine [cached since 324.4s ago] {'param_1': 51}
+2026-06-15 00:07:15,169 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:07:15,170 INFO sqlalchemy.engine.Engine [cached since 324.4s ago] {'param_1': 51}
+2026-06-15 00:07:15,172 INFO sqlalchemy.engine.Engine SELECT cart_items.id AS cart_items_id, cart_items.cart_id AS cart_items_cart_id, cart_items.product_id AS cart_items_product_id, cart_items.quantity AS cart_items_quantity, cart_items.saved_for_later AS cart_items_saved_for_later, cart_items.created_at AS cart_items_created_at 
+FROM cart_items 
+WHERE %(param_1)s = cart_items.cart_id
+2026-06-15 00:07:15,173 INFO sqlalchemy.engine.Engine [cached since 324.4s ago] {'param_1': 22}
+2026-06-15 00:07:15,175 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:07:15,175 INFO sqlalchemy.engine.Engine [cached since 324.4s ago] {'pk_1': 51}
+2026-06-15 00:07:15,176 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:07:15,176 INFO sqlalchemy.engine.Engine [cached since 324.4s ago] {'param_1': 51}
+2026-06-15 00:07:15,178 INFO sqlalchemy.engine.Engine SELECT wishlists.id AS wishlists_id, wishlists.user_id AS wishlists_user_id, wishlists.product_id AS wishlists_product_id, wishlists.created_at AS wishlists_created_at 
+FROM wishlists 
+WHERE %(param_1)s = wishlists.user_id
+2026-06-15 00:07:15,178 INFO sqlalchemy.engine.Engine [cached since 324.4s ago] {'param_1': 51}
+2026-06-15 00:07:15,179 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:07:15,180 INFO sqlalchemy.engine.Engine [cached since 324.4s ago] {'param_1': 51}
+2026-06-15 00:07:15,187 INFO sqlalchemy.engine.Engine SELECT cart_items.id AS cart_items_id, cart_items.cart_id AS cart_items_cart_id, cart_items.product_id AS cart_items_product_id, cart_items.quantity AS cart_items_quantity, cart_items.saved_for_later AS cart_items_saved_for_later, cart_items.created_at AS cart_items_created_at 
+FROM cart_items 
+WHERE %(param_1)s = cart_items.cart_id
+2026-06-15 00:07:15,187 INFO sqlalchemy.engine.Engine [cached since 324.4s ago] {'param_1': 22}
+2026-06-15 00:07:15,189 INFO sqlalchemy.engine.Engine ROLLBACK
+127.0.0.1 - - [15/Jun/2026 00:07:15] "GET /api/auth/notifications HTTP/1.1" 200 -
+127.0.0.1 - - [15/Jun/2026 00:08:15] "OPTIONS /api/auth/notifications HTTP/1.1" 200 -
+2026-06-15 00:08:15,139 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-15 00:08:15,142 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:08:15,142 INFO sqlalchemy.engine.Engine [cached since 384.3s ago] {'pk_1': 51}
+2026-06-15 00:08:15,146 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:08:15,146 INFO sqlalchemy.engine.Engine [cached since 384.4s ago] {'param_1': 51}
+2026-06-15 00:08:15,150 INFO sqlalchemy.engine.Engine SELECT wishlists.id AS wishlists_id, wishlists.user_id AS wishlists_user_id, wishlists.product_id AS wishlists_product_id, wishlists.created_at AS wishlists_created_at 
+FROM wishlists 
+WHERE %(param_1)s = wishlists.user_id
+2026-06-15 00:08:15,151 INFO sqlalchemy.engine.Engine [cached since 384.4s ago] {'param_1': 51}
+2026-06-15 00:08:15,154 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:08:15,154 INFO sqlalchemy.engine.Engine [cached since 384.4s ago] {'param_1': 51}
+2026-06-15 00:08:15,156 INFO sqlalchemy.engine.Engine SELECT cart_items.id AS cart_items_id, cart_items.cart_id AS cart_items_cart_id, cart_items.product_id AS cart_items_product_id, cart_items.quantity AS cart_items_quantity, cart_items.saved_for_later AS cart_items_saved_for_later, cart_items.created_at AS cart_items_created_at 
+FROM cart_items 
+WHERE %(param_1)s = cart_items.cart_id
+2026-06-15 00:08:15,156 INFO sqlalchemy.engine.Engine [cached since 384.4s ago] {'param_1': 22}
+2026-06-15 00:08:15,159 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.password_hash AS users_password_hash, users.phone AS users_phone, users.notifications AS users_notifications, users.is_blocked AS users_is_blocked, users.is_admin AS users_is_admin, users.email_verified AS users_email_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.microsoft_id AS users_microsoft_id, users.provider AS users_provider, users.provider_id AS users_provider_id, users.last_login AS users_last_login, users.preferred_language AS users_preferred_language, users.first_login AS users_first_login 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-15 00:08:15,159 INFO sqlalchemy.engine.Engine [cached since 384.3s ago] {'pk_1': 51}
+2026-06-15 00:08:15,162 INFO sqlalchemy.engine.Engine SELECT delivery_addresses.id AS delivery_addresses_id, delivery_addresses.user_id AS delivery_addresses_user_id, delivery_addresses.house_number AS delivery_addresses_house_number, delivery_addresses.building_name AS delivery_addresses_building_name, delivery_addresses.street AS delivery_addresses_street, delivery_addresses.area AS delivery_addresses_area, delivery_addresses.landmark AS delivery_addresses_landmark, delivery_addresses.city AS delivery_addresses_city, delivery_addresses.state AS delivery_addresses_state, delivery_addresses.pincode AS delivery_addresses_pincode, delivery_addresses.address_type AS delivery_addresses_address_type, delivery_addresses.alternate_mobile_number AS delivery_addresses_alternate_mobile_number, delivery_addresses.is_default AS delivery_addresses_is_default, delivery_addresses.created_at AS delivery_addresses_created_at 
+FROM delivery_addresses 
+WHERE %(param_1)s = delivery_addresses.user_id
+2026-06-15 00:08:15,162 INFO sqlalchemy.engine.Engine [cached since 384.4s ago] {'param_1': 51}
+2026-06-15 00:08:15,170 INFO sqlalchemy.engine.Engine SELECT wishlists.id AS wishlists_id, wishlists.user_id AS wishlists_user_id, wishlists.product_id AS wishlists_product_id, wishlists.created_at AS wishlists_created_at 
+FROM wishlists 
+WHERE %(param_1)s = wishlists.user_id
+2026-06-15 00:08:15,171 INFO sqlalchemy.engine.Engine [cached since 384.4s ago] {'param_1': 51}
+2026-06-15 00:08:15,172 INFO sqlalchemy.engine.Engine SELECT carts.id AS carts_id, carts.user_id AS carts_user_id, carts.created_at AS carts_created_at 
+FROM carts 
+WHERE %(param_1)s = carts.user_id
+2026-06-15 00:08:15,173 INFO sqlalchemy.engine.Engine [cached since 384.4s ago] {'param_1': 51}
+2026-06-15 00:08:15,174 INFO sqlalchemy.engine.Engine SELECT cart_items.id AS cart_items_id, cart_items.cart_id AS cart_items_cart_id, cart_items.product_id AS cart_items_product_id, cart_items.quantity AS cart_items_quantity, cart_items.saved_for_later AS cart_items_saved_for_later, cart_items.created_at AS cart_items_created_at 
+FROM cart_items 
+WHERE %(param_1)s = cart_items.cart_id
+2026-06-15 00:08:15,174 INFO sqlalchemy.engine.Engine [cached since 384.4s ago] {'param_1': 22}
+2026-06-15 00:08:15,175 INFO sqlalchemy.engine.Engine ROLLBACK
+127.0.0.1 - - [15/Jun/2026 00:08:15] "GET /api/auth/notifications HTTP/1.1" 200 -
