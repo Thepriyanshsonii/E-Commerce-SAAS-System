@@ -33,6 +33,7 @@ class ProductModel(db.Model):
     created_by = db.Column(db.String(255), default="admin", nullable=True)
     modified_by = db.Column(db.String(255), default="admin", nullable=True)
     status = db.Column(db.String(50), default='active', server_default='active')
+    show_on_homepage = db.Column(db.Boolean, default=False, nullable=False, server_default='false')
 
     # Multilingual fields
     name_en = db.Column(db.String(255), nullable=True)
@@ -108,6 +109,7 @@ class ProductModel(db.Model):
             "category": cat_name,
             "category_attributes": attributes_list,
             "ratings": float(self.ratings) if self.ratings is not None else 5.0,
+            "review_count": len(self.reviews) if self.reviews else 0,
             "variants": variants_list,
             "created_at": format_iso_datetime(self.created_at),
             "updated_at": format_iso_datetime(self.updated_at),
@@ -115,6 +117,7 @@ class ProductModel(db.Model):
             "created_by": self.created_by or "admin",
             "modified_by": self.modified_by or "admin",
             "status": self.status or "active",
+            "show_on_homepage": bool(self.show_on_homepage),
             
             # Keep name_translations and description_translations if any other code expects it
             "name_translations": self.name_translations or {},
@@ -132,9 +135,12 @@ class ProductModel(db.Model):
         }
 
     @staticmethod
-    def get_all(category=None, search_query=None):
+    def get_all(category=None, search_query=None, homepage_only=False):
         query = ProductModel.query
         
+        if homepage_only:
+            query = query.filter(ProductModel.show_on_homepage == True)
+            
         if category and category != 'All':
             from backend.models.category import Category
             query = query.join(Category).filter(Category.name == category)
@@ -221,7 +227,8 @@ class ProductModel(db.Model):
             specifications_hi=specifications_hi,
             created_by=admin_name,
             modified_by=admin_name,
-            status=data.get("status", "active")
+            status=data.get("status", "active"),
+            show_on_homepage=bool(data.get("show_on_homepage", False))
         )
         db.session.add(product)
         db.session.commit()
@@ -408,6 +415,9 @@ class ProductModel(db.Model):
             if "status" in data:
                 log_change("Product Update", "status", product.status, data["status"])
                 product.status = data["status"]
+            if "show_on_homepage" in data:
+                log_change("Product Update", "show_on_homepage", product.show_on_homepage, data["show_on_homepage"])
+                product.show_on_homepage = bool(data["show_on_homepage"])
             
             if "images" in data:
                 old_images = ",".join(product.images or [])

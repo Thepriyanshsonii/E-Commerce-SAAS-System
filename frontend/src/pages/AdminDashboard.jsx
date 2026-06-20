@@ -136,7 +136,7 @@ export const AdminDashboard = () => {
   // Add Product form state
   const [newProduct, setNewProduct] = useState({
     name: '',
-    category: 'Electronics',
+    category: 'Rings',
     price: '',
     discount: 0,
     stock: '',
@@ -146,7 +146,8 @@ export const AdminDashboard = () => {
     features_en: '',
     features_hi: '',
     specifications_en: '',
-    specifications_hi: ''
+    specifications_hi: '',
+    show_on_homepage: false
   });
   const [newProductImages, setNewProductImages] = useState(INITIAL_IMAGE_SLOTS);
   const [uploadingSlots, setUploadingSlots] = useState({});
@@ -222,7 +223,7 @@ export const AdminDashboard = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get(`${API_BASE_URL}/products`);
+      const res = await axios.get(`${API_BASE_URL}/products?admin_view=true`);
       setProducts(res.data);
     } catch (err) {
       console.error(err);
@@ -868,7 +869,7 @@ export const AdminDashboard = () => {
   };
 
   const getCategoryData = () => {
-    const categories = ['Electronics', 'Grocery', 'Fashion', 'Home Decor'];
+    const categories = ['Rings', 'Necklaces', 'Earrings', 'Bracelets', 'Bangles', 'Bridal Collection'];
     return categories.map(cat => {
       const filtered = products.filter(p => p.category === cat);
       const count = filtered.length;
@@ -1348,7 +1349,8 @@ export const AdminDashboard = () => {
         features_en: newProduct.features_en || '',
         features_hi: newProduct.features_hi || '',
         specifications_en: newProduct.specifications_en || '',
-        specifications_hi: newProduct.specifications_hi || ''
+        specifications_hi: newProduct.specifications_hi || '',
+        show_on_homepage: newProduct.show_on_homepage
       });
 
       // Close modal and show success toast immediately (non-blocking)
@@ -1358,7 +1360,7 @@ export const AdminDashboard = () => {
 
       setNewProduct({
         name: '',
-        category: 'Electronics',
+        category: 'Rings',
         price: '',
         discount: 0,
         stock: '',
@@ -1368,7 +1370,8 @@ export const AdminDashboard = () => {
         features_en: '',
         features_hi: '',
         specifications_en: '',
-        specifications_hi: ''
+        specifications_hi: '',
+        show_on_homepage: false
       });
       setNewProductImages(INITIAL_IMAGE_SLOTS);
       setFormLang('en');
@@ -1403,7 +1406,8 @@ export const AdminDashboard = () => {
         features_en: editingProduct.features_en || '',
         features_hi: editingProduct.features_hi || '',
         specifications_en: editingProduct.specifications_en || '',
-        specifications_hi: editingProduct.specifications_hi || ''
+        specifications_hi: editingProduct.specifications_hi || '',
+        show_on_homepage: editingProduct.show_on_homepage
       });
 
       alert("Product updated successfully!");
@@ -1448,7 +1452,7 @@ export const AdminDashboard = () => {
         <ShieldAlert className="h-12 w-12 text-red-500 mx-auto" />
         <h3 className="text-lg font-bold mt-4">Access Denied</h3>
         <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">
-          Administrator privileges are required to access the BharatBasket Admin Dashboard.
+          Administrator privileges are required to access the SSJewellery Admin Dashboard.
         </p>
         <button
           onClick={() => navigate('/login?redirect=admin')}
@@ -1663,10 +1667,12 @@ export const AdminDashboard = () => {
                         const catData = getCategoryData();
                         const maxVal = Math.max(...catData.map(c => c.value), 1);
                         const colors = {
-                          'Electronics': '#3b82f6',
-                          'Grocery': '#10b981',
-                          'Fashion': '#ec4899',
-                          'Home Decor': '#f59e0b'
+                          'Rings': '#D4A75F',
+                          'Necklaces': '#3F1D5A',
+                          'Earrings': '#5C2E7E',
+                          'Bracelets': '#8A5A9E',
+                          'Bangles': '#A87BB5',
+                          'Bridal Collection': '#E2C391'
                         };
                         return (
                           <div className="w-full">
@@ -2581,10 +2587,16 @@ export const AdminDashboard = () => {
                       onChange={(e) => setEditingProduct({ ...editingProduct, category: e.target.value })}
                       className="w-full px-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs focus:ring-1 focus:ring-emerald-500 outline-none text-slate-850 dark:text-slate-100"
                     >
-                      <option value="Electronics">Electronics</option>
-                      <option value="Grocery">Grocery</option>
-                      <option value="Fashion">Fashion</option>
-                      <option value="Home Decor">Home Decor</option>
+                      <option value="Rings">Rings</option>
+                      <option value="Earrings">Earrings</option>
+                      <option value="Necklaces">Necklaces</option>
+                      <option value="Pendants">Pendants</option>
+                      <option value="Bangles">Bangles</option>
+                      <option value="Bracelets">Bracelets</option>
+                      <option value="Chains">Chains</option>
+                      <option value="Bridal Collection">Bridal Collection</option>
+                      <option value="Diamond Collection">Diamond Collection</option>
+                      <option value="Gold Collection">Gold Collection</option>
                     </select>
                   </div>
 
@@ -2625,6 +2637,25 @@ export const AdminDashboard = () => {
                       onChange={(e) => setEditingProduct({ ...editingProduct, discount: parseInt(e.target.value) || 0 })}
                       className="w-full px-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs focus:ring-1 focus:ring-emerald-500 outline-none"
                     />
+                  </div>
+                </div>
+
+                {/* Homepage Visibility */}
+                <div className="flex items-center gap-2.5 p-3.5 bg-slate-50 dark:bg-slate-955 border border-slate-200 dark:border-slate-800 rounded-xl">
+                  <input
+                    type="checkbox"
+                    id="edit_show_on_homepage"
+                    checked={editingProduct.show_on_homepage || false}
+                    onChange={(e) => setEditingProduct({ ...editingProduct, show_on_homepage: e.target.checked })}
+                    className="w-4 h-4 text-emerald-500 border-slate-300 rounded focus:ring-emerald-500 cursor-pointer"
+                  />
+                  <div>
+                    <label htmlFor="edit_show_on_homepage" className="block text-xs font-bold text-slate-700 dark:text-slate-250 cursor-pointer select-none">
+                      Homepage Visibility
+                    </label>
+                    <span className="text-[10px] text-slate-400 block mt-0.5">
+                      Show this product on the homepage grid and featured collections.
+                    </span>
                   </div>
                 </div>
 
@@ -2826,10 +2857,16 @@ export const AdminDashboard = () => {
                       onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })}
                       className="w-full px-3 py-1.5 bg-slate-50 dark:bg-slate-955 border border-slate-200 dark:border-slate-800 rounded-xl text-xs focus:ring-1 focus:ring-emerald-500 outline-none text-slate-850 dark:text-slate-100"
                     >
-                      <option value="Electronics">Electronics</option>
-                      <option value="Grocery">Grocery</option>
-                      <option value="Fashion">Fashion</option>
-                      <option value="Home Decor">Home Decor</option>
+                      <option value="Rings">Rings</option>
+                      <option value="Earrings">Earrings</option>
+                      <option value="Necklaces">Necklaces</option>
+                      <option value="Pendants">Pendants</option>
+                      <option value="Bangles">Bangles</option>
+                      <option value="Bracelets">Bracelets</option>
+                      <option value="Chains">Chains</option>
+                      <option value="Bridal Collection">Bridal Collection</option>
+                      <option value="Diamond Collection">Diamond Collection</option>
+                      <option value="Gold Collection">Gold Collection</option>
                     </select>
                   </div>
 
@@ -2873,6 +2910,25 @@ export const AdminDashboard = () => {
                       placeholder="0"
                       className="w-full px-3 py-1.5 bg-slate-50 dark:bg-slate-955 border border-slate-200 dark:border-slate-800 rounded-xl text-xs focus:ring-1 focus:ring-emerald-500 outline-none"
                     />
+                  </div>
+                </div>
+
+                {/* Homepage Visibility */}
+                <div className="flex items-center gap-2.5 p-3.5 bg-slate-50 dark:bg-slate-955 border border-slate-200 dark:border-slate-800 rounded-xl">
+                  <input
+                    type="checkbox"
+                    id="add_show_on_homepage"
+                    checked={newProduct.show_on_homepage || false}
+                    onChange={(e) => setNewProduct({ ...newProduct, show_on_homepage: e.target.checked })}
+                    className="w-4 h-4 text-emerald-500 border-slate-300 rounded focus:ring-emerald-500 cursor-pointer"
+                  />
+                  <div>
+                    <label htmlFor="add_show_on_homepage" className="block text-xs font-bold text-slate-700 dark:text-slate-250 cursor-pointer select-none">
+                      Homepage Visibility
+                    </label>
+                    <span className="text-[10px] text-slate-400 block mt-0.5">
+                      Show this product on the homepage grid and featured collections.
+                    </span>
                   </div>
                 </div>
 

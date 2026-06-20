@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Star, ShoppingCart, Heart } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { CartContext } from '../context/CartContext';
 import { AuthContext } from '../context/AuthContext';
 import { useTranslation } from '../hooks/useTranslation';
@@ -28,36 +29,27 @@ export const ProductCard = ({ product, onAdminAction }) => {
     }
   };
 
-  const handleAddToCart = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!user) {
-      triggerAuthModal(t('product_card.login_cart'), window.location.pathname);
+  const handleCardClick = (e) => {
+    if (e.target.closest('button') || e.target.closest('a')) {
       return;
     }
-    addToCart(product, 1);
-  };
-
-  const handleBuyNow = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!user) {
-      triggerAuthModal(t('product_card.login_order'), '/login');
-      return;
-    }
-    addToCart(product, 1);
-    navigate('/checkout');
+    navigate(`/product/${product._id}`);
   };
 
   return (
-    <div className="group relative bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700/50 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full">
+    <div 
+      onClick={handleCardClick}
+      className="group relative bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700/50 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-[#D4A75F]/30 transition-all duration-500 overflow-hidden flex flex-col h-full cursor-pointer"
+    >
       {/* Wishlist Button */}
-      <button
+      <motion.button
+        whileHover={{ scale: 1.15 }}
+        whileTap={{ scale: 0.9 }}
         onClick={handleWishlistToggle}
-        className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm border border-slate-100 dark:border-slate-800 text-slate-400 hover:text-red-500 transition-colors"
+        className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm border border-slate-100 dark:border-slate-800 text-slate-400 hover:text-red-500 transition-colors cursor-pointer"
       >
-        <Heart className={`h-5 w-5 ${isProductInWishlist ? 'text-red-500 fill-current' : ''}`} />
-      </button>
+        <Heart className={`h-5 w-5 ${isProductInWishlist ? 'text-red-500 fill-current animate-heart-beat' : 'transition-transform'}`} />
+      </motion.button>
 
       {/* Discount Badge */}
       {product.discount > 0 && (
@@ -67,11 +59,11 @@ export const ProductCard = ({ product, onAdminAction }) => {
       )}
 
       {/* Image Block */}
-      <Link to={`/product/${product._id}`} className="block relative aspect-video w-full overflow-hidden bg-slate-50 dark:bg-slate-955 p-3 flex items-center justify-center">
+      <Link to={`/product/${product._id}`} className="block relative aspect-video w-full overflow-hidden bg-slate-50 dark:bg-slate-950 p-3 flex items-center justify-center">
         <img
           src={product.images[0] || 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=60'}
           alt={localize(product, 'name')}
-          className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500"
+          className="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-700 ease-out"
           loading="lazy"
         />
       </Link>
@@ -79,7 +71,7 @@ export const ProductCard = ({ product, onAdminAction }) => {
       {/* Content Block */}
       <div className="p-3.5 sm:p-4.5 flex-grow flex flex-col">
         {/* Category */}
-        <span className="text-[10px] sm:text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
+        <span className="text-[10px] sm:text-xs font-semibold text-[#D4A75F] uppercase tracking-wider">
           {(() => {
             const catKey = `common.${product.category?.toLowerCase()}`;
             const trans = t(catKey);
@@ -89,7 +81,7 @@ export const ProductCard = ({ product, onAdminAction }) => {
 
         {/* Product Title */}
         <Link to={`/product/${product._id}`} className="block mt-0.5">
-          <h3 className="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-100 group-hover:text-emerald-500 line-clamp-1">
+          <h3 className="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-100 group-hover:text-[#3F1D5A] dark:group-hover:text-[#D4A75F] transition-colors line-clamp-1">
             {localize(product, 'name')}
           </h3>
         </Link>
@@ -103,8 +95,8 @@ export const ProductCard = ({ product, onAdminAction }) => {
             </span>
           </div>
           <span className="mx-1 text-slate-300 dark:text-slate-600">•</span>
-          <span className="text-[10px] sm:text-xs text-slate-400 dark:text-slate-505">
-            {product.stock > 0 ? `${product.stock} ${t('product_card.left')}` : t('product_card.out_of_stock')}
+          <span className="text-[10px] sm:text-xs text-slate-400 dark:text-slate-500">
+            {product.review_count !== undefined ? product.review_count : (product.reviews ? product.reviews.length : 0)} {t('product_details.reviews') || 'reviews'}
           </span>
         </div>
 
@@ -114,39 +106,20 @@ export const ProductCard = ({ product, onAdminAction }) => {
         </p>
 
         {/* Price Row */}
-        <div className="flex items-baseline space-x-1.5 mb-3">
-          <span className="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-slate-55">
+        <div className="flex items-baseline space-x-1.5 mb-1">
+          <span className="text-lg sm:text-xl font-extrabold text-[#3F1D5A] dark:text-[#EFE7DB]">
             ₹{discountedPrice}
           </span>
           {product.discount > 0 && (
-            <span className="text-xs sm:text-sm text-slate-400 line-through">
+            <span className="text-xs sm:text-sm text-slate-400 line-through font-medium">
               ₹{product.price}
             </span>
           )}
         </div>
 
-        {/* Action Buttons */}
-        {!isAdmin ? (
-          <div className="grid grid-cols-2 gap-1.5 sm:gap-2 mt-auto">
-            <button
-              onClick={handleAddToCart}
-              disabled={product.stock <= 0}
-              className="flex items-center justify-center space-x-1 sm:space-x-1.5 py-1.5 sm:py-2 px-1.5 sm:px-3 bg-slate-100 hover:bg-emerald-500 hover:text-white dark:bg-slate-700/50 dark:hover:bg-emerald-500 text-slate-800 dark:text-slate-200 disabled:opacity-50 disabled:hover:bg-slate-100 disabled:hover:text-slate-800 rounded-xl font-semibold text-[10px] sm:text-xs tracking-wide transition-colors"
-            >
-              <ShoppingCart className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
-              <span>{t('product_card.add_cart')}</span>
-            </button>
-            
-            <button
-              onClick={handleBuyNow}
-              disabled={product.stock <= 0}
-              className="py-1.5 sm:py-2 px-1.5 sm:px-3 bg-emerald-500 hover:bg-emerald-600 dark:bg-emerald-600 dark:hover:bg-emerald-700 text-white disabled:opacity-50 rounded-xl font-semibold text-[10px] sm:text-xs tracking-wide shadow-md hover:shadow-lg transition-all text-center"
-            >
-              {t('product_card.buy_now')}
-            </button>
-          </div>
-        ) : (
-          <div className="mt-auto">
+        {/* Admin Action Button */}
+        {isAdmin && (
+          <div className="mt-auto pt-3">
             <button
               onClick={(e) => {
                 e.preventDefault();
@@ -157,13 +130,44 @@ export const ProductCard = ({ product, onAdminAction }) => {
                   navigate('/admin');
                 }
               }}
-              className="w-full py-2 px-3 bg-slate-100 hover:bg-emerald-500 hover:text-white dark:bg-slate-700/50 dark:hover:bg-emerald-500 text-slate-800 dark:text-slate-200 rounded-xl font-bold text-xs tracking-wide transition-all text-center block border border-slate-200 dark:border-slate-700 shadow-sm"
+              className="w-full py-2 px-3 bg-slate-100 hover:bg-[#D4A75F] hover:text-white dark:bg-slate-700/50 dark:hover:bg-[#D4A75F] text-slate-800 dark:text-slate-200 rounded-xl font-bold text-xs tracking-wide transition-all text-center block border border-slate-200 dark:border-slate-700 shadow-sm cursor-pointer"
             >
               🛠️ {t('navbar.admin_panel')}
             </button>
           </div>
         )}
       </div>
+    </div>
+  );
+};
+
+// Premium Shimmer Skeleton Loader for Product Cards
+export const ProductCardSkeleton = () => {
+  return (
+    <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700/50 shadow-sm p-4 flex flex-col h-full space-y-4">
+      {/* Image skeleton */}
+      <div className="skeleton-premium aspect-video w-full rounded-xl" />
+      
+      {/* Category skeleton */}
+      <div className="skeleton-premium h-3 w-1/4 rounded" />
+      
+      {/* Title skeleton */}
+      <div className="skeleton-premium h-5 w-3/4 rounded" />
+      
+      {/* Rating & Stock skeleton */}
+      <div className="flex space-x-2">
+        <div className="skeleton-premium h-4 w-10 rounded" />
+        <div className="skeleton-premium h-4 w-14 rounded" />
+      </div>
+      
+      {/* Description skeleton */}
+      <div className="space-y-2 flex-grow">
+        <div className="skeleton-premium h-3 w-full rounded" />
+        <div className="skeleton-premium h-3 w-5/6 rounded" />
+      </div>
+      
+      {/* Price skeleton */}
+      <div className="skeleton-premium h-6 w-1/3 rounded" />
     </div>
   );
 };

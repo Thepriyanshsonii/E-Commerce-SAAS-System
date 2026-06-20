@@ -48,6 +48,19 @@ const translationDictionary = {
   'RAM': 'रैम',
   'Size': 'आकार',
   'Weight': 'वजन',
+  'Purity': 'शुद्धता',
+  'Metal': 'धातु',
+  'Gemstone': 'रत्न',
+  'Ring Size': 'अंगूठी का आकार',
+  'Yellow Gold': 'पीला सोना',
+  'White Gold': 'सफेद सोना',
+  'Rose Gold': 'गुलाबी सोना',
+  'Platinum': 'प्लेटिनम',
+  'None': 'कोई नहीं',
+  'Diamond': 'हीरा',
+  'Ruby': 'माणिक',
+  'Emerald': 'पन्ना',
+  'Sapphire': 'नीलम',
   'Format': 'प्रारूप',
   'Model': 'मॉडल',
   'Pack Size': 'पैक का आकार',
@@ -58,6 +71,17 @@ const translationDictionary = {
   'Fit Type': 'फिट प्रकार',
   'Connectivity': 'कनेक्टिविटी',
   'Material': 'सामग्री',
+  'Necklace Length': 'हार की लंबाई',
+  'Necklace Length (Optional)': 'हार की लंबाई (वैकल्पिक)',
+  'Bracelet Size': 'कंगन का आकार',
+  'Bangle Size': 'चूड़ी का आकार',
+  'Chain Length': 'चेन की लंबाई',
+  'Special Requirements': 'विशेष आवश्यकताएं',
+  'Special Requirements (Optional)': 'विशेष आवश्यकताएं (वैकल्पिक)',
+  'Product Summary': 'उत्पाद सारांश',
+  'Category': 'श्रेणी',
+  'Location / City': 'स्थान / शहर',
+  'Quantity Required': 'आवश्यक मात्रा',
 
   // Option values
   'Carbon Gray': 'कार्बन ग्रे',
@@ -96,7 +120,7 @@ const translationDictionary = {
 
   // Seller & Offers
   'Seller Information': 'विक्रेता की जानकारी',
-  'BharatBasket Retail Partner': 'भारतबास्केट रिटेल पार्टनर',
+  'SSJewellery Retail Partner': 'SSJewellery रिटेल पार्टनर',
   '4.8★ Seller Rating • 99% positive feedback': '4.8★ विक्रेता रेटिंग • 99% सकारात्मक प्रतिक्रिया',
   'SuperCoin Benefits': 'सुपरकॉइन लाभ',
   'No Cost EMI': 'बिना ब्याज की ईएमआई',
@@ -201,6 +225,15 @@ export const ProductDetails = ({ productId }) => {
   const [modalWeight, setModalWeight] = useState('1kg');
   const [modalSize, setModalSize] = useState('M');
   const [modalFormat, setModalFormat] = useState('Paperback');
+  const [modalPurity, setModalPurity] = useState('18k');
+  const [modalMetal, setModalMetal] = useState('Yellow Gold');
+  const [modalGemstone, setModalGemstone] = useState('None');
+  const [modalRingSize, setModalRingSize] = useState('6');
+  const [modalNecklaceLength, setModalNecklaceLength] = useState('18 inches');
+  const [modalBraceletSize, setModalBraceletSize] = useState('7.0 inches');
+  const [modalBangleSize, setModalBangleSize] = useState('2.6');
+  const [modalChainLength, setModalChainLength] = useState('20 inches');
+  const [modalSpecialReqs, setModalSpecialReqs] = useState('');
   const [modalCity, setModalCity] = useState('');
 
   // Side zoom window and mouse tracking state
@@ -217,6 +250,9 @@ export const ProductDetails = ({ productId }) => {
 
   const getCategoryType = (categoryName) => {
     const cat = (categoryName || '').toLowerCase();
+    if (cat.includes('ring') || cat.includes('neck') || cat.includes('ear') || cat.includes('brace') || cat.includes('bang') || cat.includes('bridal') || cat.includes('jewelry') || cat.includes('jewel')) {
+      return 'jewelry';
+    }
     if (cat.includes('grocery') || cat.includes('food') || cat.includes('spices') || cat.includes('oil') || cat.includes('organic')) {
       return 'grocery';
     }
@@ -250,6 +286,8 @@ export const ProductDetails = ({ productId }) => {
   const getAllowedAttributesForCategory = (categoryName) => {
     const catType = getCategoryType(categoryName);
     switch (catType) {
+      case 'jewelry':
+        return ['Purity', 'Metal', 'Gemstone', 'Ring Size', 'Weight'];
       case 'electronics':
         return ['Storage', 'RAM', 'Color', 'Model', 'Connectivity'];
       case 'fashion':
@@ -361,27 +399,6 @@ export const ProductDetails = ({ productId }) => {
       }
     };
 
-    const handleItemAddToCart = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      if (!user) {
-        triggerAuthModal(language === 'hi' ? 'उत्पादों को कार्ट में जोड़ने के लिए कृपया लॉगिन करें।' : 'Please login to add products to your cart.', window.location.pathname);
-        return;
-      }
-      addToCart(item, 1);
-    };
-
-    const handleItemBuyNow = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      if (!user) {
-        triggerAuthModal(language === 'hi' ? 'ऑर्डर देने से पहले कृपया लॉगिन करें।' : 'Please login before placing an order.', '/login');
-        return;
-      }
-      addToCart(item, 1);
-      navigate('/checkout');
-    };
-
     return (
       <div 
         onClick={() => {
@@ -419,31 +436,37 @@ export const ProductDetails = ({ productId }) => {
         {/* Content Block */}
         <div className="p-3 sm:p-4 flex-grow flex flex-col">
           {/* Category */}
-          <span className="text-[9px] font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
+          <span className="text-[9px] font-semibold text-[#D4A75F] uppercase tracking-wider">
             {translateCategory(item.category)}
           </span>
 
           {/* Product Title */}
-          <h3 className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-100 group-hover:text-emerald-500 line-clamp-1 mt-0.5">
+          <h3 className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-100 group-hover:text-[#D4A75F] line-clamp-1 mt-0.5">
             {language === 'hi' ? (item.name_hi || item.name) : (item.name_en || item.name)}
           </h3>
 
-          {/* Rating & Stock Status */}
-          <div className="flex items-center justify-between mt-1 mb-2">
-            <div className="flex items-center text-amber-405">
-              <Star className="h-3 w-3 fill-amber-500" />
+          {/* Rating & Review Count */}
+          <div className="flex items-center mt-1 mb-2">
+            <div className="flex items-center text-amber-500">
+              <Star className="h-3 w-3 fill-current" />
               <span className="ml-1 text-[11px] font-bold text-slate-700 dark:text-slate-350">
                 {parseFloat(item.ratings || item.rating || 0).toFixed(1)}
               </span>
             </div>
-            <span className={`text-[9px] font-bold ${item.stock > 0 ? 'text-emerald-500 bg-emerald-500/10 px-1.5 py-0.2 rounded' : 'text-rose-500 bg-rose-500/10 px-1.5 py-0.2 rounded'}`}>
-              {item.stock > 0 ? (language === 'hi' ? 'स्टॉक में है' : 'In Stock') : (language === 'hi' ? 'आउट ऑफ स्टॉक' : 'Out of stock')}
+            <span className="mx-1 text-slate-300 dark:text-slate-650">•</span>
+            <span className="text-[10px] text-slate-400 dark:text-slate-500">
+              {item.review_count !== undefined ? item.review_count : (item.reviews ? item.reviews.length : 0)} {language === 'hi' ? 'समीक्षाएं' : 'reviews'}
             </span>
           </div>
 
+          {/* Description */}
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-2 mb-3 flex-grow">
+            {language === 'hi' ? (item.description_hi || item.description) : (item.description_en || item.description)}
+          </p>
+
           {/* Price Row */}
-          <div className="flex items-baseline space-x-1.5 mb-3 mt-auto font-black text-slate-900 dark:text-slate-100">
-            <span className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-slate-100">
+          <div className="flex items-baseline space-x-1.5 mb-1 mt-auto font-black text-slate-900 dark:text-slate-100">
+            <span className="text-sm sm:text-base font-extrabold text-[#3F1D5A] dark:text-[#EFE7DB]">
               ₹{itemDiscountedPrice.toLocaleString('en-IN')}
             </span>
             {item.discount > 0 && (
@@ -451,26 +474,6 @@ export const ProductDetails = ({ productId }) => {
                 ₹{item.price.toLocaleString('en-IN')}
               </span>
             )}
-          </div>
-
-          {/* Action Buttons */}
-          <div className="grid grid-cols-2 gap-1.5 mt-auto">
-            <button
-              onClick={handleItemAddToCart}
-              disabled={isPreviewMode || item.stock <= 0}
-              className="flex items-center justify-center space-x-1 py-1.5 px-1 bg-slate-100 hover:bg-emerald-500 hover:text-white dark:bg-slate-800 dark:hover:bg-emerald-500 text-slate-800 dark:text-slate-200 disabled:opacity-50 disabled:hover:bg-slate-100 disabled:hover:text-slate-800 rounded-xl font-bold text-[9px] sm:text-[10px] tracking-wide transition-colors cursor-pointer disabled:cursor-not-allowed"
-            >
-              <ShoppingCart className="h-3 w-3" />
-              <span>{language === 'hi' ? 'कार्ट में जोड़ें' : 'Add Cart'}</span>
-            </button>
-            
-            <button
-              onClick={handleItemBuyNow}
-              disabled={isPreviewMode || item.stock <= 0}
-              className="py-1.5 px-1 bg-emerald-500 hover:bg-emerald-600 dark:bg-emerald-600 dark:hover:bg-emerald-700 text-white disabled:opacity-50 rounded-xl font-bold text-[9px] sm:text-[10px] tracking-wide shadow-md hover:shadow-lg transition-all text-center cursor-pointer disabled:cursor-not-allowed"
-            >
-              {language === 'hi' ? 'अभी खरीदें' : 'Buy Now'}
-            </button>
           </div>
         </div>
       </div>
@@ -619,7 +622,10 @@ export const ProductDetails = ({ productId }) => {
         setSelectedVariants({});
         
         const catType = getCategoryType(product.category);
-        if (catType === 'grocery') {
+        if (catType === 'jewelry') {
+          setSelectedColor('Gold');
+          setSelectedWeight('10g');
+        } else if (catType === 'grocery') {
           setSelectedWeight('1kg');
           setSelectedPackSize('Single Pack');
           setSelectedSize('1kg');
@@ -703,9 +709,34 @@ export const ProductDetails = ({ productId }) => {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] bg-slate-50 dark:bg-slate-950">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-500"></div>
-        <p className="text-slate-500 dark:text-slate-400 mt-4 text-sm font-semibold">Loading product specifications...</p>
+      <div className="max-w-[1600px] mx-auto px-4 md:px-6 py-12 grid grid-cols-1 md:grid-cols-2 gap-10">
+        {/* Image Gallery Skeleton */}
+        <div className="space-y-4">
+          <div className="skeleton-premium aspect-square w-full rounded-3xl" />
+          <div className="flex gap-4">
+            <div className="skeleton-premium h-20 w-20 rounded-2xl animate-pulse" />
+            <div className="skeleton-premium h-20 w-20 rounded-2xl animate-pulse" />
+            <div className="skeleton-premium h-20 w-20 rounded-2xl animate-pulse" />
+          </div>
+        </div>
+        {/* Product Info Skeleton */}
+        <div className="space-y-6">
+          <div className="space-y-2">
+            <div className="skeleton-premium h-4 w-24 rounded" />
+            <div className="skeleton-premium h-8 w-3/4 rounded" />
+            <div className="skeleton-premium h-4 w-1/3 rounded" />
+          </div>
+          <div className="skeleton-premium h-16 w-1/3 rounded-xl" />
+          <div className="space-y-2">
+            <div className="skeleton-premium h-4 w-full rounded" />
+            <div className="skeleton-premium h-4 w-full rounded" />
+            <div className="skeleton-premium h-4 w-2/3 rounded" />
+          </div>
+          <div className="flex gap-4 pt-4">
+            <div className="skeleton-premium h-12 w-1/2 rounded-full" />
+            <div className="skeleton-premium h-12 w-1/2 rounded-full" />
+          </div>
+        </div>
       </div>
     );
   }
@@ -718,7 +749,7 @@ export const ProductDetails = ({ productId }) => {
         <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">{error || "Product may have been removed or database is inaccessible."}</p>
         <button
           onClick={() => navigate('/')}
-          className="mt-6 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-xs font-bold"
+          className="mt-6 px-4 py-2 bg-[#D4A75F] hover:bg-[#c39650] text-white rounded-xl text-xs font-bold"
         >
           Return to Home
         </button>
@@ -766,6 +797,48 @@ export const ProductDetails = ({ productId }) => {
     navigate('/checkout');
   };
 
+  const getProductSpecification = (keyName) => {
+    if (!product) return '';
+    // 1. Look in product variants
+    if (product.variants && Array.isArray(product.variants)) {
+      const variant = product.variants.find(v => (v.attribute_name || '').toLowerCase() === keyName.toLowerCase());
+      if (variant && variant.attribute_value) return variant.attribute_value;
+    }
+    // 2. Look in parsed specifications
+    const specs = getLocalizedSpecifications();
+    const spec = specs.find(s => (s.key || '').toLowerCase() === keyName.toLowerCase());
+    if (spec && spec.value) return spec.value;
+
+    // 3. Smart fallbacks based on product details
+    const nameLower = (product.name || '').toLowerCase();
+    const descLower = (product.description || '').toLowerCase();
+
+    if (keyName.toLowerCase() === 'metal') {
+      if (nameLower.includes('white gold') || descLower.includes('white gold')) return 'White Gold';
+      if (nameLower.includes('rose gold') || descLower.includes('rose gold')) return 'Rose Gold';
+      if (nameLower.includes('platinum') || descLower.includes('platinum')) return 'Platinum';
+      return 'Yellow Gold'; // default fallback
+    }
+
+    if (keyName.toLowerCase() === 'purity') {
+      if (nameLower.includes('18k') || descLower.includes('18k')) return '18K';
+      if (nameLower.includes('22k') || descLower.includes('22k')) return '22K';
+      if (nameLower.includes('24k') || descLower.includes('24k')) return '24K';
+      return '22K'; // default fallback
+    }
+
+    if (keyName.toLowerCase() === 'gemstone') {
+      if (nameLower.includes('diamond') || descLower.includes('diamond')) return 'Diamond';
+      if (nameLower.includes('ruby') || descLower.includes('ruby')) return 'Ruby';
+      if (nameLower.includes('emerald') || descLower.includes('emerald')) return 'Emerald';
+      if (nameLower.includes('sapphire') || descLower.includes('sapphire')) return 'Sapphire';
+      if (nameLower.includes('pearl') || descLower.includes('pearl')) return 'Pearl';
+      return 'None'; // default fallback
+    }
+
+    return '';
+  };
+
   const handleOpenRequestBuyModal = () => {
     if (!user) {
       triggerAuthModal('Please login to request to buy this product.', window.location.pathname);
@@ -774,13 +847,32 @@ export const ProductDetails = ({ productId }) => {
     
     // Initialize modal option states
     setModalQty(quantity || 1);
+    setModalCity('');
+    
+    // Fallbacks or detected read-only specs
+    const detectedMetal = getProductSpecification('Metal');
+    const detectedPurity = getProductSpecification('Purity');
+    const detectedGemstone = getProductSpecification('Gemstone');
+    
+    setModalMetal(detectedMetal);
+    setModalPurity(detectedPurity);
+    setModalGemstone(detectedGemstone);
+
+    // Reset specific size states
+    setModalRingSize('7');
+    setModalNecklaceLength('18 inches');
+    setModalBraceletSize('7.0 inches');
+    setModalBangleSize('2.6');
+    setModalChainLength('20 inches');
+    setModalSpecialReqs('');
+
+    // Legacy states
     setModalStorage(selectedSize || '128GB');
     setModalRam(selectedRam || '8GB');
     setModalColor(selectedColor || 'Carbon Gray');
     setModalWeight(selectedWeight || '1kg');
     setModalSize(selectedSize || 'M');
     setModalFormat(selectedFormat || 'Paperback');
-    setModalCity('');
     
     setRequestBuySuccess(false);
     setShowRequestBuyModal(true);
@@ -796,26 +888,63 @@ export const ProductDetails = ({ productId }) => {
       const config = token ? { headers: { Authorization: `Bearer ${token}` } } : {};
       
       let selected_variant = {};
-      const catType = getCategoryType(product.category);
-      if (catType === 'electronics') {
+      const catLower = (product.category || '').toLowerCase();
+      
+      const isRing = catLower.includes('ring') && !catLower.includes('earring');
+      const isEarring = catLower.includes('earring');
+      const isNecklace = catLower.includes('necklace') || catLower.includes('choker');
+      const isBracelet = catLower.includes('bracelet');
+      const isBangle = catLower.includes('bangle');
+      const isChain = catLower.includes('chain');
+      const isBridal = catLower.includes('bridal');
+      
+      // Check if it is a jewelry item
+      const isJewelry = isRing || isEarring || isNecklace || isBracelet || isBangle || isChain || isBridal || getCategoryType(product.category) === 'jewelry';
+
+      if (isJewelry) {
         selected_variant = {
-          Storage: modalStorage,
-          RAM: modalRam,
-          Color: modalColor
+          Purity: modalPurity,
+          Metal: modalMetal,
+          Gemstone: modalGemstone
         };
-      } else if (catType === 'grocery') {
-        selected_variant = {
-          Weight: modalWeight
-        };
-      } else if (catType === 'fashion') {
-        selected_variant = {
-          Size: modalSize,
-          Color: modalColor
-        };
-      } else if (catType === 'books') {
-        selected_variant = {
-          Format: modalFormat
-        };
+        
+        if (isRing) {
+          selected_variant['Ring Size'] = modalRingSize;
+        } else if (isNecklace) {
+          selected_variant['Necklace Length'] = modalNecklaceLength;
+        } else if (isBracelet) {
+          selected_variant['Bracelet Size'] = modalBraceletSize;
+        } else if (isBangle) {
+          selected_variant['Bangle Size'] = modalBangleSize;
+        } else if (isChain) {
+          selected_variant['Chain Length'] = modalChainLength;
+        } else if (isBridal) {
+          if (modalSpecialReqs && modalSpecialReqs.trim()) {
+            selected_variant['Special Requirements'] = modalSpecialReqs;
+          }
+        }
+      } else {
+        const catType = getCategoryType(product.category);
+        if (catType === 'electronics') {
+          selected_variant = {
+            Storage: modalStorage,
+            RAM: modalRam,
+            Color: modalColor
+          };
+        } else if (catType === 'grocery') {
+          selected_variant = {
+            Weight: modalWeight
+          };
+        } else if (catType === 'fashion') {
+          selected_variant = {
+            Size: modalSize,
+            Color: modalColor
+          };
+        } else if (catType === 'books') {
+          selected_variant = {
+            Format: modalFormat
+          };
+        }
       }
       
       const res = await axios.post(`${API_BASE_URL}/products/${product._id}/request-buy`, {
@@ -1622,9 +1751,9 @@ export const ProductDetails = ({ productId }) => {
               <div className="md:col-span-7 space-y-5 w-full">
                 {/* Brand & Category */}
                 <div className="flex items-center gap-2 text-[10px] text-slate-455 dark:text-slate-400 font-bold uppercase tracking-wider">
-                  <span className="text-emerald-600 dark:text-emerald-400">{translateCategory(product.category)}</span>
+                  <span className="text-[#D4A75F]">{translateCategory(product.category)}</span>
                   <span>•</span>
-                  <span>{language === 'hi' ? 'ब्रांड' : 'Brand'}: {product.brand || (language === 'hi' ? 'भारतबास्केट सिग्नेचर' : 'BharatBasket Signature')}</span>
+                  <span>{language === 'hi' ? 'ब्रांड' : 'Brand'}: {product.brand || (language === 'hi' ? 'SSJewellery सिग्नेचर' : 'SSJewellery Signature')}</span>
                 </div>
 
                 {/* Product Name */}
@@ -1639,7 +1768,7 @@ export const ProductDetails = ({ productId }) => {
                     <Star className="h-3 w-3 fill-amber-500" />
                   </div>
                   <span>|</span>
-                  <span className="hover:text-emerald-500 cursor-pointer transition-colors" onClick={() => scrollToSection('tabs-section')}>
+                  <span className="hover:text-[#D4A75F] cursor-pointer transition-colors" onClick={() => scrollToSection('tabs-section')}>
                     {product.reviews?.length || 0} {language === 'hi' ? 'समीक्षाएं' : 'reviews'}
                   </span>
                   <span>|</span>
@@ -1857,7 +1986,7 @@ export const ProductDetails = ({ productId }) => {
                         placeholder={language === 'hi' ? "6-अंकीय पिनकोड दर्ज करें" : "Enter 6-digit Pincode"}
                         value={pincode}
                         onChange={(e) => setPincode(e.target.value.replace(/\D/g, ''))}
-                        className="flex-1 px-3 py-2 text-xs bg-slate-55 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:outline-none focus:ring-1 focus:ring-emerald-500 text-slate-880 dark:text-slate-100"
+                        className="flex-1 px-3 py-2 text-xs bg-slate-55 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#D4A75F] text-slate-880 dark:text-slate-100"
                       />
                       <button
                         type="button"
@@ -1874,7 +2003,7 @@ export const ProductDetails = ({ productId }) => {
                       </button>
                     </div>
                     {pincodeStatus && (
-                      <p className={`text-[10px] font-bold ${pincodeStatus === 'available' ? 'text-emerald-500' : 'text-rose-500'}`}>
+                      <p className={`text-[10px] font-bold ${pincodeStatus === 'available' ? 'text-[#D4A75F]' : 'text-rose-500'}`}>
                         {pincodeStatus === 'available'
                           ? (language === 'hi' ? 'एक्सप्रेस अगले दिन डिलीवरी के लिए उपलब्ध' : 'Available for express next-day delivery')
                           : (language === 'hi' ? 'कृपया एक वैध 6-अंकीय पिनकोड दर्ज करें' : 'Please enter a valid 6-digit pincode')
@@ -1888,7 +2017,7 @@ export const ProductDetails = ({ productId }) => {
                   {/* Seller Info */}
                   <div className="space-y-1 text-xs">
                     <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">{translateText('Seller Information')}</span>
-                    <p className="font-bold text-slate-880 dark:text-slate-200">{product.seller || translateText('BharatBasket Retail Partner')}</p>
+                    <p className="font-bold text-slate-880 dark:text-slate-200">{product.seller || translateText('SSJewellery Retail Partner')}</p>
                     <p className="text-[10px] text-slate-455 dark:text-slate-400">{translateText('4.8★ Seller Rating • 99% positive feedback')}</p>
                   </div>
                 </div>
@@ -1901,9 +2030,9 @@ export const ProductDetails = ({ productId }) => {
                       <p className="font-bold text-slate-880 dark:text-slate-200">{translateText('SuperCoin Benefits')}</p>
                       <p className="text-slate-500 dark:text-slate-400 mt-0.5">
                         {language === 'hi' ? (
-                          <>इस ऑर्डर पर <span className="font-bold text-emerald-500">{Math.floor(discountedPrice * 0.01)}</span> सुपरकॉइन कमाएं</>
+                          <>इस ऑर्डर पर <span className="font-bold text-[#D4A75F]">{Math.floor(discountedPrice * 0.01)}</span> सुपरकॉइन कमाएं</>
                         ) : (
-                          <>Earn <span className="font-bold text-emerald-500">{Math.floor(discountedPrice * 0.01)}</span> SuperCoins on this order</>
+                          <>Earn <span className="font-bold text-[#D4A75F]">{Math.floor(discountedPrice * 0.01)}</span> SuperCoins on this order</>
                         )}
                       </p>
                     </div>
@@ -2147,7 +2276,7 @@ export const ProductDetails = ({ productId }) => {
                   onClick={() => setPreviewImageIndex(idx)}
                   className={`w-12 h-12 rounded-lg border overflow-hidden flex-shrink-0 transition-all ${
                     previewImageIndex === idx
-                      ? 'border-emerald-500 ring-2 ring-emerald-500/50 shadow-md scale-110'
+                      ? 'border-[#D4A75F] ring-2 ring-[#D4A75F]/50 shadow-md scale-110'
                       : 'border-slate-700 hover:border-slate-500'
                   }`}
                 >
@@ -2162,174 +2291,344 @@ export const ProductDetails = ({ productId }) => {
       {/* Request To Buy Modal */}
       {showRequestBuyModal && (
         <div className="fixed inset-0 bg-slate-950/60 dark:bg-slate-950/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm overflow-y-auto">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-2xl max-w-md w-full relative overflow-hidden text-left animate-in fade-in zoom-in-95 duration-200">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-2xl max-w-lg w-full relative overflow-hidden text-left animate-in fade-in zoom-in-95 duration-200">
             {!requestBuySuccess ? (
               <>
                 <div className="flex items-center gap-3 border-b border-slate-100 dark:border-slate-800 pb-3 mb-4">
-                  <div className="w-10 h-10 bg-rose-50 dark:bg-rose-950/20 text-rose-500 rounded-xl flex items-center justify-center">
+                  <div className="w-10 h-10 bg-[#D4A75F]/10 text-[#D4A75F] rounded-xl flex items-center justify-center">
                     <ShoppingCart className="h-5 w-5" />
                   </div>
                   <div>
-                    <h3 className="text-base font-extrabold text-slate-900 dark:text-white">{language === 'hi' ? 'खरीदने का अनुरोध' : 'Request To Buy'}</h3>
-                    <p className="text-[10px] text-slate-400">{language === 'hi' ? 'आउट-ऑफ़-स्टॉक उत्पाद ऑर्डर अनुरोध' : 'Out-of-stock product order request'}</p>
+                    <h3 className="text-base font-extrabold text-slate-900 dark:text-white">
+                      {language === 'hi' ? 'खरीदने का अनुरोध' : 'Request To Buy'}
+                    </h3>
+                    <p className="text-[10px] text-slate-450 dark:text-slate-400">
+                      {language === 'hi' ? 'आउट-ऑफ़-स्टॉक उत्पाद ऑर्डर अनुरोध' : 'Out-of-stock product order request'}
+                    </p>
                   </div>
                 </div>
 
-                {/* Autofill read-only user & product details */}
-                <div className="bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl mb-4 border border-slate-100 dark:border-slate-900 space-y-2.5">
-                  <div>
-                    <span className="text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">{language === 'hi' ? 'उत्पाद का नाम' : 'Product Name'}</span>
-                    <p className="text-xs font-bold text-slate-800 dark:text-slate-200 line-clamp-1">{language === 'hi' ? (product.name_hi || product.name) : (product.name_en || product.name)}</p>
-                  </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <span className="text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">{language === 'hi' ? 'उपयोगकर्ता का नाम' : 'User Name'}</span>
-                      <p className="text-xs font-semibold text-slate-880 dark:text-slate-350">{user?.name || user?.full_name}</p>
+                {/* Product Summary section */}
+                <div className="bg-gradient-to-br from-slate-50 to-slate-100/50 dark:from-slate-950 dark:to-slate-900/50 p-4 rounded-2xl mb-4 border border-slate-200/60 dark:border-slate-800/80 flex gap-4 items-center">
+                  {product.images && product.images.length > 0 && (
+                    <img 
+                      src={product.images[0]} 
+                      alt={product.name} 
+                      className="w-20 h-20 object-cover rounded-xl border-2 border-[#D4A75F]/35 shadow-sm"
+                    />
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <span className="inline-block px-2.5 py-0.5 rounded-full text-[9px] font-bold bg-[#D4A75F]/10 text-[#cda058] dark:text-[#E2B973] uppercase tracking-wider mb-1.5">
+                      {translateText(product.category)}
+                    </span>
+                    <h4 className="text-sm font-extrabold text-slate-800 dark:text-white line-clamp-1">
+                      {language === 'hi' ? (product.name_hi || product.name) : (product.name_en || product.name)}
+                    </h4>
+                    <div className="flex flex-wrap gap-x-3 gap-y-1 mt-1 text-[10px] font-medium text-slate-500 dark:text-slate-400">
+                      <span><strong>{translateText('Metal')}:</strong> {translateText(modalMetal)}</span>
+                      <span>•</span>
+                      <span><strong>{translateText('Purity')}:</strong> {modalPurity}</span>
+                      <span>•</span>
+                      <span><strong>{translateText('Gemstone')}:</strong> {translateText(modalGemstone)}</span>
                     </div>
-                    <div>
-                      <span className="text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">{language === 'hi' ? 'मोबाइल नंबर' : 'Mobile Number'}</span>
-                      <p className="text-xs font-semibold text-slate-880 dark:text-slate-350">{user?.mobile || user?.phone || 'N/A'}</p>
-                    </div>
-                  </div>
-                  <div>
-                    <span className="text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">{language === 'hi' ? 'ईमेल पता' : 'Email Address'}</span>
-                    <p className="text-xs font-semibold text-slate-880 dark:text-slate-350">{user?.email}</p>
                   </div>
                 </div>
 
-                {/* Editable Qty */}
-                <div className="mb-4">
-                  <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-550 uppercase tracking-wider mb-1.5">
-                    {language === 'hi' ? 'आवश्यक मात्रा' : 'Quantity Required'}
-                  </label>
-                  <input
-                    type="number"
-                    min="1"
-                    value={modalQty}
-                    onChange={(e) => setModalQty(Math.max(1, parseInt(e.target.value) || 1))}
-                    className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-850 rounded-xl px-3 py-2 text-xs font-bold text-slate-805 dark:text-slate-200 outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/25 transition-all"
-                  />
+                {/* User Context */}
+                <div className="text-[10px] text-slate-400 dark:text-slate-500 mb-4 border-b border-slate-100 dark:border-slate-800 pb-2.5 flex items-center justify-between">
+                  <span>{language === 'hi' ? 'अनुरोधकर्ता' : 'Requesting as'}: <strong className="text-slate-700 dark:text-slate-300">{user?.name || user?.full_name}</strong></span>
+                  <span>{user?.email}</span>
                 </div>
 
-                {/* Location / City */}
-                <div className="mb-4">
-                  <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-550 uppercase tracking-wider mb-1.5">
-                    {language === 'hi' ? 'स्थान / शहर *' : 'Location / City *'}
-                  </label>
-                  <input
-                    type="text"
-                    value={modalCity}
-                    onChange={(e) => setModalCity(e.target.value)}
-                    placeholder={language === 'hi' ? 'उदा. उदयपुर' : 'e.g. Udaipur'}
-                    className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-850 rounded-xl px-3 py-2 text-xs font-bold text-slate-805 dark:text-slate-200 outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/25 transition-all"
-                  />
-                  <div className="text-[10px] text-slate-400 dark:text-slate-550 mt-1">
-                    {language === 'hi' ? 'उदाहरण: जयपुर, उदयपुर, दिल्ली, मुंबई, अहमदाबाद' : 'Examples: Jaipur, Udaipur, Delhi, Mumbai, Ahmedabad'}
-                  </div>
-                </div>
+                {/* Category specific layout */}
+                {(() => {
+                  const catLower = (product.category || '').toLowerCase();
+                  const isRing = catLower.includes('ring') && !catLower.includes('earring');
+                  const isEarring = catLower.includes('earring');
+                  const isNecklace = catLower.includes('necklace') || catLower.includes('choker');
+                  const isBracelet = catLower.includes('bracelet');
+                  const isBangle = catLower.includes('bangle');
+                  const isChain = catLower.includes('chain');
+                  const isBridal = catLower.includes('bridal');
 
-                {/* Category specific fields */}
-                {getCategoryType(product.category) === 'electronics' && (
-                  <div className="space-y-3 mb-6">
-                    <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-550 uppercase tracking-wider mb-1.5">{language === 'hi' ? 'स्टोरेज' : 'Storage'}</label>
-                        <select
-                          value={modalStorage}
-                          onChange={(e) => setModalStorage(e.target.value)}
-                          className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-850 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 dark:text-slate-200 outline-none focus:border-emerald-500 transition-all cursor-pointer"
-                        >
-                          <option value="128GB">128GB</option>
-                          <option value="256GB">256GB</option>
-                        </select>
+                  const isJewelry = isRing || isEarring || isNecklace || isBracelet || isBangle || isChain || isBridal || getCategoryType(product.category) === 'jewelry';
+
+                  if (isJewelry) {
+                    return (
+                      <div className="space-y-4">
+                        {/* Quantity Required */}
+                        <div>
+                          <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">
+                            {language === 'hi' ? 'आवश्यक मात्रा' : 'Quantity Required'}
+                          </label>
+                          <input
+                            type="number"
+                            min="1"
+                            value={modalQty}
+                            onChange={(e) => setModalQty(Math.max(1, parseInt(e.target.value) || 1))}
+                            className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2 text-xs font-bold text-slate-800 dark:text-slate-200 outline-none focus:border-[#D4A75F] focus:ring-1 focus:ring-[#D4A75F]/20 transition-all"
+                          />
+                        </div>
+
+                        {/* Location / City */}
+                        <div>
+                          <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">
+                            {language === 'hi' ? 'स्थान / शहर *' : 'Location / City *'}
+                          </label>
+                          <input
+                            type="text"
+                            value={modalCity}
+                            onChange={(e) => setModalCity(e.target.value)}
+                            placeholder={language === 'hi' ? 'उदा. उदयपुर' : 'e.g. Udaipur'}
+                            className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2 text-xs font-bold text-slate-800 dark:text-slate-200 outline-none focus:border-[#D4A75F] focus:ring-1 focus:ring-[#D4A75F]/20 transition-all"
+                          />
+                          <div className="text-[9px] text-slate-400 dark:text-slate-500 mt-1">
+                            {language === 'hi' ? 'उदाहरण: जयपुर, उदयपुर, दिल्ली, मुंबई, अहमदाबाद' : 'Examples: Jaipur, Udaipur, Delhi, Mumbai, Ahmedabad'}
+                          </div>
+                        </div>
+
+                        {/* Product-specific size (if applicable) */}
+                        {isRing && (
+                          <div>
+                            <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">
+                              {language === 'hi' ? 'अंगूठी का आकार' : 'Ring Size'}
+                            </label>
+                            <select
+                              value={modalRingSize}
+                              onChange={(e) => setModalRingSize(e.target.value)}
+                              className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 dark:text-slate-200 outline-none focus:border-[#D4A75F] focus:ring-1 focus:ring-[#D4A75F]/20 transition-all cursor-pointer"
+                            >
+                              {[5, 6, 7, 8, 9, 10, 11, 12].map(size => (
+                                <option key={size} value={size}>{size}</option>
+                              ))}
+                            </select>
+                          </div>
+                        )}
+
+                        {isNecklace && (
+                          <div>
+                            <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">
+                              {language === 'hi' ? 'हार की लंबाई (वैकल्पिक)' : 'Necklace Length (Optional)'}
+                            </label>
+                            <select
+                              value={modalNecklaceLength}
+                              onChange={(e) => setModalNecklaceLength(e.target.value)}
+                              className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 dark:text-slate-200 outline-none focus:border-[#D4A75F] focus:ring-1 focus:ring-[#D4A75F]/20 transition-all cursor-pointer"
+                            >
+                              <option value="None">{language === 'hi' ? 'चुनें (वैकल्पिक)' : 'Select length (Optional)'}</option>
+                              <option value="16 inches">16 inches (Choker style)</option>
+                              <option value="18 inches">18 inches (Standard)</option>
+                              <option value="20 inches">20 inches</option>
+                              <option value="22 inches">22 inches</option>
+                              <option value="24 inches">24 inches</option>
+                            </select>
+                          </div>
+                        )}
+
+                        {isBracelet && (
+                          <div>
+                            <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">
+                              {language === 'hi' ? 'कंगन का आकार' : 'Bracelet Size'}
+                            </label>
+                            <select
+                              value={modalBraceletSize}
+                              onChange={(e) => setModalBraceletSize(e.target.value)}
+                              className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 dark:text-slate-200 outline-none focus:border-[#D4A75F] focus:ring-1 focus:ring-[#D4A75F]/20 transition-all cursor-pointer"
+                            >
+                              {['6.0 inches', '6.5 inches', '7.0 inches', '7.5 inches', '8.0 inches'].map(size => (
+                                <option key={size} value={size}>{size}</option>
+                              ))}
+                            </select>
+                          </div>
+                        )}
+
+                        {isBangle && (
+                          <div>
+                            <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">
+                              {language === 'hi' ? 'चूड़ी का आकार' : 'Bangle Size'}
+                            </label>
+                            <select
+                              value={modalBangleSize}
+                              onChange={(e) => setModalBangleSize(e.target.value)}
+                              className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 dark:text-slate-200 outline-none focus:border-[#D4A75F] focus:ring-1 focus:ring-[#D4A75F]/20 transition-all cursor-pointer"
+                            >
+                              {['2.2', '2.4', '2.6', '2.8', '3.0'].map(size => (
+                                <option key={size} value={size}>{size}</option>
+                              ))}
+                            </select>
+                          </div>
+                        )}
+
+                        {isChain && (
+                          <div>
+                            <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">
+                              {language === 'hi' ? 'चेन की लंबाई' : 'Chain Length'}
+                            </label>
+                            <select
+                              value={modalChainLength}
+                              onChange={(e) => setModalChainLength(e.target.value)}
+                              className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 dark:text-slate-200 outline-none focus:border-[#D4A75F] focus:ring-1 focus:ring-[#D4A75F]/20 transition-all cursor-pointer"
+                            >
+                              {['16 inches', '18 inches', '20 inches', '22 inches', '24 inches'].map(len => (
+                                <option key={len} value={len}>{len}</option>
+                              ))}
+                            </select>
+                          </div>
+                        )}
+
+                        {isBridal && (
+                          <div>
+                            <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">
+                              {language === 'hi' ? 'विशेष आवश्यकताएं (वैकल्पिक)' : 'Special Requirements (Optional)'}
+                            </label>
+                            <textarea
+                              value={modalSpecialReqs}
+                              onChange={(e) => setModalSpecialReqs(e.target.value)}
+                              rows="3"
+                              placeholder={language === 'hi' ? 'उदा. मिलान मांग टीका या विशिष्ट डिजाइन अनुकूलन...' : 'e.g. Matching Maang Tikka or specific design customizations...'}
+                              className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2 text-xs font-bold text-slate-800 dark:text-slate-200 outline-none focus:border-[#D4A75F] focus:ring-1 focus:ring-[#D4A75F]/20 transition-all"
+                            />
+                          </div>
+                        )}
                       </div>
-                      <div>
-                        <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-550 uppercase tracking-wider mb-1.5">{language === 'hi' ? 'रैम' : 'RAM'}</label>
-                        <select
-                          value={modalRam}
-                          onChange={(e) => setModalRam(e.target.value)}
-                          className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-850 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 dark:text-slate-200 outline-none focus:border-emerald-500 transition-all cursor-pointer"
-                        >
-                          <option value="8GB">8GB</option>
-                          <option value="16GB">16GB</option>
-                        </select>
+                    );
+                  } else {
+                    // Fallback for non-jewelry items
+                    return (
+                      <div className="space-y-4">
+                        {/* Quantity Required */}
+                        <div>
+                          <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">
+                            {language === 'hi' ? 'आवश्यक मात्रा' : 'Quantity Required'}
+                          </label>
+                          <input
+                            type="number"
+                            min="1"
+                            value={modalQty}
+                            onChange={(e) => setModalQty(Math.max(1, parseInt(e.target.value) || 1))}
+                            className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2 text-xs font-bold text-slate-800 dark:text-slate-200 outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/25 transition-all"
+                          />
+                        </div>
+
+                        {/* Location / City */}
+                        <div>
+                          <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">
+                            {language === 'hi' ? 'स्थान / शहर *' : 'Location / City *'}
+                          </label>
+                          <input
+                            type="text"
+                            value={modalCity}
+                            onChange={(e) => setModalCity(e.target.value)}
+                            placeholder={language === 'hi' ? 'उदा. उदयपुर' : 'e.g. Udaipur'}
+                            className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2 text-xs font-bold text-slate-800 dark:text-slate-200 outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/25 transition-all"
+                          />
+                        </div>
+
+                        {getCategoryType(product.category) === 'electronics' && (
+                          <div className="space-y-3">
+                            <div className="grid grid-cols-2 gap-3">
+                              <div>
+                                <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">{language === 'hi' ? 'स्टोरेज' : 'Storage'}</label>
+                                <select
+                                  value={modalStorage}
+                                  onChange={(e) => setModalStorage(e.target.value)}
+                                  className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 dark:text-slate-200 outline-none focus:border-emerald-500 transition-all cursor-pointer"
+                                >
+                                  <option value="128GB">128GB</option>
+                                  <option value="256GB">256GB</option>
+                                </select>
+                              </div>
+                              <div>
+                                <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">{language === 'hi' ? 'रैम' : 'RAM'}</label>
+                                <select
+                                  value={modalRam}
+                                  onChange={(e) => setModalRam(e.target.value)}
+                                  className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 dark:text-slate-200 outline-none focus:border-emerald-500 transition-all cursor-pointer"
+                                >
+                                  <option value="8GB">8GB</option>
+                                  <option value="16GB">16GB</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div>
+                              <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">{language === 'hi' ? 'रंग' : 'Color'}</label>
+                              <select
+                                value={modalColor}
+                                onChange={(e) => setModalColor(e.target.value)}
+                                className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 dark:text-slate-200 outline-none focus:border-emerald-500 transition-all cursor-pointer"
+                              >
+                                <option value="Carbon Gray">{translateText('Carbon Gray')}</option>
+                                <option value="Blue">{translateText('Blue')}</option>
+                              </select>
+                            </div>
+                          </div>
+                        )}
+
+                        {getCategoryType(product.category) === 'grocery' && (
+                          <div>
+                            <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">{language === 'hi' ? 'वजन' : 'Weight'}</label>
+                            <select
+                              value={modalWeight}
+                              onChange={(e) => setModalWeight(e.target.value)}
+                              className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 dark:text-slate-200 outline-none focus:border-emerald-500 transition-all cursor-pointer"
+                            >
+                              <option value="500g">{translateText('500g')}</option>
+                              <option value="1kg">{translateText('1kg')}</option>
+                              <option value="5kg">{translateText('5kg')}</option>
+                            </select>
+                          </div>
+                        )}
+
+                        {getCategoryType(product.category) === 'fashion' && (
+                          <div className="grid grid-cols-2 gap-3">
+                            <div>
+                              <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">{language === 'hi' ? 'आकार' : 'Size'}</label>
+                              <select
+                                value={modalSize}
+                                onChange={(e) => setModalSize(e.target.value)}
+                                className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 dark:text-slate-200 outline-none focus:border-emerald-500 transition-all cursor-pointer"
+                              >
+                                <option value="XS">XS</option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                                <option value="XXL">XXL</option>
+                              </select>
+                            </div>
+                            <div>
+                              <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">{language === 'hi' ? 'रंग' : 'Color'}</label>
+                              <select
+                                value={modalColor}
+                                onChange={(e) => setModalColor(e.target.value)}
+                                className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 dark:text-slate-200 outline-none focus:border-emerald-500 transition-all cursor-pointer"
+                              >
+                                <option value="Black">{translateText('Black')}</option>
+                                <option value="White">{translateText('White')}</option>
+                                <option value="Blue">{translateText('Blue')}</option>
+                                <option value="Red">{translateText('Red')}</option>
+                              </select>
+                            </div>
+                          </div>
+                        )}
+
+                        {getCategoryType(product.category) === 'books' && (
+                          <div>
+                            <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">{language === 'hi' ? 'प्रारूप' : 'Format'}</label>
+                            <select
+                              value={modalFormat}
+                              onChange={(e) => setModalFormat(e.target.value)}
+                              className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 dark:text-slate-200 outline-none focus:border-emerald-500 transition-all cursor-pointer"
+                            >
+                              <option value="Paperback">{translateText('Paperback')}</option>
+                              <option value="Hardcover">{translateText('Hardcover')}</option>
+                            </select>
+                          </div>
+                        )}
                       </div>
-                    </div>
-                    <div>
-                      <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-550 uppercase tracking-wider mb-1.5">{language === 'hi' ? 'रंग' : 'Color'}</label>
-                      <select
-                        value={modalColor}
-                        onChange={(e) => setModalColor(e.target.value)}
-                        className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-850 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 dark:text-slate-200 outline-none focus:border-emerald-500 transition-all cursor-pointer"
-                      >
-                        <option value="Carbon Gray">{translateText('Carbon Gray')}</option>
-                        <option value="Blue">{translateText('Blue')}</option>
-                      </select>
-                    </div>
-                  </div>
-                )}
-
-                {getCategoryType(product.category) === 'grocery' && (
-                  <div className="mb-6">
-                    <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-550 uppercase tracking-wider mb-1.5">{language === 'hi' ? 'वजन' : 'Weight'}</label>
-                    <select
-                      value={modalWeight}
-                      onChange={(e) => setModalWeight(e.target.value)}
-                      className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-850 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 dark:text-slate-200 outline-none focus:border-emerald-500 transition-all cursor-pointer"
-                    >
-                      <option value="500g">{translateText('500g')}</option>
-                      <option value="1kg">{translateText('1kg')}</option>
-                      <option value="5kg">{translateText('5kg')}</option>
-                    </select>
-                  </div>
-                )}
-
-                {getCategoryType(product.category) === 'fashion' && (
-                  <div className="grid grid-cols-2 gap-3 mb-6">
-                    <div>
-                      <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-550 uppercase tracking-wider mb-1.5">{language === 'hi' ? 'आकार' : 'Size'}</label>
-                      <select
-                        value={modalSize}
-                        onChange={(e) => setModalSize(e.target.value)}
-                        className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-850 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 dark:text-slate-200 outline-none focus:border-emerald-500 transition-all cursor-pointer"
-                      >
-                        <option value="XS">XS</option>
-                        <option value="S">S</option>
-                        <option value="M">M</option>
-                        <option value="L">L</option>
-                        <option value="XL">XL</option>
-                        <option value="XXL">XXL</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-550 uppercase tracking-wider mb-1.5">{language === 'hi' ? 'रंग' : 'Color'}</label>
-                      <select
-                        value={modalColor}
-                        onChange={(e) => setModalColor(e.target.value)}
-                        className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-850 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 dark:text-slate-200 outline-none focus:border-emerald-500 transition-all cursor-pointer"
-                      >
-                        <option value="Black">{translateText('Black')}</option>
-                        <option value="White">{translateText('White')}</option>
-                        <option value="Blue">{translateText('Blue')}</option>
-                        <option value="Red">{translateText('Red')}</option>
-                      </select>
-                    </div>
-                  </div>
-                )}
-
-                {getCategoryType(product.category) === 'books' && (
-                  <div className="mb-6">
-                    <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-550 uppercase tracking-wider mb-1.5">{language === 'hi' ? 'प्रारूप' : 'Format'}</label>
-                    <select
-                      value={modalFormat}
-                      onChange={(e) => setModalFormat(e.target.value)}
-                      className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-850 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 dark:text-slate-200 outline-none focus:border-emerald-500 transition-all cursor-pointer"
-                    >
-                      <option value="Paperback">{translateText('Paperback')}</option>
-                      <option value="Hardcover">{translateText('Hardcover')}</option>
-                    </select>
-                  </div>
-                )}
+                    );
+                  }
+                })()}
 
                 <div className="flex gap-3 mt-6">
                   <button
@@ -2341,7 +2640,7 @@ export const ProductDetails = ({ productId }) => {
                   <button
                     onClick={handleConfirmRequestBuy}
                     disabled={requestBuyLoading}
-                    className="flex-1 bg-rose-500 hover:bg-rose-600 text-white font-bold py-2.5 rounded-xl text-xs border-none cursor-pointer disabled:bg-rose-400 flex items-center justify-center gap-1.5 transition-all shadow-md shadow-rose-500/10"
+                    className="flex-1 bg-gradient-to-r from-[#D4A75F] to-[#C0924B] hover:brightness-105 text-white font-bold py-2.5 rounded-xl text-xs border-none cursor-pointer disabled:from-slate-400 disabled:to-slate-500 flex items-center justify-center gap-1.5 transition-all shadow-md shadow-[#D4A75F]/20"
                   >
                     {requestBuyLoading ? (language === 'hi' ? 'सबमिट किया जा रहा है...' : 'Submitting...') : (language === 'hi' ? 'अनुरोध सबमिट करें' : 'Submit Request')}
                   </button>
@@ -2364,7 +2663,7 @@ export const ProductDetails = ({ productId }) => {
                 </p>
                 <button
                   onClick={() => setShowRequestBuyModal(false)}
-                  className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2.5 rounded-xl text-xs border-none cursor-pointer shadow-md shadow-emerald-500/10 transition-colors"
+                  className="w-full bg-[#D4A75F] hover:bg-[#C0924B] text-white font-bold py-2.5 rounded-xl text-xs border-none cursor-pointer shadow-md shadow-[#D4A75F]/20 transition-colors"
                 >
                   {language === 'hi' ? 'बहुत बढ़िया, धन्यवाद!' : 'Great, thanks!'}
                 </button>

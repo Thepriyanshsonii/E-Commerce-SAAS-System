@@ -34,6 +34,14 @@ def run_updates():
             print("modified_by column might already exist or failed:", e)
 
         try:
+            db.session.execute(db.text("ALTER TABLE products ADD COLUMN show_on_homepage BOOLEAN NOT NULL DEFAULT FALSE"))
+            db.session.commit()
+            print("Successfully added show_on_homepage column to products.")
+        except Exception as e:
+            db.session.rollback()
+            print("show_on_homepage column might already exist or failed:", e)
+
+        try:
             db.session.execute(db.text("ALTER TABLE users ADD COLUMN last_login DATETIME DEFAULT NULL"))
             db.session.commit()
             print("Successfully added last_login column to users.")
