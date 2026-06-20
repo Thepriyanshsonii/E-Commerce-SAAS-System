@@ -2,7 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import axios from 'axios';
 import { ChevronLeft, ChevronRight, ShoppingBag, Eye, Star, Sparkles, X, Search, Users, Calendar, Clock, DollarSign, MapPin, Check, Lock, RefreshCw, Plus, Trash2, Edit3, Upload } from 'lucide-react';
-import { ProductCard } from '../components/ProductCard';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { ProductCard, ProductCardSkeleton } from '../components/ProductCard';
 import { ProductDetails } from './ProductDetails';
 import { AuthContext, API_BASE_URL } from '../context/AuthContext';
 
@@ -24,6 +25,11 @@ const ACTION_TYPES = [
 
 export const Home = () => {
   const { language, isAdmin } = useContext(AuthContext);
+
+  // Parallax scroll effects for Hero Banner
+  const { scrollY } = useScroll();
+  const yParallax = useTransform(scrollY, [0, 500], [0, 80]);
+  const opacityParallax = useTransform(scrollY, [0, 400], [1, 0]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -417,8 +423,8 @@ export const Home = () => {
                           </td>
                           <td className="py-3.5 pl-4">
                             <span className={`px-2 py-0.5 rounded-lg text-[10px] font-black uppercase ${log.status === 'Success'
-                              ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-450'
-                              : 'bg-rose-100 text-rose-700 dark:bg-rose-950/40 dark:text-rose-455'
+                                ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-450'
+                                : 'bg-rose-100 text-rose-700 dark:bg-rose-950/40 dark:text-rose-455'
                               }`}>
                               {log.status}
                             </span>
@@ -443,8 +449,8 @@ export const Home = () => {
                   onClick={() => setAuditPage(prev => Math.max(prev - 1, 1))}
                   disabled={auditPage === 1}
                   className={`px-3 py-1.5 font-bold rounded-lg border border-slate-200 dark:border-slate-800 transition-all ${auditPage === 1
-                    ? 'text-slate-300 dark:text-slate-700 cursor-not-allowed'
-                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-850'
+                      ? 'text-slate-300 dark:text-slate-700 cursor-not-allowed'
+                      : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-850'
                     }`}
                 >
                   Previous
@@ -453,8 +459,8 @@ export const Home = () => {
                   onClick={() => setAuditPage(prev => Math.min(prev + 1, Math.ceil(generalAuditLogs.length / auditPerPage)))}
                   disabled={auditPage >= Math.ceil(generalAuditLogs.length / auditPerPage)}
                   className={`px-3 py-1.5 font-bold rounded-lg border border-slate-200 dark:border-slate-800 transition-all ${auditPage >= Math.ceil(generalAuditLogs.length / auditPerPage)
-                    ? 'text-slate-300 dark:text-slate-700 cursor-not-allowed'
-                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-850'
+                      ? 'text-slate-300 dark:text-slate-700 cursor-not-allowed'
+                      : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-850'
                     }`}
                 >
                   Next
@@ -565,8 +571,8 @@ export const Home = () => {
                   setUserPage(1);
                 }}
                 className={`px-4 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer ${userFilter === f.value
-                  ? 'bg-slate-900 border-slate-900 text-white dark:bg-white dark:border-white dark:text-slate-900 shadow-sm'
-                  : 'bg-white border-slate-200 text-slate-650 hover:bg-slate-50 dark:bg-slate-950 dark:border-slate-800 dark:text-slate-400 dark:hover:bg-slate-850'
+                    ? 'bg-slate-900 border-slate-900 text-white dark:bg-white dark:border-white dark:text-slate-900 shadow-sm'
+                    : 'bg-white border-slate-200 text-slate-650 hover:bg-slate-50 dark:bg-slate-950 dark:border-slate-800 dark:text-slate-400 dark:hover:bg-slate-850'
                   }`}
               >
                 {f.label}
@@ -668,8 +674,8 @@ export const Home = () => {
                         </td>
                         <td className="py-4 px-6">
                           <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${u.is_blocked
-                            ? 'bg-rose-500/10 text-rose-500 border-rose-500/20'
-                            : 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20'
+                              ? 'bg-rose-500/10 text-rose-500 border-rose-500/20'
+                              : 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20'
                             }`}>
                             {u.is_blocked ? 'Blocked' : 'Active'}
                           </span>
@@ -714,8 +720,8 @@ export const Home = () => {
                     key={p}
                     onClick={() => setUserPage(p)}
                     className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${userPage === p
-                      ? 'bg-emerald-500 text-white shadow-sm'
-                      : 'border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-850 text-slate-600 dark:text-slate-400'
+                        ? 'bg-emerald-500 text-white shadow-sm'
+                        : 'border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-850 text-slate-600 dark:text-slate-400'
                       }`}
                   >
                     {p}
@@ -744,38 +750,38 @@ export const Home = () => {
   // Banner Management States
   const [slides, setSlides] = useState([
     {
-      title: "BharatBasket Big Savings Day",
-      subtitle: "Experience Premium Audio Gear",
-      desc: "Get flat 15% off on Active Noise-Cancelling Wireless Headphones. Limited stock, buy yours now!",
-      badge: "Deal of the Day",
-      gradient: "from-slate-900 via-indigo-950 to-slate-900",
-      accent: "text-indigo-400",
-      btnText: "Shop Electronics",
-      btnLink: "/?category=Electronics",
-      catFilter: "Electronics",
-      image_url: ""
+      title: "The Solitaire Diamond Collection",
+      subtitle: "Eternal Brilliance, Handcrafted Elegance",
+      desc: "Explore our signature 18k yellow gold and white gold diamond solitaire rings. Perfect for weddings, proposals, and lifetime memories.",
+      badge: "Rings Special",
+      gradient: "from-[#3F1D5A] via-[#2C143F] to-[#1B0B26]",
+      accent: "text-[#D4A75F]",
+      btnText: "Shop Solitaires",
+      btnLink: "/?category=Rings",
+      catFilter: "Rings",
+      image_url: "/luxury_solitaire_ring.png"
     },
     {
-      title: "Organic Fresh Groceries",
-      subtitle: "Eat Healthy, Feel Awesome",
-      desc: "Pure stone-ground Matchas, herbal teas, and healthy supplements. Straight from nature to your basket.",
-      badge: "Organic Special",
-      gradient: "from-slate-900 via-emerald-950 to-slate-900",
-      accent: "text-emerald-400",
-      btnText: "Shop Groceries",
-      catFilter: "Grocery",
-      image_url: ""
+      title: "The Royal Empress Collection",
+      subtitle: "Ornate Emerald & Pearl Artistry",
+      desc: "Adorn yourself with masterfully crafted necklaces, chokers, and bridal neckwear set in solid 22k gold and premium gemstones.",
+      badge: "Necklaces Special",
+      gradient: "from-[#3F1D5A] via-[#5C2E7E] to-[#3F1D5A]",
+      accent: "text-[#D4A75F]",
+      btnText: "Shop Necklaces",
+      catFilter: "Necklaces",
+      image_url: "/luxury_emerald_necklace.png"
     },
     {
-      title: "Style Meets Comfort",
-      subtitle: "Monsoon Fashion Wardrobe",
-      desc: "Premium sports sneakers, athletic wear, and handcrafted leather accessories at best prices.",
-      badge: "Trending Fashion",
-      gradient: "from-slate-900 via-rose-950 to-slate-900",
-      accent: "text-rose-400",
-      btnText: "Explore Wardrobe",
-      catFilter: "Fashion",
-      image_url: ""
+      title: "Imperial Bridal Heirlooms",
+      subtitle: "Maang Tikkas, Polki Sets & Rubies",
+      desc: "Celebrate your grand day with timeless heirloom bridal sets, meticulously set with uncut Polki diamonds and fine rubies.",
+      badge: "Bridal Special",
+      gradient: "from-[#1B0B26] via-[#3F1D5A] to-[#1B0B26]",
+      accent: "text-[#D4A75F]",
+      btnText: "Explore Bridal Set",
+      catFilter: "Bridal Collection",
+      image_url: "/luxury_bridal_set.png"
     }
   ]);
   const [activeSlide, setActiveSlide] = useState(0);
@@ -791,7 +797,7 @@ export const Home = () => {
     button_text: '',
     button_link: '',
     image_url: '',
-    background_style: 'from-slate-900 via-indigo-950 to-slate-900',
+    background_style: 'from-[#3F1D5A] via-[#2C143F] to-[#1B0B26]',
     category: '',
     display_order: 0,
     is_active: true
@@ -805,7 +811,7 @@ export const Home = () => {
     if (slides.length === 0) return;
     const timer = setInterval(() => {
       setActiveSlide(prev => (prev + 1) % slides.length);
-    }, 6000);
+    }, 5000);
     return () => clearInterval(timer);
   }, [slides.length]);
 
@@ -825,55 +831,65 @@ export const Home = () => {
       try {
         const response = await axios.get(`${API_BASE_URL}/banners`);
         if (response.data && response.data.length > 0) {
-          const mapped = response.data.map(b => ({
-            id: b.id,
-            title: b.title,
-            subtitle: b.subtitle,
-            desc: b.description,
-            badge: b.category || "Offer",
-            gradient: b.background_style || "from-slate-900 via-indigo-950 to-slate-900",
-            accent: b.category === "Grocery" ? "text-emerald-400" : (b.category === "Fashion" ? "text-rose-400" : "text-indigo-400"),
-            btnText: b.button_text || "Shop Now",
-            btnLink: b.button_link || "/",
-            catFilter: b.category || "All",
-            image_url: b.image_url
-          }));
+          const mapped = response.data.map(b => {
+            let img = b.image_url;
+            if (!img) {
+              if (b.title.includes("Solitaire") || b.category === "Rings") img = "/luxury_solitaire_ring.png";
+              else if (b.title.includes("Empress") || b.category === "Necklaces") img = "/luxury_emerald_necklace.png";
+              else if (b.title.includes("Bridal") || b.category === "Bridal Collection") img = "/luxury_bridal_set.png";
+            }
+            return {
+              id: b.id,
+              title: b.title,
+              subtitle: b.subtitle,
+              desc: b.description,
+              badge: b.category || "Offer",
+              gradient: b.background_style || "from-[#3F1D5A] via-[#2C143F] to-[#1B0B26]",
+              accent: "text-[#D4A75F]",
+              btnText: b.button_text || "Shop Now",
+              btnLink: b.button_link || "/",
+              catFilter: b.category || "All",
+              image_url: img
+            };
+          });
           setSlides(mapped);
         } else {
           setSlides([
             {
-              title: "BharatBasket Big Savings Day",
-              subtitle: "Experience Premium Audio Gear",
-              desc: "Get flat 15% off on Active Noise-Cancelling Wireless Headphones. Limited stock, buy yours now!",
-              badge: "Deal of the Day",
-              gradient: "from-slate-900 via-indigo-950 to-slate-900",
-              accent: "text-indigo-400",
-              btnText: "Shop Electronics",
-              btnLink: "/?category=Electronics",
-              catFilter: "Electronics",
-              image_url: ""
+              title: "The Solitaire Diamond Collection",
+              subtitle: "Eternal Brilliance, Handcrafted Elegance",
+              desc: "Explore our signature 18k yellow gold and white gold diamond solitaire rings. Perfect for weddings, proposals, and lifetime memories.",
+              badge: "Rings Special",
+              gradient: "from-[#3F1D5A] via-[#2C143F] to-[#1B0B26]",
+              accent: "text-[#D4A75F]",
+              btnText: "Shop Solitaires",
+              btnLink: "/?category=Rings",
+              catFilter: "Rings",
+              image_url: "/luxury_solitaire_ring.png"
             },
             {
-              title: "Organic Fresh Groceries",
-              subtitle: "Eat Healthy, Feel Awesome",
-              desc: "Pure stone-ground Matchas, herbal teas, and healthy supplements. Straight from nature to your basket.",
-              badge: "Organic Special",
-              gradient: "from-slate-900 via-emerald-950 to-slate-900",
-              accent: "text-emerald-400",
-              btnText: "Shop Groceries",
-              catFilter: "Grocery",
-              image_url: ""
+              title: "The Royal Empress Collection",
+              subtitle: "Ornate Emerald & Pearl Artistry",
+              desc: "Adorn yourself with masterfully crafted necklaces, chokers, and bridal neckwear set in solid 22k gold and premium gemstones.",
+              badge: "Necklaces Special",
+              gradient: "from-[#3F1D5A] via-[#5C2E7E] to-[#3F1D5A]",
+              accent: "text-[#D4A75F]",
+              btnText: "Shop Necklaces",
+              btnLink: "/?category=Necklaces",
+              catFilter: "Necklaces",
+              image_url: "/luxury_emerald_necklace.png"
             },
             {
-              title: "Style Meets Comfort",
-              subtitle: "Monsoon Fashion Wardrobe",
-              desc: "Premium sports sneakers, athletic wear, and handcrafted leather accessories at best prices.",
-              badge: "Trending Fashion",
-              gradient: "from-slate-900 via-rose-950 to-slate-900",
-              accent: "text-rose-400",
-              btnText: "Explore Wardrobe",
-              catFilter: "Fashion",
-              image_url: ""
+              title: "Imperial Bridal Heirlooms",
+              subtitle: "Maang Tikkas, Polki Sets & Rubies",
+              desc: "Celebrate your grand day with timeless heirloom bridal sets, meticulously set with uncut Polki diamonds and fine rubies.",
+              badge: "Bridal Special",
+              gradient: "from-[#1B0B26] via-[#3F1D5A] to-[#1B0B26]",
+              accent: "text-[#D4A75F]",
+              btnText: "Explore Bridal Set",
+              btnLink: "/?category=Bridal Collection",
+              catFilter: "Bridal Collection",
+              image_url: "/luxury_bridal_set.png"
             }
           ]);
         }
@@ -1040,85 +1056,322 @@ export const Home = () => {
   return (
     <div className="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen pb-16">
 
-      {/* Hero Banner Slider */}
-      <div className="relative h-[320px] sm:h-[400px] overflow-hidden bg-slate-900">
-        {isAdmin && (
-          <Link
-            to="/admin-control?tab=config"
-            className="absolute top-4 right-4 z-30 flex items-center gap-1.5 px-3.5 py-1.5 bg-emerald-500/10 hover:bg-emerald-500/20 active:bg-emerald-500/30 text-emerald-400 hover:text-emerald-300 border border-emerald-500/30 rounded-full text-xs font-bold backdrop-blur-md transition-all duration-300 hover:scale-105 shadow-sm shadow-emerald-500/10 cursor-pointer"
-          >
-            <Edit3 className="h-3.5 w-3.5" />
-            <span>Edit Banner</span>
-          </Link>
-        )}
+      {/* Desktop Hero Banner Slider Container */}
+      <div className="hidden md:block w-[94vw] max-w-[1800px] mx-auto mt-[28px] lg:mt-[30px] mb-8">
+        <div className="relative h-[680px] lg:h-[730px] xl:h-[780px] min-h-[500px] overflow-hidden rounded-[20px] lg:rounded-[24px] shadow-[0_20px_50px_rgba(27,11,38,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-[#D4A75F]/15 dark:border-white/5 bg-gradient-to-tr from-[#1B0B26] via-[#3F1D5A] to-[#2E1442]">
+          {isAdmin && (
+            <Link
+              to="/admin-control?tab=config"
+              className="absolute top-6 right-6 z-30 flex items-center gap-1.5 px-4 py-2 bg-emerald-500/10 hover:bg-emerald-500/20 active:bg-emerald-500/30 text-emerald-400 hover:text-emerald-300 border border-emerald-500/30 rounded-full text-xs font-bold backdrop-blur-md transition-all duration-300 hover:scale-105 shadow-sm shadow-emerald-500/10 cursor-pointer animate-pulse"
+            >
+              <Edit3 className="h-3.5 w-3.5" />
+              <span>Edit Banner</span>
+            </Link>
+          )}
 
-        {slides.map((slide, idx) => (
-          <div
-            key={idx}
-            className={`absolute inset-0 bg-gradient-to-r ${slide.gradient} flex items-center justify-between transition-opacity duration-1000 ${idx === activeSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
-              }`}
+          <motion.div
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.2}
+            onDragEnd={(event, info) => {
+              const swipeThreshold = 50;
+              if (info.offset.x < -swipeThreshold) {
+                handleNextSlide();
+              } else if (info.offset.x > swipeThreshold) {
+                handlePrevSlide();
+              }
+            }}
+            className="w-full h-full cursor-grab active:cursor-grabbing relative"
           >
-            <div className="max-w-6xl mx-auto px-6 sm:px-12 w-full text-white py-12 flex flex-col md:flex-row items-center justify-between h-full relative gap-8">
-              <div className="flex-1 flex flex-col justify-center">
-                <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-white/10 ${slide.accent} border border-white/10 w-fit mb-4`}>
-                  <Sparkles className="h-3.5 w-3.5" />
-                  {slide.badge}
-                </span>
-                <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
-                  {slide.title}
-                </h1>
-                <p className={`text-lg sm:text-xl font-bold mt-2 ${slide.accent}`}>
-                  {slide.subtitle}
-                </p>
-                <p className="text-xs sm:text-sm text-slate-300 mt-2 max-w-lg hidden sm:block">
-                  {slide.desc}
-                </p>
-                <a
-                  href={slide.btnLink || `/?category=${slide.catFilter}`}
-                  className="mt-6 px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-bold text-sm shadow-lg w-fit transition-transform hover:scale-105"
-                >
-                  {slide.btnText}
-                </a>
-              </div>
-              {slide.image_url && (
-                <div className="flex-1 max-w-[300px] md:max-w-[400px] h-full flex items-center justify-center">
-                  <img
-                    src={slide.image_url}
-                    alt={slide.title}
-                    className="max-h-[200px] md:max-h-[280px] w-auto object-contain rounded-2xl shadow-xl transition-all duration-500 hover:scale-105"
-                  />
+            {slides.map((slide, idx) => (
+              <div
+                key={idx}
+                className={`absolute inset-0 bg-gradient-to-tr ${slide.gradient} flex items-center justify-between transition-opacity duration-1000 ${idx === activeSlide ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
+                  }`}
+              >
+                {/* Premium Highlights, Lighting, and Gradients */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-[#1B0B26]/30 to-[#3F1D5A]/10 mix-blend-multiply opacity-90 pointer-events-none" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(212,167,95,0.18),transparent_45%)] pointer-events-none" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(92,46,126,0.3),transparent_60%)] pointer-events-none" />
+                <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-[#D4A75F]/25 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(255,255,255,0.01),rgba(255,255,255,0.04)_50%,rgba(255,255,255,0.01))] pointer-events-none" />
+
+                <div className="px-8 sm:px-14 md:px-20 w-full text-white py-6 md:py-8 flex flex-col md:flex-row items-center justify-between h-full relative gap-8 z-10">
+                  <motion.div 
+                    style={{ opacity: opacityParallax }}
+                    className="w-full md:w-[48%] flex-none flex flex-col justify-center text-left md:pl-6 lg:pl-10"
+                  >
+                    <motion.span
+                      initial={{ opacity: 0, y: 15 }}
+                      animate={idx === activeSlide ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+                      transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#D4A75F]/15 text-[#D4A75F] border border-[#D4A75F]/30 w-fit mb-6 tracking-wide"
+                    >
+                      <Sparkles className="h-3.5 w-3.5 animate-pulse" />
+                      {slide.badge}
+                    </motion.span>
+                    <motion.h1
+                      initial={{ opacity: 0, y: 25 }}
+                      animate={idx === activeSlide ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
+                      transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                      className="text-4xl sm:text-6xl font-serif font-bold tracking-normal leading-tight text-white mb-4"
+                    >
+                      {slide.title}
+                    </motion.h1>
+                    <motion.p
+                      initial={{ opacity: 0, y: 15 }}
+                      animate={idx === activeSlide ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+                      transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                      className="text-xl sm:text-2xl font-serif text-[#D4A75F] mb-4"
+                    >
+                      {slide.subtitle}
+                    </motion.p>
+                    <motion.p
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={idx === activeSlide ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                      transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                      className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-8 max-w-xl hidden sm:block"
+                    >
+                      {slide.desc}
+                    </motion.p>
+                    <motion.a
+                      initial={{ opacity: 0 }}
+                      animate={idx === activeSlide ? { opacity: 1 } : { opacity: 0 }}
+                      transition={{ duration: 0.5, delay: 0.5 }}
+                      href={slide.btnLink || `/?category=${slide.catFilter}`}
+                      className="px-8 py-3.5 bg-[#D4A75F] text-white font-bold text-xs uppercase tracking-wider rounded-full shadow-lg transition-transform hover:scale-105 duration-300 w-fit flex items-center gap-2 cursor-pointer gold-shimmer-btn relative overflow-hidden"
+                    >
+                      {slide.btnText}
+                    </motion.a>
+                  </motion.div>
+                  {slide.image_url && (
+                    <motion.div 
+                      style={{ y: yParallax }}
+                      className="w-full md:w-[52%] flex-none flex items-center justify-center relative h-full"
+                    >
+                      <div className="absolute inset-0 bg-[#D4A75F]/10 rounded-full blur-3xl -z-10 animate-pulse"></div>
+                      <motion.img
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={idx === activeSlide ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+                        transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                        src={slide.image_url}
+                        alt={slide.title}
+                        draggable="false"
+                        className="max-h-[350px] md:max-h-[620px] lg:max-h-[680px] xl:max-h-[730px] w-auto max-w-[95%] object-contain rounded-3xl shadow-2xl transition-all duration-700 hover:scale-105 filter drop-shadow-[0_15px_30px_rgba(0,0,0,0.5)] animate-float-slow select-none"
+                      />
+                    </motion.div>
+                  )}
                 </div>
-              )}
-            </div>
+              </div>
+            ))}
+          </motion.div>
+
+          {/* Indicator dots */}
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex space-x-3">
+            {slides.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveSlide(idx)}
+                className={`h-1.5 transition-all duration-300 rounded-full cursor-pointer ${idx === activeSlide ? 'bg-[#D4A75F] w-8' : 'bg-slate-350 hover:bg-slate-200 w-2.5'
+                  }`}
+              />
+            ))}
           </div>
-        ))}
-
-        {/* Carousel Navigation Arrows */}
-        <button
-          onClick={handlePrevSlide}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-white/15 hover:bg-white/30 text-white border border-white/10 transition-colors"
-        >
-          <ChevronLeft className="h-6 w-6" />
-        </button>
-        <button
-          onClick={handleNextSlide}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-white/15 hover:bg-white/30 text-white border border-white/10 transition-colors"
-        >
-          <ChevronRight className="h-6 w-6" />
-        </button>
-
-        {/* Indicator dots */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex space-x-2">
-          {slides.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => setActiveSlide(idx)}
-              className={`h-2.5 w-2.5 rounded-full transition-all ${idx === activeSlide ? 'bg-emerald-500 w-6' : 'bg-white/30'
-                }`}
-            />
-          ))}
         </div>
       </div>
+
+      {/* Mobile Hero Banner Slider Container (dedicated mobile layout for screens < 768px) */}
+      <div className="block md:hidden w-[94vw] mx-auto mt-[24px] mb-8">
+        <div className="relative h-auto min-h-auto overflow-hidden rounded-[16px] shadow-[0_20px_50px_rgba(27,11,38,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-[#D4A75F]/15 dark:border-white/5 bg-gradient-to-tr from-[#1B0B26] via-[#3F1D5A] to-[#2E1442]">
+          {isAdmin && (
+            <Link
+              to="/admin-control?tab=config"
+              className="absolute top-4 right-4 z-30 flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500/10 hover:bg-emerald-500/20 active:bg-emerald-500/30 text-emerald-400 hover:text-emerald-300 border border-emerald-500/30 rounded-full text-[10px] font-bold backdrop-blur-md transition-all duration-300 hover:scale-105 shadow-sm cursor-pointer"
+            >
+              <Edit3 className="h-3 w-3" />
+              <span>Edit Banner</span>
+            </Link>
+          )}
+
+          <motion.div
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.2}
+            onDragEnd={(event, info) => {
+              const swipeThreshold = 40;
+              if (info.offset.x < -swipeThreshold) {
+                handleNextSlide();
+              } else if (info.offset.x > swipeThreshold) {
+                handlePrevSlide();
+              }
+            }}
+            className="w-full h-full cursor-grab active:cursor-grabbing relative"
+          >
+            {slides.map((slide, idx) => (
+              <div
+                key={idx}
+                className={`bg-gradient-to-tr ${slide.gradient} transition-opacity duration-1000 ${
+                  idx === activeSlide 
+                    ? 'opacity-100 z-10 relative w-full h-auto' 
+                    : 'opacity-0 z-0 absolute inset-0 pointer-events-none'
+                }`}
+              >
+                {/* Premium Highlights, Lighting, and Gradients */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-[#1B0B26]/30 to-[#3F1D5A]/10 mix-blend-multiply opacity-90 pointer-events-none" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(212,167,95,0.15),transparent_50%)] pointer-events-none" />
+                <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-[#D4A75F]/20 to-transparent pointer-events-none" />
+
+                {/* Spacing: Top Padding: 24px, Side Padding: 20px, Bottom Padding: 24px (extra bottom padding to clear navigation dots and arrows) */}
+                <div className="pt-[24px] px-[20px] pb-[76px] w-full text-white flex flex-col items-center text-center relative z-10">
+                  
+                  {/* 1. Category Badge */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={idx === activeSlide ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                    transition={{ duration: 0.4, delay: 0.1 }}
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-[#D4A75F]/15 text-[#D4A75F] border border-[#D4A75F]/30 w-fit mb-4 tracking-wide"
+                  >
+                    <Sparkles className="h-3 w-3 animate-pulse" />
+                    {slide.badge}
+                  </motion.div>
+
+                  {/* 2. Headline */}
+                  <motion.h1
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={idx === activeSlide ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    className="text-[36px] sm:text-[40px] font-serif font-bold tracking-normal leading-[1.2] text-white mb-3 max-w-md break-words"
+                  >
+                    {slide.title}
+                  </motion.h1>
+
+                  {/* 3. Subtitle */}
+                  <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={idx === activeSlide ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                    className="text-[16px] sm:text-[18px] font-serif text-[#D4A75F] mb-5 max-w-md break-words"
+                  >
+                    {slide.subtitle}
+                  </motion.p>
+
+                  {/* 4. CTA Button */}
+                  <motion.a
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={idx === activeSlide ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.4, delay: 0.4 }}
+                    href={slide.btnLink || `/?category=${slide.catFilter}`}
+                    className="px-6 py-3 bg-[#D4A75F] text-white font-bold text-xs uppercase tracking-wider rounded-full shadow-lg transition-transform active:scale-95 duration-300 w-fit flex items-center gap-2 cursor-pointer gold-shimmer-btn relative overflow-hidden mb-6"
+                  >
+                    {slide.btnText}
+                  </motion.a>
+
+                  {/* 5. Product Image */}
+                  {slide.image_url && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 15 }}
+                      animate={idx === activeSlide ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+                      transition={{ duration: 0.6, delay: 0.45 }}
+                      className="w-full flex items-center justify-center relative mt-2"
+                    >
+                      <div className="absolute inset-0 bg-[#D4A75F]/5 rounded-full blur-3xl -z-10 animate-pulse"></div>
+                      <img
+                        src={slide.image_url}
+                        alt={slide.title}
+                        draggable="false"
+                        className="w-full h-auto min-h-[220px] max-h-[320px] object-contain rounded-2xl shadow-xl filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.4)] select-none"
+                      />
+                    </motion.div>
+                  )}
+
+                </div>
+              </div>
+            ))}
+          </motion.div>
+
+          {/* Slider Dots */}
+          <div className="absolute bottom-4 inset-x-0 z-30 flex items-center justify-center gap-6">
+            {/* Indicator dots */}
+            <div className="flex space-x-2">
+              {slides.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setActiveSlide(idx)}
+                  className={`h-1.5 transition-all duration-300 rounded-full cursor-pointer ${
+                    idx === activeSlide ? 'bg-[#D4A75F] w-6' : 'bg-slate-350 hover:bg-slate-200 w-1.5'
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Shop By Category Section */}
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="w-full bg-white dark:bg-[#0B1020] border-y border-[#F2E8D9] dark:border-slate-800/80 py-16 transition-colors duration-300"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#3F1D5A] dark:text-[#D4A75F] tracking-wider relative inline-block pb-4 transition-colors duration-300">
+              Shop By Category
+              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-0.5 bg-[#D4A75F]"></span>
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-[#CBD5E1] mt-3 tracking-widest uppercase font-semibold transition-colors duration-300">
+              Discover our exquisite handcrafted masterpieces
+            </p>
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-6 sm:gap-8">
+            {[
+              { name: "Rings", label: "Rings", img: "/cat_rings.png" },
+              { name: "Necklaces", label: "Necklaces", img: "/cat_necklaces.png" },
+              { name: "Earrings", label: "Earrings", img: "/cat_earrings.png" },
+              { name: "Bracelets", label: "Bracelets", img: "/cat_bracelets.png" },
+              { name: "Bridal Collection", label: "Bridal Collection", img: "/cat_bridal.png" }
+            ].map((cat) => {
+              const isActive = activeCategory === cat.name;
+              return (
+                <Link
+                  key={cat.name}
+                  to={`/?category=${encodeURIComponent(cat.name)}`}
+                  className={`group flex flex-col items-center justify-center p-4 sm:p-5 rounded-2xl border transition-all duration-300 w-28 sm:w-36 focus:outline-none cursor-pointer ${
+                    isActive
+                      ? 'bg-[#3F1D5A]/5 dark:bg-[#1E293B] border-[#D4A75F] shadow-[0_0_15px_1px_rgba(212,167,95,0.3)] dark:shadow-[0_0_20px_rgba(212,167,95,0.2)]'
+                      : 'bg-white dark:bg-[#111827] border-[#F2E8D9] dark:border-[#2D3748] shadow-sm hover:scale-105 hover:border-[#D4A75F] hover:shadow-[0_0_15px_rgba(212,167,95,0.25)] dark:hover:shadow-[0_0_20px_rgba(212,167,95,0.35)]'
+                  }`}
+                >
+                  {/* Category Icon Circle */}
+                  <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center overflow-hidden border p-1 transition-all duration-300 ${
+                    isActive
+                      ? 'bg-white dark:bg-[#1E293B] border-[#D4A75F]'
+                      : 'bg-white dark:bg-[#1E293B] border-[#F2E8D9] dark:border-[#D4A75F] group-hover:border-[#D4A75F]'
+                  }`}>
+                    <img
+                      src={cat.img}
+                      alt={cat.label}
+                      className="w-full h-full object-cover rounded-full transition-transform duration-500 group-hover:scale-110"
+                    />
+                  </div>
+                  
+                  {/* Category Name */}
+                  <span className={`mt-3 text-xs sm:text-sm font-bold tracking-wide transition-colors duration-300 text-center ${
+                    isActive 
+                      ? 'text-[#D4A75F]' 
+                      : 'text-slate-800 dark:text-[#F8FAFC] group-hover:text-[#D4A75F]'
+                  }`}>
+                    {cat.label}
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </motion.div>
 
       {/* Main Content Area */}
       <div className="w-full max-w-[97%] mx-auto px-4 sm:px-6 lg:px-8 mt-12">
@@ -1130,8 +1383,8 @@ export const Home = () => {
                 <button
                   onClick={() => setActiveTab('products')}
                   className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeTab === 'products'
-                    ? 'bg-emerald-500 text-white shadow-md'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                      ? 'bg-emerald-500 text-white shadow-md'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                     }`}
                 >
                   All Products
@@ -1139,8 +1392,8 @@ export const Home = () => {
                 <button
                   onClick={() => setActiveTab('users')}
                   className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeTab === 'users'
-                    ? 'bg-emerald-500 text-white shadow-md'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                      ? 'bg-emerald-500 text-white shadow-md'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                     }`}
                 >
                   Users Data
@@ -1148,8 +1401,8 @@ export const Home = () => {
                 <button
                   onClick={() => setActiveTab('analytics')}
                   className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeTab === 'analytics'
-                    ? 'bg-emerald-500 text-white shadow-md'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                      ? 'bg-emerald-500 text-white shadow-md'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                     }`}
                 >
                   Admin Analytics
@@ -1189,11 +1442,12 @@ export const Home = () => {
           </div>
         </div>
 
-        {/* Loading Spinner */}
+        {/* Loading Skeletons */}
         {activeTab === 'products' && loading && (
-          <div className="flex flex-col items-center justify-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-500"></div>
-            <p className="text-slate-500 dark:text-slate-400 mt-4 text-sm font-semibold">Loading...</p>
+          <div className="product-grid">
+            {Array.from({ length: 8 }).map((_, idx) => (
+              <ProductCardSkeleton key={idx} />
+            ))}
           </div>
         )}
 
@@ -1684,10 +1938,10 @@ export const Home = () => {
                               </td>
                               <td className="py-3 px-2 text-center">
                                 <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold border ${order.order_status === 'Delivered'
-                                  ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20'
-                                  : order.order_status === 'Cancelled'
-                                    ? 'bg-rose-500/10 text-rose-500 border-rose-500/20'
-                                    : 'bg-amber-500/10 text-amber-500 border-amber-500/20'
+                                    ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20'
+                                    : order.order_status === 'Cancelled'
+                                      ? 'bg-rose-500/10 text-rose-500 border-rose-500/20'
+                                      : 'bg-amber-500/10 text-amber-500 border-amber-500/20'
                                   }`}>
                                   {order.order_status}
                                 </span>
@@ -1802,8 +2056,8 @@ export const Home = () => {
                                   {banner.title}
                                 </h4>
                                 <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${banner.is_active
-                                  ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20'
-                                  : 'bg-slate-500/10 text-slate-500 border border-slate-500/20'
+                                    ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20'
+                                    : 'bg-slate-500/10 text-slate-500 border border-slate-500/20'
                                   }`}>
                                   {banner.is_active ? 'Active' : 'Inactive'}
                                 </span>
@@ -1907,7 +2161,7 @@ export const Home = () => {
                           value={bannerForm.title}
                           onChange={(e) => setBannerForm({ ...bannerForm, title: e.target.value })}
                           className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
-                          placeholder="e.g. BharatBasket Big Savings Day"
+                          placeholder="e.g. SSJewellery Big Savings Day"
                         />
                       </div>
 
@@ -1977,11 +2231,12 @@ export const Home = () => {
                           className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
                         >
                           <option value="">Choose Category...</option>
-                          <option value="Electronics">Electronics</option>
-                          <option value="Grocery">Grocery</option>
-                          <option value="Fashion">Fashion</option>
-                          <option value="Books">Books</option>
-                          <option value="Home decor">Home decor</option>
+                          <option value="Rings">Rings</option>
+                          <option value="Necklaces">Necklaces</option>
+                          <option value="Earrings">Earrings</option>
+                          <option value="Bracelets">Bracelets</option>
+                          <option value="Bangles">Bangles</option>
+                          <option value="Bridal Collection">Bridal Collection</option>
                         </select>
                       </div>
 

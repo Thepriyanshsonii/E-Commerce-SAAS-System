@@ -17,8 +17,8 @@ export const LiveChat = () => {
       {
         sender: 'bot',
         text: language === 'hi' 
-          ? 'नमस्ते! भारतबास्केट में आपका स्वागत है। आज मैं आपकी क्या सहायता कर सकता हूँ?' 
-          : 'Namaste! Welcome to BharatBasket. How can I assist you today?',
+          ? 'नमस्ते! SSJewellery में आपका स्वागत है। आज मैं आपकी क्या सहायता कर सकता हूँ?' 
+          : 'Namaste! Welcome to SSJewellery. How can I assist you today?',
         time: new Date()
       }
     ]);
@@ -51,9 +51,9 @@ export const LiveChat = () => {
         } else if (userQuery.includes('delivery') || userQuery.includes('ship') || userQuery.includes('track') || userQuery.includes('डिलीवरी') || userQuery.includes('ट्रैक') || userQuery.includes('भेज')) {
           botResponse = "पुष्टि होने के तुरंत बाद आपके ऑर्डर भेज दिए जाते हैं। डिलीवरी में आमतौर पर 3 से 5 कार्य दिवस लगते हैं। आप 'मेरे ऑर्डर' अनुभाग में प्रगति को ट्रैक कर सकते हैं!";
         } else if (userQuery.includes('refund') || userQuery.includes('return') || userQuery.includes('cancel') || userQuery.includes('वापसी') || userQuery.includes('रिफंड') || userQuery.includes('रद्द')) {
-          botResponse = "हमारे पास एक आसान 7-दिन की परेशानी मुक्त वापसी नीति है! बस एक सहायता संदेश भेजें या अपनी ऑर्डर आईडी के साथ support@bharatbasket.com पर मेल करें।";
+          botResponse = "हमारे पास एक आसान 7-दिन की परेशानी मुक्त वापसी नीति है! बस एक सहायता संदेश भेजें या अपनी ऑर्डर आईडी के साथ support@SSJewellery.com पर मेल करें।";
         } else if (userQuery.includes('coupon') || userQuery.includes('discount') || userQuery.includes('promo') || userQuery.includes('कूपन') || userQuery.includes('छूट') || userQuery.includes('डिस्काउंट')) {
-          botResponse = "अतिरिक्त छूट (केवल दृश्य) पाने के लिए चेकआउट पर 'BHARAT50' कोड का उपयोग करें! मौसमी सौदों के लिए हमारे बैनर देखें।";
+          botResponse = "अतिरिक्त छूट (केवल दृश्य) पाने के लिए चेकआउट पर 'JEWEL50' कोड का उपयोग करें! मौसमी सौदों के लिए हमारे बैनर देखें।";
         } else if (userQuery.includes('admin') || userQuery.includes('dashboard') || userQuery.includes('stats') || userQuery.includes('एडमिन') || userQuery.includes('डैशबोर्ड')) {
           botResponse = "आप प्रोफ़ाइल मेनू से एडमिन डैशबोर्ड तक पहुँच सकते हैं! उत्पाद जोड़ने या स्थिति अपडेट करने के लिए आईडी 'admin' और पासवर्ड 'admin123' के साथ लॉगिन करें।";
         } else if (userQuery.includes('thank') || userQuery.includes('thanks') || userQuery.includes('धन्यवाद') || userQuery.includes('शुक्रिया') || userQuery.includes('थैंक्स')) {
@@ -67,9 +67,9 @@ export const LiveChat = () => {
         } else if (userQuery.includes('delivery') || userQuery.includes('ship') || userQuery.includes('track')) {
           botResponse = "Your orders are shipped immediately after confirmation. Delivery usually takes 3 to 5 business days. You can track progress in the 'My Orders' section!";
         } else if (userQuery.includes('refund') || userQuery.includes('return') || userQuery.includes('cancel')) {
-          botResponse = "We have an easy 7-day hassle-free return policy! Just submit a support message or mail support@bharatbasket.com with your Order ID.";
+          botResponse = "We have an easy 7-day hassle-free return policy! Just submit a support message or mail support@SSJewellery.com with your Order ID.";
         } else if (userQuery.includes('coupon') || userQuery.includes('discount') || userQuery.includes('promo')) {
-          botResponse = "Use code 'BHARAT50' on checkout mockups to grab additional discounts (visual only)! Check out our featured slider banners for seasonal deals.";
+          botResponse = "Use code 'JEWEL50' on checkout mockups to grab additional discounts (visual only)! Check out our featured slider banners for seasonal deals.";
         } else if (userQuery.includes('admin') || userQuery.includes('dashboard') || userQuery.includes('stats')) {
           botResponse = "You can access the Admin Dashboard from the profile menu! Login with ID 'admin' and Password 'admin123' to add products or update status.";
         } else if (userQuery.includes('thank') || userQuery.includes('thanks')) {
@@ -87,7 +87,7 @@ export const LiveChat = () => {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="flex items-center justify-center h-14 w-14 bg-emerald-500 hover:bg-emerald-600 dark:bg-emerald-600 dark:hover:bg-emerald-700 text-white rounded-full shadow-2xl hover:scale-105 transition-all duration-300 border-2 border-white/20"
+          className="flex items-center justify-center h-14 w-14 bg-[#3F1D5A] hover:bg-[#2f1543] text-white rounded-full shadow-2xl hover:scale-105 transition-all duration-300 border-2 border-[#D4A75F]"
         >
           <MessageSquare className="h-6 w-6" />
         </button>
@@ -98,22 +98,22 @@ export const LiveChat = () => {
         <div className="w-80 sm:w-96 h-[450px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-300">
           
           {/* Header */}
-          <div className="bg-emerald-500 dark:bg-emerald-600 px-4 py-3 flex justify-between items-center text-white">
+          <div className="bg-[#3F1D5A] px-4 py-3 flex justify-between items-center text-white">
             <div className="flex items-center space-x-2">
               <div className="bg-white/20 p-1.5 rounded-full">
                 <Bot className="h-5 w-5" />
               </div>
               <div>
-                <h4 className="font-bold text-sm leading-tight">Basket Bot</h4>
-                <span className="text-[10px] text-emerald-100 flex items-center">
-                  <span className="h-1.5 w-1.5 bg-green-400 rounded-full inline-block mr-1 animate-pulse"></span>
+                <h4 className="font-bold text-sm leading-tight">SSJewellery Bot</h4>
+                <span className="text-[10px] text-purple-100 flex items-center">
+                  <span className="h-1.5 w-1.5 bg-[#D4A75F] rounded-full inline-block mr-1 animate-pulse"></span>
                   {language === 'hi' ? 'सक्रिय सहायता सहायक' : 'Active support assistant'}
                 </span>
               </div>
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="text-white hover:text-emerald-100 p-1 rounded-lg hover:bg-emerald-600/50"
+              className="text-white hover:text-purple-200 p-1 rounded-lg hover:bg-purple-800/50"
             >
               <X className="h-5 w-5" />
             </button>
@@ -127,15 +127,15 @@ export const LiveChat = () => {
                 className={`flex items-start ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 {msg.sender !== 'user' && (
-                  <div className="bg-emerald-100 dark:bg-emerald-950/50 p-1.5 rounded-full mr-2 mt-0.5">
-                    <Bot className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
+                  <div className="bg-[#EFE7DB] dark:bg-slate-800 p-1.5 rounded-full mr-2 mt-0.5">
+                    <Bot className="h-3.5 w-3.5 text-[#3F1D5A] dark:text-[#D4A75F]" />
                   </div>
                 )}
                 
                 <div
                   className={`max-w-[75%] rounded-2xl px-3.5 py-2 text-sm leading-relaxed shadow-sm ${
                     msg.sender === 'user'
-                      ? 'bg-emerald-500 text-white rounded-tr-none'
+                      ? 'bg-[#3F1D5A] text-white rounded-tr-none'
                       : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-tl-none border border-slate-100 dark:border-slate-700/50'
                   }`}
                 >
@@ -162,11 +162,11 @@ export const LiveChat = () => {
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               placeholder={language === 'hi' ? 'कुछ भी पूछें...' : 'Ask anything...'}
-              className="flex-grow px-3 py-2 text-sm bg-slate-55 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 text-slate-850 dark:text-slate-100"
+              className="flex-grow px-3 py-2 text-sm bg-slate-55 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#D4A75F]/50 focus:border-[#D4A75F] text-slate-850 dark:text-slate-105"
             />
             <button
               type="submit"
-              className="ml-2 p-2 bg-emerald-500 hover:bg-emerald-600 dark:bg-emerald-600 dark:hover:bg-emerald-700 text-white rounded-xl shadow-md hover:scale-105 transition-transform"
+              className="ml-2 p-2 bg-[#D4A75F] hover:bg-[#c39650] text-white rounded-xl shadow-md hover:scale-105 transition-transform"
             >
               <Send className="h-4 w-4" />
             </button>
