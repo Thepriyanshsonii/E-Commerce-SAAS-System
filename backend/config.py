@@ -5,17 +5,22 @@ load_dotenv()
 
 class Config:
     SECRET_KEY = os.environ.get("JWT_SECRET", "supersecret_SSJewellery_key_123")
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URI", "mysql+pymysql://root:irshad%40786@localhost/SSJewellery")
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URI", "sqlite:///:memory:")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = os.environ.get("SQLALCHEMY_ECHO", "False").lower() in ("true", "1", "yes")
+    
+    # Configure engine options for pool management and SSL termination
+    _db_uri = os.environ.get("DATABASE_URI", "")
+    _connect_args = {}
+    if "postgres" in _db_uri or "neon" in _db_uri:
+        _connect_args["sslmode"] = "require"
+        
     SQLALCHEMY_ENGINE_OPTIONS = {
         "pool_pre_ping": True,
-        "pool_recycle": 300,
-        "pool_size": 5,
-        "max_overflow": 10,
-        "connect_args": {
-            "sslmode": "require"
-        } if "neon" in os.environ.get("DATABASE_URI", "") else {}
+        "pool_recycle": int(os.environ.get("DB_POOL_RECYCLE", 300)),
+        "pool_size": int(os.environ.get("DB_POOL_SIZE", 5)),
+        "max_overflow": int(os.environ.get("DB_MAX_OVERFLOW", 10)),
+        "connect_args": _connect_args
     }
 
     # CORS / Frontend

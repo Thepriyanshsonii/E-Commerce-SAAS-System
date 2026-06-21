@@ -26,17 +26,17 @@ def generate_otp(identifier):
     expires_at = get_ist_time() + timedelta(minutes=5)
     
     # Check if there is an existing OTP for this identifier
-    record = OTPVerification.query.filter_by(identifier=identifier).first()
+    record = OTPVerification.query.filter_by(email=identifier).first()
     if record:
-        record.otp = otp
+        record.otp_code = otp
         record.expires_at = expires_at
-        record.status = 'pending'
+        record.is_verified = False
     else:
         record = OTPVerification(
-            identifier=identifier,
-            otp=otp,
+            email=identifier,
+            otp_code=otp,
             expires_at=expires_at,
-            status='pending'
+            is_verified=False
         )
         db.session.add(record)
         
@@ -59,7 +59,7 @@ def verify_otp(identifier, submitted_otp):
         safe_print(f"[OTP SYSTEM] Development Mode bypass: verified using master OTP 123456 for '{identifier}'")
         return True
         
-    record = OTPVerification.query.filter_by(identifier=identifier).first()
+    record = OTPVerification.query.filter_by(email=identifier).first()
     if not record:
         return False
         
@@ -73,9 +73,9 @@ def verify_otp(identifier, submitted_otp):
             db.session.rollback()
         return False
         
-    if record.otp == str(submitted_otp):
+    if record.otp_code == str(submitted_otp):
         try:
-            record.status = 'verified'
+            record.is_verified = True
             db.session.commit()
         except Exception:
             db.session.rollback()

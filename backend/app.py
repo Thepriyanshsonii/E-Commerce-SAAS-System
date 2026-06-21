@@ -133,6 +133,24 @@ def serve_uploads(filename):
     from flask import send_from_directory
     return send_from_directory(upload_dir, filename)
 
+@app.route('/api/health', methods=['GET'])
+def health_check():
+    health = {
+        "status": "healthy",
+        "services": {
+            "database": "unknown"
+        }
+    }
+    try:
+        db.session.execute(db.text("SELECT 1"))
+        health["services"]["database"] = "healthy"
+    except Exception as e:
+        health["status"] = "unhealthy"
+        health["services"]["database"] = f"unhealthy: {str(e)}"
+    
+    code = 200 if health["status"] == "healthy" else 500
+    return jsonify(health), code
+
 @app.errorhandler(404)
 def not_found(error):
     return jsonify({"message": "API endpoint not found!"}), 404
@@ -346,11 +364,19 @@ def seed_database():
         print("[SEED] Error seeding database:", e)
 
 # Run initialization inside app context if db tables are initialized
-# Run initialization inside app context if db tables are initialized
-with app.app_context():
-    db.create_all()
-    seed_database()
+is_dev = os.environ.get("FLASK_ENV", "development") == "development"
+should_init_db = os.environ.get("INIT_DB_ON_STARTUP", "False").lower() in ("true", "1", "yes") or is_dev
+should_start_scheduler = os.environ.get("START_SCHEDULER", "False").lower() in ("true", "1", "yes") or is_dev
 
+if should_init_db:
+    with app.app_context():
+        try:
+            db.create_all()
+            seed_database()
+        except Exception as seed_err:
+            print("[APP ERROR] Database tables auto-creation/seeding failed:", seed_err)
+
+if should_start_scheduler:
     try:
         from backend.utils.report_automation import start_report_scheduler
         start_report_scheduler(app)

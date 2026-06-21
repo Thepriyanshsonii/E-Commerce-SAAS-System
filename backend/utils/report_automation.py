@@ -41,15 +41,15 @@ def init_report_database():
         # 1. Report logs table
         db.session.execute(db.text("""
         CREATE TABLE IF NOT EXISTS monthly_report_logs (
-            id INT AUTO_INCREMENT PRIMARY KEY,
+            id SERIAL PRIMARY KEY,
             report_month VARCHAR(50) NOT NULL,
             report_year INT NOT NULL,
             excel_filename VARCHAR(255) NOT NULL,
-            email_status VARCHAR(50) NOT NULL,
+            email_status TEXT NOT NULL,
             archive_status VARCHAR(50) NOT NULL,
             cleanup_status VARCHAR(50) NOT NULL,
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-        ) ENGINE=InnoDB;
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );
         """))
         
         # 2. System settings table for owner email and SMTP config
@@ -57,28 +57,19 @@ def init_report_database():
         CREATE TABLE IF NOT EXISTS system_settings (
             setting_key VARCHAR(100) PRIMARY KEY,
             setting_value TEXT NOT NULL
-        ) ENGINE=InnoDB;
+        );
         """))
         
         # 3. Archive tables matching active schemas (no foreign keys to avoid cascade issues in archives)
-        db.session.execute(db.text("CREATE TABLE IF NOT EXISTS orders_archive LIKE orders;"))
-        db.session.execute(db.text("CREATE TABLE IF NOT EXISTS sales_archive LIKE order_items;"))
-        db.session.execute(db.text("CREATE TABLE IF NOT EXISTS buy_requests_archive LIKE buy_requests;"))
-        db.session.execute(db.text("CREATE TABLE IF NOT EXISTS support_tickets_archive LIKE support_messages;"))
-        db.session.execute(db.text("CREATE TABLE IF NOT EXISTS transactions_archive LIKE transactions;"))
+        db.session.execute(db.text("CREATE TABLE IF NOT EXISTS orders_archive (LIKE orders INCLUDING ALL);"))
+        db.session.execute(db.text("CREATE TABLE IF NOT EXISTS sales_archive (LIKE order_items INCLUDING ALL);"))
+        db.session.execute(db.text("CREATE TABLE IF NOT EXISTS buy_requests_archive (LIKE buy_requests INCLUDING ALL);"))
+        db.session.execute(db.text("CREATE TABLE IF NOT EXISTS support_tickets_archive (LIKE support_messages INCLUDING ALL);"));
+        db.session.execute(db.text("CREATE TABLE IF NOT EXISTS transactions_archive (LIKE transactions INCLUDING ALL);"))
         
         db.session.commit()
         print("[REPORT AUTOMATION] Database tables verified/created successfully.")
         
-        # Ensure email_status column is TEXT to store detailed exceptions
-        try:
-            db.session.execute(db.text("ALTER TABLE monthly_report_logs MODIFY COLUMN email_status TEXT NOT NULL;"))
-            db.session.commit()
-            print("[REPORT AUTOMATION] Altered email_status column to TEXT successfully.")
-        except Exception as alter_err:
-            db.session.rollback()
-            print(f"[REPORT AUTOMATION] Alter table email_status to TEXT failed/ignored: {alter_err}")
-            
     except Exception as e:
         db.session.rollback()
         print(f"[REPORT AUTOMATION ERROR] Failed to initialize tables: {e}")
@@ -125,7 +116,7 @@ def calculate_dashboard_stats(m, y):
             UNION ALL
             SELECT total_amount, order_status, created_at FROM orders_archive
         ) o
-        WHERE MONTH(o.created_at) = :m AND YEAR(o.created_at) = :y AND o.order_status != 'Cancelled'
+        WHERE EXTRACT(MONTH FROM o.created_at) = :m AND EXTRACT(YEAR FROM o.created_at) = :y AND o.order_status != 'Cancelled'
     """
     stats['total_revenue'] = float(db.session.execute(db.text(rev_q), {"m": m, "y": y}).scalar() or 0.0)
     
@@ -136,7 +127,7 @@ def calculate_dashboard_stats(m, y):
             UNION ALL
             SELECT order_status, created_at FROM orders_archive
         ) o
-        WHERE MONTH(o.created_at) = :m AND YEAR(o.created_at) = :y
+        WHERE EXTRACT(MONTH FROM o.created_at) = :m AND EXTRACT(YEAR FROM o.created_at) = :y
     """
     stats['total_orders'] = db.session.execute(db.text(orders_q), {"m": m, "y": y}).scalar() or 0
     
@@ -146,7 +137,7 @@ def calculate_dashboard_stats(m, y):
             UNION ALL
             SELECT order_status, created_at FROM orders_archive
         ) o
-        WHERE MONTH(o.created_at) = :m AND YEAR(o.created_at) = :y AND o.order_status = 'Delivered'
+        WHERE EXTRACT(MONTH FROM o.created_at) = :m AND EXTRACT(YEAR FROM o.created_at) = :y AND o.order_status = 'Delivered'
     """
     stats['delivered_orders'] = db.session.execute(db.text(delivered_q), {"m": m, "y": y}).scalar() or 0
     
@@ -156,13 +147,13 @@ def calculate_dashboard_stats(m, y):
             UNION ALL
             SELECT order_status, created_at FROM orders_archive
         ) o
-        WHERE MONTH(o.created_at) = :m AND YEAR(o.created_at) = :y AND o.order_status = 'Cancelled'
+        WHERE EXTRACT(MONTH FROM o.created_at) = :m AND EXTRACT(YEAR FROM o.created_at) = :y AND o.order_status = 'Cancelled'
     """
     stats['cancelled_orders'] = db.session.execute(db.text(cancelled_q), {"m": m, "y": y}).scalar() or 0
     
     # Users Count
     stats['registered_users'] = db.session.execute(db.text("SELECT COUNT(*) FROM users WHERE is_admin = 0")).scalar() or 0
-    stats['new_users_this_month'] = db.session.execute(db.text("SELECT COUNT(*) FROM users WHERE is_admin = 0 AND MONTH(created_at) = :m AND YEAR(created_at) = :y"), {"m": m, "y": y}).scalar() or 0
+    stats['new_users_this_month'] = db.session.execute(db.text("SELECT COUNT(*) FROM users WHERE is_admin = 0 AND EXTRACT(MONTH FROM created_at) = :m AND EXTRACT(YEAR FROM created_at) = :y"), {"m": m, "y": y}).scalar() or 0
     
     # Products / Stock
     stats['active_products'] = db.session.execute(db.text("SELECT COUNT(*) FROM products")).scalar() or 0
@@ -175,7 +166,7 @@ def calculate_dashboard_stats(m, y):
             UNION ALL
             SELECT created_at FROM buy_requests_archive
         ) br
-        WHERE MONTH(br.created_at) = :m AND YEAR(br.created_at) = :y
+        WHERE EXTRACT(MONTH FROM br.created_at) = :m AND EXTRACT(YEAR FROM br.created_at) = :y
     """
     stats['buy_requests_count'] = db.session.execute(db.text(buy_q), {"m": m, "y": y}).scalar() or 0
     
@@ -185,7 +176,7 @@ def calculate_dashboard_stats(m, y):
             UNION ALL
             SELECT created_at FROM support_tickets_archive
         ) sm
-        WHERE MONTH(sm.created_at) = :m AND YEAR(sm.created_at) = :y
+        WHERE EXTRACT(MONTH FROM sm.created_at) = :m AND EXTRACT(YEAR FROM sm.created_at) = :y
     """
     stats['support_tickets_count'] = db.session.execute(db.text(support_q), {"m": m, "y": y}).scalar() or 0
     
@@ -203,8 +194,8 @@ def get_users_report():
         da.city AS `City`,
         da.state AS `State`,
         da.pincode AS `Pincode`,
-        DATE(u.created_at) AS `Registration Date`,
-        TIME(u.created_at) AS `Registration Time`,
+        CAST(u.created_at AS DATE) AS `Registration Date`,
+        CAST(u.created_at AS TIME) AS `Registration Time`,
         (
             SELECT COUNT(*) FROM (
                 SELECT user_id FROM orders
@@ -266,7 +257,7 @@ def get_orders_report(m, y):
         u.full_name AS `Customer Name`,
         u.email AS `Customer Email`,
         u.phone AS `Customer Mobile`,
-        (SELECT GROUP_CONCAT(CONCAT(oi.name, ' (x', oi.quantity, ')') SEPARATOR '; ') 
+        (SELECT string_agg(CONCAT(oi.name, ' (x', oi.quantity, ')'), '; ') 
          FROM (
              SELECT name, quantity, order_id FROM order_items
              UNION ALL
@@ -307,7 +298,7 @@ def get_orders_report(m, y):
         UNION ALL
         SELECT order_id, payment_method FROM transactions_archive
     ) t ON o.id = t.order_id
-    WHERE MONTH(o.created_at) = :m AND YEAR(o.created_at) = :y
+    WHERE EXTRACT(MONTH FROM o.created_at) = :m AND EXTRACT(YEAR FROM o.created_at) = :y
     """
     df = query_to_df(query, {"m": m, "y": y})
     if df.empty:
@@ -328,7 +319,7 @@ def get_order_items_report(m, y):
         o.order_id AS `Order ID`,
         oi.name AS `Product Name`,
         c.name AS `Category`,
-        (SELECT GROUP_CONCAT(CONCAT(pv_all.attribute_name, ': ', pv_all.attribute_value) SEPARATOR ', ') 
+        (SELECT string_agg(CONCAT(pv_all.attribute_name, ': ', pv_all.attribute_value), ', ') 
          FROM product_variants pv_all WHERE pv_all.product_id = oi.product_id) AS `Variant`,
         (SELECT pv_color.attribute_value FROM product_variants pv_color 
          WHERE pv_color.product_id = oi.product_id AND pv_color.attribute_name = 'Color' LIMIT 1) AS `Color`,
@@ -355,7 +346,7 @@ def get_order_items_report(m, y):
     ) o ON oi.order_id = o.id
     LEFT JOIN products p ON oi.product_id = p.id
     LEFT JOIN categories c ON p.category_id = c.id
-    WHERE MONTH(o.created_at) = :m AND YEAR(o.created_at) = :y
+    WHERE EXTRACT(MONTH FROM o.created_at) = :m AND EXTRACT(YEAR FROM o.created_at) = :y
     """
     df = query_to_df(query, {"m": m, "y": y})
     if df.empty:
@@ -455,7 +446,7 @@ def get_buy_requests_report(m, y):
     ) br
     LEFT JOIN users u ON br.user_id = u.id
     LEFT JOIN products p ON br.product_id = p.id
-    WHERE MONTH(br.created_at) = :m AND YEAR(br.created_at) = :y
+    WHERE EXTRACT(MONTH FROM br.created_at) = :m AND EXTRACT(YEAR FROM br.created_at) = :y
     """
     df = query_to_df(query, {"m": m, "y": y})
     if df.empty:
@@ -487,7 +478,7 @@ def get_support_tickets_report(m, y):
         UNION ALL
         SELECT id, name, email, message, status, created_at FROM support_tickets_archive
     ) sm
-    WHERE MONTH(sm.created_at) = :m AND YEAR(sm.created_at) = :y
+    WHERE EXTRACT(MONTH FROM sm.created_at) = :m AND EXTRACT(YEAR FROM sm.created_at) = :y
     """
     df = query_to_df(query, {"m": m, "y": y})
     if df.empty:
@@ -509,8 +500,8 @@ def get_transactions_report(m, y):
         t.amount AS `Amount`,
         t.payment_method AS `Payment Method`,
         t.status AS `Payment Status`,
-        DATE(t.created_at) AS `Date`,
-        TIME(t.created_at) AS `Time`
+        CAST(t.created_at AS DATE) AS `Date`,
+        CAST(t.created_at AS TIME) AS `Time`
     FROM (
         SELECT transaction_id, order_id, amount, payment_method, status, created_at FROM transactions
         UNION ALL
@@ -522,7 +513,7 @@ def get_transactions_report(m, y):
         SELECT id, order_id, user_id FROM orders_archive
     ) o ON t.order_id = o.id
     LEFT JOIN users u ON o.user_id = u.id
-    WHERE MONTH(t.created_at) = :m AND YEAR(t.created_at) = :y
+    WHERE EXTRACT(MONTH FROM t.created_at) = :m AND EXTRACT(YEAR FROM t.created_at) = :y
     """
     df = query_to_df(query, {"m": m, "y": y})
     if df.empty:
@@ -765,7 +756,7 @@ def write_revenue_analytics_sheet(writer, m, y):
     # Queries combining active and archived tables
     monthly_rev_df = query_to_df("""
         SELECT 
-            DATE_FORMAT(o.created_at, '%Y-%m') AS `Month`, 
+            TO_CHAR(o.created_at, 'YYYY-MM') AS `Month`, 
             SUM(o.total_amount) AS `Total Revenue`,
             COUNT(o.id) AS `Total Orders`
         FROM (
@@ -774,14 +765,14 @@ def write_revenue_analytics_sheet(writer, m, y):
             SELECT id, total_amount, order_status, created_at FROM orders_archive
         ) o
         WHERE o.order_status = 'Delivered'
-        GROUP BY DATE_FORMAT(o.created_at, '%Y-%m')
+        GROUP BY TO_CHAR(o.created_at, 'YYYY-MM')
         ORDER BY `Month` DESC
         LIMIT 12
     """)
     
     daily_rev_df = query_to_df("""
         SELECT 
-            DATE(o.created_at) AS `Date`, 
+            CAST(o.created_at AS DATE) AS `Date`, 
             SUM(o.total_amount) AS `Revenue`,
             COUNT(o.id) AS `Orders`
         FROM (
@@ -790,9 +781,9 @@ def write_revenue_analytics_sheet(writer, m, y):
             SELECT id, total_amount, order_status, created_at FROM orders_archive
         ) o
         WHERE o.order_status = 'Delivered' 
-          AND MONTH(o.created_at) = :m 
-          AND YEAR(o.created_at) = :y
-        GROUP BY DATE(o.created_at)
+          AND EXTRACT(MONTH FROM o.created_at) = :m 
+          AND EXTRACT(YEAR FROM o.created_at) = :y
+        GROUP BY CAST(o.created_at AS DATE)
         ORDER BY `Date` ASC
     """, {"m": m, "y": y})
     
@@ -813,7 +804,7 @@ def write_revenue_analytics_sheet(writer, m, y):
         ) o ON oi.order_id = o.id
         JOIN products p ON oi.product_id = p.id
         WHERE o.order_status = 'Delivered'
-        GROUP BY oi.product_id, p.name
+        GROUP BY p.name
         ORDER BY `Quantity Sold` DESC
         LIMIT 10
     """)
@@ -836,7 +827,7 @@ def write_revenue_analytics_sheet(writer, m, y):
         JOIN products p ON oi.product_id = p.id
         JOIN categories c ON p.category_id = c.id
         WHERE o.order_status = 'Delivered'
-        GROUP BY c.id, c.name
+        GROUP BY c.name
         ORDER BY `Total Revenue` DESC
     """)
     
@@ -853,7 +844,7 @@ def write_revenue_analytics_sheet(writer, m, y):
         ) o
         JOIN users u ON o.user_id = u.id
         WHERE o.order_status = 'Delivered'
-        GROUP BY o.user_id, u.full_name, u.email
+        GROUP BY u.full_name, u.email
         ORDER BY `Total Spent` DESC
         LIMIT 10
     """)
@@ -1052,7 +1043,7 @@ def archive_and_cleanup_data(m, y):
     # 1. Fetch completed orders IDs
     orders_q = """
     SELECT id FROM orders 
-    WHERE MONTH(created_at) = :m AND YEAR(created_at) = :y 
+    WHERE EXTRACT(MONTH FROM created_at) = :m AND EXTRACT(YEAR FROM created_at) = :y 
       AND order_status IN ('Delivered', 'Cancelled')
     """
     order_ids = [r[0] for r in db.session.execute(db.text(orders_q), {"m": m, "y": y}).fetchall()]
@@ -1060,7 +1051,7 @@ def archive_and_cleanup_data(m, y):
     # 2. Fetch completed buy requests IDs (not pending)
     buy_q = """
     SELECT id FROM buy_requests 
-    WHERE MONTH(created_at) = :m AND YEAR(created_at) = :y 
+    WHERE EXTRACT(MONTH FROM created_at) = :m AND EXTRACT(YEAR FROM created_at) = :y 
       AND status != 'Pending'
     """
     buy_ids = [r[0] for r in db.session.execute(db.text(buy_q), {"m": m, "y": y}).fetchall()]
@@ -1068,7 +1059,7 @@ def archive_and_cleanup_data(m, y):
     # 3. Fetch completed support tickets IDs (not pending)
     support_q = """
     SELECT id FROM support_messages 
-    WHERE MONTH(created_at) = :m AND YEAR(created_at) = :y 
+    WHERE EXTRACT(MONTH FROM created_at) = :m AND EXTRACT(YEAR FROM created_at) = :y 
       AND status != 'Pending'
     """
     support_ids = [r[0] for r in db.session.execute(db.text(support_q), {"m": m, "y": y}).fetchall()]
@@ -1078,17 +1069,17 @@ def archive_and_cleanup_data(m, y):
         # Move to archive tables
         if order_ids:
             ids_str = ",".join(map(str, order_ids))
-            db.session.execute(db.text(f"INSERT IGNORE INTO orders_archive SELECT * FROM orders WHERE id IN ({ids_str})"))
-            db.session.execute(db.text(f"INSERT IGNORE INTO sales_archive SELECT * FROM order_items WHERE order_id IN ({ids_str})"))
-            db.session.execute(db.text(f"INSERT IGNORE INTO transactions_archive SELECT * FROM transactions WHERE order_id IN ({ids_str})"))
+            db.session.execute(db.text(f"INSERT INTO orders_archive SELECT * FROM orders WHERE id IN ({ids_str}) ON CONFLICT (id) DO NOTHING"))
+            db.session.execute(db.text(f"INSERT INTO sales_archive SELECT * FROM order_items WHERE order_id IN ({ids_str}) ON CONFLICT (id) DO NOTHING"))
+            db.session.execute(db.text(f"INSERT INTO transactions_archive SELECT * FROM transactions WHERE order_id IN ({ids_str}) ON CONFLICT (id) DO NOTHING"))
             
         if buy_ids:
             ids_str = ",".join(map(str, buy_ids))
-            db.session.execute(db.text(f"INSERT IGNORE INTO buy_requests_archive SELECT * FROM buy_requests WHERE id IN ({ids_str})"))
+            db.session.execute(db.text(f"INSERT INTO buy_requests_archive SELECT * FROM buy_requests WHERE id IN ({ids_str}) ON CONFLICT (id) DO NOTHING"))
             
         if support_ids:
             ids_str = ",".join(map(str, support_ids))
-            db.session.execute(db.text(f"INSERT IGNORE INTO support_tickets_archive SELECT * FROM support_messages WHERE id IN ({ids_str})"))
+            db.session.execute(db.text(f"INSERT INTO support_tickets_archive SELECT * FROM support_messages WHERE id IN ({ids_str}) ON CONFLICT (id) DO NOTHING"))
             
         # Delete from active tables
         if order_ids:
