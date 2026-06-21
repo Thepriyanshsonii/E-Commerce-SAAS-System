@@ -1,5 +1,7 @@
 venv/
 .env
+.env.production
+.env.local
 __pycache__/
 .pytest_cache/
 *.pyc
@@ -9,3 +11,10 @@ dist/
 *.log
 flask_server.log
 .vercel/
+*.xlsx
+*.db
+*.sqlite
+.idea/
+.vscode/
+backend/static/uploads/*
+backend/utils/reports/*
