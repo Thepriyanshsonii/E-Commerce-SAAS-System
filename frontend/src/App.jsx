@@ -40,6 +40,14 @@ const PageWrapper = ({ children }) => {
 
 function App() {
   const location = useLocation();
+  const [appLoading, setAppLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setAppLoading(false);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Scroll to top on every route change or search parameter change
   React.useEffect(() => {
@@ -51,9 +59,39 @@ function App() {
   }, [location.pathname, location.search]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
-      {/* Navigation bar */}
-      <Navbar />
+    <>
+      <AnimatePresence>
+        {appLoading && (
+          <motion.div
+            key="preloader"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.5, ease: 'easeInOut' } }}
+            className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white dark:bg-slate-950"
+          >
+            <div className="relative flex flex-col items-center max-w-[280px] w-full text-center">
+              {/* Logo / Brand name */}
+              <div className="w-20 h-20 mb-6 relative luxury-gold-shimmer rounded-2xl overflow-hidden flex items-center justify-center p-3 shadow-md bg-white border border-slate-100">
+                <img src="/logo.svg" alt="SSJewellery" className="w-full h-full object-contain animate-pulse" />
+              </div>
+              <h2 className="text-[#3F1D5A] dark:text-[#EFE7DB] font-serif text-2xl tracking-widest font-extrabold uppercase animate-pulse">
+                SS<span className="text-[#D4A75F] font-light font-sans">Jewellery</span>
+              </h2>
+              <p className="text-[10px] tracking-[0.2em] uppercase text-[#D4A75F] mt-2 font-semibold">
+                Crafting Elegance
+              </p>
+              
+              {/* Gold Shimmer Progress Bar */}
+              <div className="w-full h-[3px] bg-slate-150 dark:bg-slate-800 rounded-full overflow-hidden mt-8 relative">
+                <div className="absolute top-0 bottom-0 left-0 bg-[#D4A75F] w-[50%] animate-shimmer-bar rounded-full" />
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+        {/* Navigation bar */}
+        <Navbar />
 
       {/* Language Preference Selection Modal */}
       <LanguageSelectionModal />
@@ -79,8 +117,8 @@ function App() {
                 <PageWrapper><MyOrders /></PageWrapper>
               </ProtectedRoute>
             } />
-            <Route path="/profile" element={
-              <ProtectedRoute>
+             <Route path="/profile" element={
+              <ProtectedRoute userOnly={true}>
                 <PageWrapper><Profile /></PageWrapper>
               </ProtectedRoute>
             } />
@@ -114,6 +152,7 @@ function App() {
       {/* Grid footer links panel - ONLY visible on Profile page */}
       {location.pathname === '/profile' && <Footer />}
     </div>
+    </>
   );
 }
 

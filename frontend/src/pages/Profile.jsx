@@ -39,6 +39,8 @@ export const Profile = () => {
   useEffect(() => {
     if (!user) {
       navigate('/login?redirect=profile');
+    } else if (user.is_admin) {
+      navigate('/admin');
     }
   }, [user, navigate]);
 
