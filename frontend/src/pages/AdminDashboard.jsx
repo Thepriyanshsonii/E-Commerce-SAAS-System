@@ -8,6 +8,9 @@ import {
 } from 'lucide-react';
 import { AuthContext, API_BASE_URL } from '../context/AuthContext';
 
+// Derive server base URL (without /api) for serving static files like chart images
+const API_SERVER_URL = API_BASE_URL.replace(/\/api$/, '');
+
 const formatTimestamp = (dateInput) => {
   if (!dateInput) return '';
   const d = new Date(dateInput);
@@ -1146,7 +1149,7 @@ export const AdminDashboard = () => {
       
       let finalUrl = res.data.url;
       if (finalUrl.startsWith('/static/')) {
-        finalUrl = `http://localhost:5000${finalUrl}`;
+        finalUrl = `${API_SERVER_URL}${finalUrl}`;
       }
 
       if (mode === 'create') {
@@ -1813,7 +1816,7 @@ export const AdminDashboard = () => {
                           <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200 mb-4 self-start">{chart.title}</h4>
                           <div className="w-full bg-slate-50 dark:bg-slate-950/60 border border-slate-105 dark:border-slate-850 p-2.5 rounded-2xl flex justify-center items-center">
                             <img 
-                              src={`http://localhost:5000${chart.img}`} 
+                              src={`${API_SERVER_URL}${chart.img}`} 
                               alt={chart.title}
                               className="max-h-[220px] w-auto object-contain rounded-lg"
                             />
@@ -3467,7 +3470,7 @@ export const AdminDashboard = () => {
                 <div className="bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-850 p-4 rounded-3xl flex flex-col justify-center items-center">
                   <span className="text-xs font-bold text-slate-500 mb-2">Live Matplotlib Chart Report</span>
                   <img 
-                    src={`http://localhost:5000${productAnalyticsData.chart_url}`} 
+                    src={`${API_SERVER_URL}${productAnalyticsData.chart_url}`} 
                     alt="Sales Trend Chart" 
                     className="max-h-[280px] w-auto object-contain rounded-xl"
                   />

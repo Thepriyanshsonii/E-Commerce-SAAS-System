@@ -10,7 +10,7 @@ class Config:
     SQLALCHEMY_ECHO = os.environ.get("SQLALCHEMY_ECHO", "False").lower() in ("true", "1", "yes")
     
     # Configure engine options for pool management and SSL termination
-    _db_uri = os.environ.get("DATABASE_URI", "")
+    _db_uri = os.environ.get("DATABASE_URI", "sqlite:///:memory:")
     _connect_args = {}
     if "postgres" in _db_uri or "neon" in _db_uri:
         _connect_args["sslmode"] = "require"
@@ -18,10 +18,11 @@ class Config:
     SQLALCHEMY_ENGINE_OPTIONS = {
         "pool_pre_ping": True,
         "pool_recycle": int(os.environ.get("DB_POOL_RECYCLE", 300)),
-        "pool_size": int(os.environ.get("DB_POOL_SIZE", 5)),
-        "max_overflow": int(os.environ.get("DB_MAX_OVERFLOW", 10)),
         "connect_args": _connect_args
     }
+    if not _db_uri.startswith("sqlite"):
+        SQLALCHEMY_ENGINE_OPTIONS["pool_size"] = int(os.environ.get("DB_POOL_SIZE", 5))
+        SQLALCHEMY_ENGINE_OPTIONS["max_overflow"] = int(os.environ.get("DB_MAX_OVERFLOW", 10))
 
     # CORS / Frontend
     FRONTEND_URL = os.environ.get("FRONTEND_URL", "http://localhost:5173")
