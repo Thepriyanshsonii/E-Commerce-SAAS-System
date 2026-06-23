@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Great+Vibes&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Great+Vibes&family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap');
 @config "../tailwind.config.js";
 @import "tailwindcss";
 
@@ -154,14 +154,8 @@ html:not(.dark) .border-slate-300 {
 /* Product Grid Responsiveness */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(1, minmax(0, 1fr));
-  gap: 1rem;
-}
-
-@media (min-width: 480px) {
-  .product-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
 }
 
 @media (min-width: 768px) {
@@ -328,4 +322,70 @@ html:not(.dark) .border-slate-300 {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Utility to hide scrollbars for premium horizontal scroll containers */
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none !important;  /* IE and Edge */
+  scrollbar-width: none !important;  /* Firefox */
+}
+
+/* ==========================================================================
+   LUXURY GOLD SHIMMER SWEEP & PRELOADER ANIMATIONS
+   ========================================================================== */
+
+@keyframes luxury-gold-sweep {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.luxury-gold-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.95) 25%,
+    rgba(242, 232, 217, 0.8) 45%,
+    rgba(212, 167, 95, 0.25) 50%,
+    rgba(242, 232, 217, 0.8) 55%,
+    rgba(255, 255, 255, 0.95) 75%
+  );
+  background-size: 200% 100%;
+  animation: luxury-gold-sweep 1.8s infinite linear;
+}
+
+.dark .luxury-gold-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(15, 23, 42, 0.95) 25%,
+    rgba(63, 29, 90, 0.3) 45%,
+    rgba(212, 167, 95, 0.2) 50%,
+    rgba(63, 29, 90, 0.3) 55%,
+    rgba(15, 23, 42, 0.95) 75%
+  );
+  background-size: 200% 100%;
+  animation: luxury-gold-sweep 1.8s infinite linear;
+}
+
+@keyframes shimmer-bar-slide {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.animate-shimmer-bar {
+  animation: shimmer-bar-slide 1.5s infinite ease-in-out;
+}
+
+
 

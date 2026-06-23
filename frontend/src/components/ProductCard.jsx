@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { CartContext } from '../context/CartContext';
 import { AuthContext } from '../context/AuthContext';
 import { useTranslation } from '../hooks/useTranslation';
+import { LuxuryImage } from './LuxuryImage';
 
 export const ProductCard = ({ product, onAdminAction }) => {
   const { addToCart, addToWishlist, removeFromWishlist, isInWishlist, triggerAuthModal } = useContext(CartContext);
@@ -39,39 +40,40 @@ export const ProductCard = ({ product, onAdminAction }) => {
   return (
     <div 
       onClick={handleCardClick}
-      className="group relative bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700/50 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-[#D4A75F]/30 transition-all duration-500 overflow-hidden flex flex-col h-full cursor-pointer"
+      className="group relative bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl border border-slate-100 dark:border-slate-700/50 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-[#D4A75F]/30 transition-all duration-500 overflow-hidden flex flex-col h-full cursor-pointer"
     >
       {/* Wishlist Button */}
       <motion.button
         whileHover={{ scale: 1.15 }}
         whileTap={{ scale: 0.9 }}
         onClick={handleWishlistToggle}
-        className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm border border-slate-100 dark:border-slate-800 text-slate-400 hover:text-red-500 transition-colors cursor-pointer"
+        className="absolute top-2.5 right-2.5 sm:top-4 sm:right-4 z-10 p-1.5 sm:p-2 rounded-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm border border-slate-100 dark:border-slate-800 text-slate-400 hover:text-red-500 transition-colors cursor-pointer"
       >
-        <Heart className={`h-5 w-5 ${isProductInWishlist ? 'text-red-500 fill-current animate-heart-beat' : 'transition-transform'}`} />
+        <Heart className={`h-4 w-4 sm:h-5 sm:w-5 ${isProductInWishlist ? 'text-red-500 fill-current animate-heart-beat' : 'transition-transform'}`} />
       </motion.button>
 
       {/* Discount Badge */}
       {product.discount > 0 && (
-        <span className="absolute top-4 left-4 z-10 bg-red-500 text-white font-semibold text-xs px-2.5 py-1 rounded-full shadow-sm">
+        <span className="absolute top-2.5 left-2.5 sm:top-4 sm:left-4 z-10 bg-red-500 text-white font-semibold text-[9px] sm:text-xs px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded-full shadow-sm">
           {product.discount}% {t('product_card.off')}
         </span>
       )}
 
-      {/* Image Block */}
-      <Link to={`/product/${product._id}`} className="block relative aspect-video w-full overflow-hidden bg-slate-50 dark:bg-slate-950 p-3 flex items-center justify-center">
-        <img
+      <Link to={`/product/${product._id}`} className="block relative aspect-video w-full overflow-hidden bg-slate-50 dark:bg-slate-950 p-2 sm:p-3 flex items-center justify-center">
+        <LuxuryImage
           src={product.images[0] || 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=60'}
           alt={localize(product, 'name')}
           className="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-700 ease-out"
           loading="lazy"
+          width="640"
+          height="360"
         />
       </Link>
 
       {/* Content Block */}
-      <div className="p-3.5 sm:p-4.5 flex-grow flex flex-col">
+      <div className="p-2.5 sm:p-4.5 flex-grow flex flex-col">
         {/* Category */}
-        <span className="text-[10px] sm:text-xs font-semibold text-[#D4A75F] uppercase tracking-wider">
+        <span className="text-[9px] sm:text-xs font-semibold text-[#D4A75F] uppercase tracking-wider">
           {(() => {
             const catKey = `common.${product.category?.toLowerCase()}`;
             const trans = t(catKey);
@@ -81,37 +83,37 @@ export const ProductCard = ({ product, onAdminAction }) => {
 
         {/* Product Title */}
         <Link to={`/product/${product._id}`} className="block mt-0.5">
-          <h3 className="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-100 group-hover:text-[#3F1D5A] dark:group-hover:text-[#D4A75F] transition-colors line-clamp-1">
+          <h3 className="text-xs sm:text-base font-bold text-slate-800 dark:text-slate-100 group-hover:text-[#3F1D5A] dark:group-hover:text-[#D4A75F] transition-colors line-clamp-1">
             {localize(product, 'name')}
           </h3>
         </Link>
 
         {/* Rating */}
-        <div className="flex items-center mt-1 mb-2">
+        <div className="flex items-center mt-1 mb-2 flex-wrap gap-0.5 sm:gap-0">
           <div className="flex items-center text-amber-400">
-            <Star className="h-3.5 w-3.5 fill-current" />
-            <span className="ml-1 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300">
+            <Star className="h-3 w-3 sm:h-3.5 sm:w-3.5 fill-current" />
+            <span className="ml-0.5 text-[10px] sm:text-sm font-semibold text-slate-700 dark:text-slate-300">
               {(product.ratings || 0).toFixed(1)}
             </span>
           </div>
-          <span className="mx-1 text-slate-300 dark:text-slate-600">•</span>
-          <span className="text-[10px] sm:text-xs text-slate-400 dark:text-slate-500">
+          <span className="mx-1 text-slate-300 dark:text-slate-600 sm:inline">•</span>
+          <span className="text-[9px] sm:text-xs text-slate-400 dark:text-slate-500">
             {product.review_count !== undefined ? product.review_count : (product.reviews ? product.reviews.length : 0)} {t('product_details.reviews') || 'reviews'}
           </span>
         </div>
 
         {/* Description */}
-        <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mb-3 flex-grow">
+        <p className="hidden sm:block text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mb-3 flex-grow">
           {localize(product, 'description')}
         </p>
 
         {/* Price Row */}
-        <div className="flex items-baseline space-x-1.5 mb-1">
-          <span className="text-lg sm:text-xl font-extrabold text-[#3F1D5A] dark:text-[#EFE7DB]">
+        <div className="flex items-baseline space-x-1.5 mb-1 flex-wrap">
+          <span className="text-sm sm:text-xl font-extrabold text-[#3F1D5A] dark:text-[#EFE7DB]">
             ₹{discountedPrice}
           </span>
           {product.discount > 0 && (
-            <span className="text-xs sm:text-sm text-slate-400 line-through font-medium">
+            <span className="text-[10px] sm:text-sm text-slate-400 line-through font-medium">
               ₹{product.price}
             </span>
           )}
@@ -130,7 +132,7 @@ export const ProductCard = ({ product, onAdminAction }) => {
                   navigate('/admin');
                 }
               }}
-              className="w-full py-2 px-3 bg-slate-100 hover:bg-[#D4A75F] hover:text-white dark:bg-slate-700/50 dark:hover:bg-[#D4A75F] text-slate-800 dark:text-slate-200 rounded-xl font-bold text-xs tracking-wide transition-all text-center block border border-slate-200 dark:border-slate-700 shadow-sm cursor-pointer"
+              className="w-full py-1.5 px-2 bg-slate-100 hover:bg-[#D4A75F] hover:text-white dark:bg-slate-700/50 dark:hover:bg-[#D4A75F] text-slate-800 dark:text-slate-200 rounded-lg sm:rounded-xl font-bold text-[10px] sm:text-xs tracking-wide transition-all text-center block border border-slate-200 dark:border-slate-700 shadow-sm cursor-pointer"
             >
               🛠️ {t('navbar.admin_panel')}
             </button>
@@ -144,30 +146,37 @@ export const ProductCard = ({ product, onAdminAction }) => {
 // Premium Shimmer Skeleton Loader for Product Cards
 export const ProductCardSkeleton = () => {
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700/50 shadow-sm p-4 flex flex-col h-full space-y-4">
+    <div className="bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl border border-slate-100 dark:border-slate-700/50 shadow-sm p-3 sm:p-4 flex flex-col h-full space-y-3 sm:space-y-4">
       {/* Image skeleton */}
-      <div className="skeleton-premium aspect-video w-full rounded-xl" />
+      <div className="relative aspect-video w-full overflow-hidden bg-slate-50 dark:bg-slate-950 rounded-lg sm:rounded-xl flex items-center justify-center">
+        <div className="absolute inset-0 luxury-gold-shimmer pointer-events-none" />
+        <img
+          src="/logo.svg"
+          alt="Loading..."
+          className="h-8 w-auto opacity-40 object-contain relative z-20 animate-pulse"
+        />
+      </div>
       
       {/* Category skeleton */}
       <div className="skeleton-premium h-3 w-1/4 rounded" />
       
       {/* Title skeleton */}
-      <div className="skeleton-premium h-5 w-3/4 rounded" />
+      <div className="skeleton-premium h-4 sm:h-5 w-3/4 rounded" />
       
       {/* Rating & Stock skeleton */}
       <div className="flex space-x-2">
-        <div className="skeleton-premium h-4 w-10 rounded" />
-        <div className="skeleton-premium h-4 w-14 rounded" />
+        <div className="skeleton-premium h-3.5 sm:h-4 w-10 rounded" />
+        <div className="skeleton-premium h-3.5 sm:h-4 w-14 rounded" />
       </div>
       
       {/* Description skeleton */}
-      <div className="space-y-2 flex-grow">
+      <div className="hidden sm:block space-y-2 flex-grow">
         <div className="skeleton-premium h-3 w-full rounded" />
         <div className="skeleton-premium h-3 w-5/6 rounded" />
       </div>
       
       {/* Price skeleton */}
-      <div className="skeleton-premium h-6 w-1/3 rounded" />
+      <div className="skeleton-premium h-5 sm:h-6 w-1/3 rounded" />
     </div>
   );
 };

@@ -2539,8 +2539,8 @@ export const AdminControl = () => {
                         <span>Add Product</span>
                       </button>
                     </div>
-                  
-                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+                    <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-3 md:gap-6">
                     {products.map(p => {
                       const discountedPrice = Math.round(p.price - (p.price * (p.discount / 100)));
                       
@@ -2563,38 +2563,38 @@ export const AdminControl = () => {
                       };
 
                       return (
-                        <div key={p._id} className="border border-slate-100 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-950/20 rounded-2xl p-4.5 flex flex-col justify-between hover:shadow-lg transition-all duration-300">
+                        <div key={p._id} className="border border-slate-100 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-950/20 rounded-xl md:rounded-2xl p-3 md:p-4.5 flex flex-col justify-between hover:shadow-lg transition-all duration-300">
                           <div>
                             {/* Product Image and Category */}
-                            <div className="flex gap-4 mb-3">
-                              <div className="h-16 w-16 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 flex-shrink-0">
+                            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mb-3">
+                              <div className="h-12 w-12 sm:h-16 sm:w-16 rounded-lg sm:rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 flex-shrink-0">
                                 <img src={p.images?.[0] || 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200'} alt="" className="h-full w-full object-cover" />
                               </div>
                               <div className="flex flex-col justify-center min-w-0">
-                                <span className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">{p.category}</span>
-                                <h4 className="text-sm font-bold text-slate-800 dark:text-slate-100 truncate mt-0.5" title={p.name}>{p.name}</h4>
+                                <span className="text-[9px] sm:text-[10px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">{p.category}</span>
+                                <h4 className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-100 truncate mt-0.5" title={p.name}>{p.name}</h4>
                               </div>
                             </div>
 
                             {/* Price / Discount History */}
-                            <div className="bg-white dark:bg-slate-900 border border-slate-150/40 dark:border-slate-800/80 p-2.5 rounded-xl text-xs space-y-1 mb-3">
-                              <div className="flex justify-between items-baseline">
+                            <div className="bg-white dark:bg-slate-900 border border-slate-150/40 dark:border-slate-800/80 p-2 sm:p-2.5 rounded-xl text-[10px] sm:text-xs space-y-1 mb-3">
+                              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-baseline gap-0.5 sm:gap-0">
                                 <span className="text-slate-400 font-medium">Pricing:</span>
-                                <div className="flex items-center gap-1.5">
+                                <div className="flex flex-wrap items-center gap-1">
                                   {p.discount > 0 ? (
                                     <>
                                       <span className="text-slate-455 dark:text-slate-505 line-through">₹{p.price}</span>
                                       <span className="text-slate-400">↓</span>
-                                      <span className="text-slate-900 dark:text-slate-100 font-extrabold text-sm">₹{discountedPrice}</span>
-                                      <span className="px-1.5 py-0.5 text-[9px] font-black bg-rose-100 text-rose-700 dark:bg-rose-950/40 dark:text-rose-455 rounded">{p.discount}% OFF</span>
+                                      <span className="text-slate-900 dark:text-slate-100 font-extrabold text-xs sm:text-sm">₹{discountedPrice}</span>
+                                      <span className="px-1.5 py-0.5 text-[8px] sm:text-[9px] font-black bg-rose-100 text-rose-700 dark:bg-rose-950/40 dark:text-rose-455 rounded">{p.discount}% OFF</span>
                                     </>
                                   ) : (
-                                    <span className="text-slate-900 dark:text-slate-100 font-extrabold text-sm">₹{p.price}</span>
+                                    <span className="text-slate-900 dark:text-slate-100 font-extrabold text-xs sm:text-sm">₹{p.price}</span>
                                   )}
                                 </div>
                               </div>
                               {p.discount > 0 && p.discount_applied_at && (
-                                <div className="text-[9px] text-slate-400 flex justify-between border-t border-slate-100 dark:border-slate-850/50 pt-1 mt-1">
+                                <div className="text-[8px] sm:text-[9px] text-slate-400 flex justify-between border-t border-slate-100 dark:border-slate-850/50 pt-1 mt-1">
                                   <span>Applied On:</span>
                                   <span className="font-semibold">{formatAudit(p.discount_applied_at)}</span>
                                 </div>
@@ -2602,21 +2602,21 @@ export const AdminControl = () => {
                             </div>
 
                             {/* Stock Display */}
-                            <div className="flex justify-between items-center mb-3">
-                              <span className="text-xs text-slate-400 font-medium">Stock Status:</span>
-                              <span className={`px-2 py-0.5 text-[10px] font-extrabold rounded-lg ${
+                            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-0.5 sm:gap-0 mb-3">
+                              <span className="text-[10px] sm:text-xs text-slate-400 font-medium">Stock Status:</span>
+                              <span className={`px-2 py-0.5 text-[9px] sm:text-[10px] font-extrabold rounded-lg ${
                                 p.stock === 0 
                                   ? 'bg-rose-100 text-rose-700 dark:bg-rose-950/40 dark:text-rose-450' 
                                   : p.stock < 10 
                                     ? 'bg-amber-100 text-amber-700 dark:bg-amber-950/40 dark:text-amber-450' 
                                     : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-450'
                               }`}>
-                                {p.stock === 0 ? "Out Of Stock" : p.stock < 10 ? `Low Stock: ${p.stock} Units` : `Stock: ${p.stock} Units`}
+                                {p.stock === 0 ? "Out Of Stock" : p.stock < 10 ? `${p.stock} Left` : `${p.stock} Units`}
                               </span>
                             </div>
 
                             {/* Audit Logs */}
-                            <div className="border-t border-slate-100 dark:border-slate-850/60 pt-2.5 pb-2 text-[10px] text-slate-400 space-y-1">
+                            <div className="border-t border-slate-100 dark:border-slate-850/60 pt-2.5 pb-2 text-[9px] sm:text-[10px] text-slate-400 space-y-1">
                               <div className="flex justify-between">
                                 <span>Created:</span>
                                 <span className="font-semibold text-slate-550 dark:text-slate-450">{formatAudit(p.created_at)}</span>
@@ -2629,38 +2629,38 @@ export const AdminControl = () => {
                           </div>
 
                           {/* Quick Actions Grid */}
-                          <div className="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-slate-100 dark:border-slate-850/60">
+                          <div className="grid grid-cols-2 gap-1.5 sm:gap-2 mt-4 pt-3 border-t border-slate-100 dark:border-slate-850/60">
                             <button
                               onClick={() => {
                                 setEditingProduct({ ...p, image_url: p.images?.[0] || '' });
                                 setEditProductImages(initEditImages(p));
                                 setIsEditImagesOpen(false);
                               }}
-                              className="py-2 px-2.5 text-[10px] font-bold bg-blue-50 hover:bg-blue-100 dark:bg-blue-500/10 dark:hover:bg-blue-500/20 text-blue-600 dark:text-blue-400 rounded-xl transition-all text-center flex items-center justify-center gap-1.5"
+                              className="py-1.5 sm:py-2 px-1 sm:px-2.5 text-[9px] sm:text-[10px] font-bold bg-blue-50 hover:bg-blue-100 dark:bg-blue-500/10 dark:hover:bg-blue-500/20 text-blue-600 dark:text-blue-400 rounded-lg sm:rounded-xl transition-all text-center flex items-center justify-center gap-1"
                             >
-                              <Edit2 className="h-3.5 w-3.5" />
-                              <span>Edit Product</span>
+                              <Edit2 className="h-3 sm:h-3.5 w-3 sm:w-3.5" />
+                              <span className="truncate">Edit</span>
                             </button>
                             <button
                               onClick={() => handleOpenStockModal(p)}
-                              className="py-2 px-2.5 text-[10px] font-bold bg-amber-50 hover:bg-amber-100 dark:bg-amber-500/10 dark:hover:bg-amber-500/20 text-amber-600 dark:text-amber-450 rounded-xl transition-all text-center flex items-center justify-center gap-1.5"
+                              className="py-1.5 sm:py-2 px-1 sm:px-2.5 text-[9px] sm:text-[10px] font-bold bg-amber-50 hover:bg-amber-100 dark:bg-amber-500/10 dark:hover:bg-amber-500/20 text-amber-600 dark:text-amber-450 rounded-lg sm:rounded-xl transition-all text-center flex items-center justify-center gap-1"
                             >
-                              <Package className="h-3.5 w-3.5" />
-                              <span>Manage Stock</span>
+                              <Package className="h-3 sm:h-3.5 w-3 sm:w-3.5" />
+                              <span className="truncate">Stock</span>
                             </button>
                             <button
                               onClick={() => handleOpenOrdersModal(p)}
-                              className="py-2 px-2.5 text-[10px] font-bold bg-purple-50 hover:bg-purple-100 dark:bg-purple-500/10 dark:hover:bg-purple-500/20 text-purple-650 dark:text-purple-400 rounded-xl transition-all text-center flex items-center justify-center gap-1.5"
+                              className="py-1.5 sm:py-2 px-1 sm:px-2.5 text-[9px] sm:text-[10px] font-bold bg-purple-50 hover:bg-purple-100 dark:bg-purple-500/10 dark:hover:bg-purple-500/20 text-purple-650 dark:text-purple-400 rounded-lg sm:rounded-xl transition-all text-center flex items-center justify-center gap-1"
                             >
-                              <ShoppingBag className="h-3.5 w-3.5" />
-                              <span>View Orders</span>
+                              <ShoppingBag className="h-3 sm:h-3.5 w-3 sm:w-3.5" />
+                              <span className="truncate">Orders</span>
                             </button>
                             <button
                               onClick={() => handleOpenAnalyticsModal(p)}
-                              className="py-2 px-2.5 text-[10px] font-bold border border-[#D4A75F]/35 dark:border-[#D4A75F] bg-[#D4A75F]/8 dark:bg-[rgba(212,167,95,0.12)] text-[#9A7232] dark:text-[#D4A75F] hover:bg-[#D4A75F] hover:text-white dark:hover:bg-[#D4A75F] dark:hover:text-white dark:hover:border-transparent hover:translate-y-[-2px] shadow-[0_4px_12px_rgba(212,167,95,0.08)] dark:shadow-[0_4px_12px_rgba(212,167,95,0.20)] rounded-xl transition-all duration-[250ms] ease-in-out text-center flex items-center justify-center gap-1.5"
+                              className="py-1.5 sm:py-2 px-1 sm:px-2.5 text-[9px] sm:text-[10px] font-bold border border-[#D4A75F]/35 dark:border-[#D4A75F] bg-[#D4A75F]/8 dark:bg-[rgba(212,167,95,0.12)] text-[#9A7232] dark:text-[#D4A75F] hover:bg-[#D4A75F] hover:text-white dark:hover:bg-[#D4A75F] dark:hover:text-white dark:hover:border-transparent hover:translate-y-[-2px] shadow-[0_4px_12px_rgba(212,167,95,0.08)] dark:shadow-[0_4px_12px_rgba(212,167,95,0.20)] rounded-lg sm:rounded-xl transition-all duration-[250ms] ease-in-out text-center flex items-center justify-center gap-1"
                             >
-                              <BarChart3 className="h-3.5 w-3.5" />
-                              <span>View Sales</span>
+                              <BarChart3 className="h-3 sm:h-3.5 w-3 sm:w-3.5" />
+                              <span className="truncate">Sales</span>
                             </button>
                           </div>
                         </div>

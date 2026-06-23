@@ -40,6 +40,25 @@ import {
 import { CartContext } from '../context/CartContext';
 import { AuthContext, API_BASE_URL } from '../context/AuthContext';
 import { ProductImageGallery } from '../components/ProductImageGallery';
+import { LuxuryImage } from '../components/LuxuryImage';
+
+const ReviewsSkeleton = () => (
+  <div className="divide-y divide-slate-100 dark:divide-slate-800 space-y-4 w-full">
+    {Array.from({ length: 3 }).map((_, idx) => (
+      <div key={idx} className="pt-4 first:pt-0 space-y-2">
+        <div className="flex justify-between items-center">
+          <div className="space-y-1 w-full animate-pulse">
+            <div className="skeleton-premium h-4 w-24 rounded" />
+            <div className="skeleton-premium h-3 w-16 rounded mt-1" />
+          </div>
+          <div className="skeleton-premium h-3 w-12 rounded animate-pulse" />
+        </div>
+        <div className="skeleton-premium h-3.5 w-full rounded animate-pulse" />
+        <div className="skeleton-premium h-3.5 w-3/4 rounded mt-1 animate-pulse" />
+      </div>
+    ))}
+  </div>
+);
 
 const translationDictionary = {
   // Option attributes
@@ -425,11 +444,10 @@ export const ProductDetails = ({ productId }) => {
 
         {/* Image Block */}
         <div className="relative aspect-video w-full overflow-hidden bg-slate-50/50 dark:bg-slate-950/50 flex items-center justify-center p-2 mt-2">
-          <img
+          <LuxuryImage
             src={item.images?.[0] || 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400'}
             alt={item.name}
             className="max-h-24 max-w-full object-contain group-hover:scale-105 transition-transform duration-500"
-            loading="lazy"
           />
         </div>
 
@@ -1708,7 +1726,7 @@ export const ProductDetails = ({ productId }) => {
                           : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-slate-350 dark:hover:border-slate-700'
                       }`}
                     >
-                      <img src={img} alt={`${product.name} - Thumbnail ${idx + 1}`} className="w-full h-full object-cover" />
+                      <LuxuryImage src={img} alt={`${product.name} - Thumbnail ${idx + 1}`} className="w-full h-full object-cover" width="72" height="72" />
                     </button>
                   ))}
                 </div>
@@ -1722,10 +1740,12 @@ export const ProductDetails = ({ productId }) => {
                     onMouseEnter={() => setIsZooming(true)}
                     onMouseLeave={handleZoomMouseLeave}
                   >
-                    <img
+                    <LuxuryImage
                       src={activeImage || imagesList[0]}
                       alt={product.name}
                       className="max-w-full max-h-full object-contain p-4 transition-transform duration-300 ease-out md:group-hover:scale-105 origin-[var(--zoom-x,50%)_var(--zoom-y,50%)]"
+                      width="480"
+                      height="480"
                     />
                   </div>
 
@@ -2138,7 +2158,9 @@ export const ProductDetails = ({ productId }) => {
                       <MessageSquare className="h-4 w-4 text-emerald-500" />
                       {language === 'hi' ? 'ग्राहक प्रतिक्रिया' : 'Customer Feedback'}
                     </h3>
-                    {(!product.reviews || product.reviews.length === 0) ? (
+                    {submittingReview ? (
+                      <ReviewsSkeleton />
+                    ) : (!product.reviews || product.reviews.length === 0) ? (
                       <p className="text-slate-400 text-xs italic py-2">{language === 'hi' ? 'अभी तक कोई समीक्षा नहीं है। अपना अनुभव साझा करने वाले पहले व्यक्ति बनें!' : 'No reviews yet. Be the first to share your experience!'}</p>
                     ) : (
                       <div className="divide-y divide-slate-100 dark:divide-slate-800 space-y-3">
@@ -2253,7 +2275,7 @@ export const ProductDetails = ({ productId }) => {
               >
                 <ArrowLeft className="h-6 w-6" />
               </button>
-              <img
+              <LuxuryImage
                 src={imagesList[previewImageIndex]}
                 alt={`${product.name} - Full Preview ${previewImageIndex + 1}`}
                 className="max-w-full max-h-full object-contain"
@@ -2280,7 +2302,7 @@ export const ProductDetails = ({ productId }) => {
                       : 'border-slate-700 hover:border-slate-500'
                   }`}
                 >
-                  <img src={img} alt={`Thumb ${idx + 1}`} className="w-full h-full object-cover" />
+                  <LuxuryImage src={img} alt={`Thumb ${idx + 1}`} className="w-full h-full object-cover" />
                 </button>
               ))}
             </div>
@@ -2311,7 +2333,7 @@ export const ProductDetails = ({ productId }) => {
                 {/* Product Summary section */}
                 <div className="bg-gradient-to-br from-slate-50 to-slate-100/50 dark:from-slate-950 dark:to-slate-900/50 p-4 rounded-2xl mb-4 border border-slate-200/60 dark:border-slate-800/80 flex gap-4 items-center">
                   {product.images && product.images.length > 0 && (
-                    <img 
+                    <LuxuryImage 
                       src={product.images[0]} 
                       alt={product.name} 
                       className="w-20 h-20 object-cover rounded-xl border-2 border-[#D4A75F]/35 shadow-sm"

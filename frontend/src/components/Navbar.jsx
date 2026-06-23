@@ -625,7 +625,16 @@ export const Navbar = () => {
                         <p className="text-sm font-bold text-[#1F1F1F] dark:text-white truncate">{user.email}</p>
                       </div>
 
-                      {isAdmin ? null : (
+                      {isAdmin ? (
+                        <Link
+                          to="/admin"
+                          onClick={() => setProfileDropdownOpen(false)}
+                          className="flex items-center space-x-2 px-4 py-2.5 text-sm text-[#3F1D5A] dark:text-white hover:bg-slate-50 dark:hover:bg-[rgba(212,167,95,0.12)] dark:hover:text-[#D4A75F] transition-all duration-200"
+                        >
+                          <Shield className="h-4 w-4 opacity-75 text-[#3F1D5A] dark:text-[#D4A75F]" />
+                          <span>Admin Panel</span>
+                        </Link>
+                      ) : (
                         <>
                           <Link
                             to="/profile"
@@ -789,14 +798,16 @@ export const Navbar = () => {
                             <span>Admin Panel</span>
                           </Link>
                         )}
-                        <Link
-                          to="/profile"
-                          onClick={() => setMobileProfileOpen(false)}
-                          className="flex items-center space-x-2 px-4 py-2.5 text-sm text-[#1F1F1F] hover:bg-slate-50 dark:text-white dark:hover:bg-[rgba(212,167,95,0.12)] dark:hover:text-[#D4A75F] transition-all duration-200"
-                        >
-                          <User className="h-4 w-4 text-[#3F1D5A] dark:text-[#D4A75F]" />
-                          <span>{language === 'hi' ? 'मेरी प्रोफ़ाइल' : 'My Profile'}</span>
-                        </Link>
+                        {!isAdmin && (
+                          <Link
+                            to="/profile"
+                            onClick={() => setMobileProfileOpen(false)}
+                            className="flex items-center space-x-2 px-4 py-2.5 text-sm text-[#1F1F1F] hover:bg-slate-50 dark:text-white dark:hover:bg-[rgba(212,167,95,0.12)] dark:hover:text-[#D4A75F] transition-all duration-200"
+                          >
+                            <User className="h-4 w-4 text-[#3F1D5A] dark:text-[#D4A75F]" />
+                            <span>{language === 'hi' ? 'मेरी प्रोफ़ाइल' : 'My Profile'}</span>
+                          </Link>
+                        )}
                         <button
                           onClick={() => {
                             setMobileProfileOpen(false);
@@ -854,6 +865,7 @@ export const Navbar = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
             className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm lg:hidden"
             onClick={() => setMobileMenuOpen(false)}
           />
@@ -863,11 +875,20 @@ export const Navbar = () => {
             initial={{ x: '-100%' }}
             animate={{ x: 0 }}
             exit={{ x: '-100%' }}
-            transition={{ type: 'spring', damping: 26, stiffness: 220 }}
-            className="fixed inset-y-0 left-0 w-[300px] sm:w-[350px] bg-white dark:bg-slate-950 z-50 shadow-2xl flex flex-col p-6 overflow-y-auto border-r border-[#F2E8D9]/60 dark:border-slate-800 lg:hidden"
+            transition={{ type: 'tween', ease: 'easeOut', duration: 0.25 }}
+            drag="x"
+            dragDirectionLock
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={{ left: 0.6, right: 0 }}
+            onDragEnd={(e, info) => {
+              if (info.offset.x < -80 || info.velocity.x < -300) {
+                setMobileMenuOpen(false);
+              }
+            }}
+            className="fixed inset-y-0 left-0 w-[300px] sm:w-[350px] bg-white dark:bg-slate-950 z-50 shadow-2xl flex flex-col p-6 overflow-y-auto border-r border-[#F2E8D9]/60 dark:border-slate-800 lg:hidden touch-pan-y"
           >
             {/* Header */}
-            <div className="flex items-center justify-between pb-5 border-b border-slate-100 dark:border-slate-900">
+            <div className="flex items-center pb-5 border-b border-slate-100 dark:border-slate-900">
               <Link to="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-[14px] select-none group no-underline">
                 <img 
                   src="/logo.svg" 
@@ -884,13 +905,6 @@ export const Navbar = () => {
                   </span>
                 </div>
               </Link>
-              <button
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-2 rounded-xl text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors cursor-pointer"
-                title="Close Menu"
-              >
-                <X className="h-5 w-5" />
-              </button>
             </div>
 
             {/* Profile Section */}
@@ -934,6 +948,97 @@ export const Navbar = () => {
                   </Link>
                 </div>
               )}
+            </div>
+
+            {/* Premium Language & Theme Cards (Mobile Only) */}
+            <div className="py-5 border-b border-slate-100 dark:border-slate-900 space-y-4">
+              {/* Language Selection Card */}
+              <div className="bg-white dark:bg-slate-900 border border-[#F2E8D9]/80 dark:border-slate-800 rounded-2xl p-4 shadow-sm relative overflow-hidden">
+                {/* Gold accent top bar */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#D4A75F]" />
+                
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2.5">
+                    <div className="p-1.5 rounded-lg bg-[#D4A75F]/10 text-[#D4A75F]">
+                      <Globe className="h-4.5 w-4.5" />
+                    </div>
+                    <div>
+                      <span className="block text-xs font-bold text-slate-850 dark:text-slate-200">
+                        {language === 'hi' ? 'भाषा' : 'Language'}
+                      </span>
+                      <span className="block text-[10px] text-slate-400">
+                        {language === 'hi' ? 'भाषा चुनें' : 'Select language'}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div className="flex rounded-xl bg-slate-50 dark:bg-slate-850 p-1 border border-slate-100 dark:border-slate-800/80">
+                    <button
+                      onClick={() => changeLanguage('en')}
+                      className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all duration-300 cursor-pointer ${
+                        language === 'en'
+                          ? 'bg-[#3F1D5A] text-white shadow-md scale-105'
+                          : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
+                      }`}
+                    >
+                      EN
+                    </button>
+                    <button
+                      onClick={() => changeLanguage('hi')}
+                      className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all duration-300 cursor-pointer ${
+                        language === 'hi'
+                          ? 'bg-[#3F1D5A] text-white shadow-md scale-105'
+                          : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
+                      }`}
+                    >
+                      HI
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Theme Selection Card */}
+              <div className="bg-white dark:bg-slate-900 border border-[#F2E8D9]/80 dark:border-slate-800 rounded-2xl p-4 shadow-sm relative overflow-hidden">
+                {/* Gold accent top bar */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#D4A75F]" />
+                
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2.5">
+                    <div className="p-1.5 rounded-lg bg-[#D4A75F]/10 text-[#D4A75F]">
+                      {isDark ? <Moon className="h-4.5 w-4.5" /> : <Sun className="h-4.5 w-4.5" />}
+                    </div>
+                    <div>
+                      <span className="block text-xs font-bold text-slate-850 dark:text-slate-200">
+                        {language === 'hi' ? 'थीम मोड' : 'Theme Mode'}
+                      </span>
+                      <span className="block text-[10px] text-slate-400">
+                        {isDark
+                          ? (language === 'hi' ? 'डार्क थीम सक्रिय' : 'Dark Theme Active')
+                          : (language === 'hi' ? 'लाइट थीम सक्रिय' : 'Light Theme Active')}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <button
+                    onClick={() => setIsDark(!isDark)}
+                    className={`w-12 h-6.5 rounded-full p-1 transition-all duration-300 focus:outline-none flex items-center relative cursor-pointer ${
+                      isDark ? 'bg-[#3F1D5A]' : 'bg-slate-200 dark:bg-slate-800'
+                    }`}
+                  >
+                    <div
+                      className={`h-4.5 w-4.5 rounded-full shadow-md transform duration-300 flex items-center justify-center ${
+                        isDark ? 'translate-x-5.5 bg-white' : 'translate-x-0 bg-white'
+                      }`}
+                    >
+                      {isDark ? (
+                        <Moon className="h-2.5 w-2.5 text-[#3F1D5A]" />
+                      ) : (
+                        <Sun className="h-2.5 w-2.5 text-[#D4A75F]" />
+                      )}
+                    </div>
+                  </button>
+                </div>
+              </div>
             </div>
 
             {/* Navigation Links */}
@@ -1058,59 +1163,8 @@ export const Navbar = () => {
               </div>
             </div>
 
-            {/* Quick Controls & Theme Selector */}
-            <div className="py-5 border-t border-slate-100 dark:border-slate-900 space-y-4">
-              {/* Language Selection */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <Globe className="h-4.5 w-4.5 text-slate-400" />
-                  <span className="text-xs font-semibold text-slate-550 dark:text-slate-400">Language</span>
-                </div>
-                <div className="flex rounded-lg bg-slate-100 dark:bg-slate-855 p-1">
-                  <button
-                    onClick={() => changeLanguage('en')}
-                    className={`px-2.5 py-1 text-[10px] font-bold rounded-md transition-all cursor-pointer ${
-                      language === 'en'
-                        ? 'bg-white dark:bg-slate-700 text-[#3F1D5A] dark:text-[#D4A75F] shadow-sm'
-                        : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
-                    }`}
-                  >
-                    EN
-                  </button>
-                  <button
-                    onClick={() => changeLanguage('hi')}
-                    className={`px-2.5 py-1 text-[10px] font-bold rounded-md transition-all cursor-pointer ${
-                      language === 'hi'
-                        ? 'bg-white dark:bg-slate-700 text-[#3F1D5A] dark:text-[#D4A75F] shadow-sm'
-                        : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
-                    }`}
-                  >
-                    HI
-                  </button>
-                </div>
-              </div>
-
-              {/* Theme Selection */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  {isDark ? <Moon className="h-4.5 w-4.5 text-[#D4A75F]" /> : <Sun className="h-4.5 w-4.5 text-amber-500" />}
-                  <span className="text-xs font-semibold text-slate-550 dark:text-slate-400">
-                    {isDark ? (language === 'hi' ? 'डार्क मोड' : 'Dark Mode') : (language === 'hi' ? 'लाइट मोड' : 'Light Mode')}
-                  </span>
-                </div>
-                <button
-                  onClick={() => setIsDark(!isDark)}
-                  className="w-10 h-6 bg-slate-200 dark:bg-[#3F1D5A] rounded-full p-1 transition-colors duration-200 focus:outline-none flex items-center"
-                >
-                  <div
-                    className={`h-4 w-4 bg-white dark:bg-[#D4A75F] rounded-full shadow-md transform duration-200 ${
-                      isDark ? 'translate-x-4' : ''
-                    }`}
-                  />
-                </button>
-              </div>
-
-              {user && (
+            {user && (
+              <div className="py-5 border-t border-slate-100 dark:border-slate-900">
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false);
@@ -1122,8 +1176,8 @@ export const Navbar = () => {
                   <LogOut className="h-4 w-4" />
                   <span>{t('navbar.sign_out')}</span>
                 </button>
-              )}
-            </div>
+              </div>
+            )}
           </motion.div>
         </>
       )}
