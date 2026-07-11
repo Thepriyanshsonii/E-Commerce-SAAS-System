@@ -1,0 +1,22 @@
+# ============================================================
+# docker-compose.qa.yml — QA environment override
+#
+# Deploy on Combat Cloud (Ubuntu, 2 CPU / 6 GB RAM):
+#   docker compose -f docker-compose.yml -f docker-compose.qa.yml \
+#     --env-file backend/.env.qa up -d --build
+# ============================================================
+
+version: "3.9"
+
+services:
+  backend:
+    image: ecommerce-backend:qa
+    container_name: ecommerce_backend_qa
+    restart: always
+    environment:
+      - APP_ENV=qa
+      - FLASK_ENV=production
+      - GUNICORN_WORKERS=5        # 2 CPUs → (2*2)+1 = 5 workers
+    env_file:
+      - ./backend/.env.qa         # ← set up once on the QA server, never committed
+    volumes: []                   # No source mount in QA — use built image only

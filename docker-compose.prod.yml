@@ -1,0 +1,23 @@
+# ============================================================
+# docker-compose.prod.yml — PRODUCTION environment override
+#
+# Deploy on Oracle Cloud (Ubuntu, free tier):
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml \
+#     --env-file backend/.env.prod up -d --build
+# ============================================================
+
+version: "3.9"
+
+services:
+  backend:
+    image: ecommerce-backend:prod
+    container_name: ecommerce_backend_prod
+    restart: always
+    environment:
+      - APP_ENV=production
+      - FLASK_ENV=production
+      # Oracle free tier: 1 OCPU = ~2 vCPUs. Adjust as needed.
+      - GUNICORN_WORKERS=3
+    env_file:
+      - ./backend/.env.prod       # ← set up once on the PROD server, never committed
+    volumes: []                   # No source mount in PROD — use built image only
